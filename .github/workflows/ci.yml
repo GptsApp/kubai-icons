@@ -30,6 +30,9 @@ jobs:
       - name: Self-check every icon
         run: node scripts/check.mjs
 
+      - name: Export every icon as static SVG
+        run: node scripts/export.mjs
+
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
