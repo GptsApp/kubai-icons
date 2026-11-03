@@ -9,14 +9,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500;600;700&display=swap">
 <style>
-/* Layout: one control bar (palette segmented control, demo switch) above a 10-column wall of large white frames, each holding one small icon. A single light look, chosen for judging colour. */
+/* Layout: one control bar (palette segmented control, demo switch) above a 6-column wall of large gray frames on a white page, each holding one small icon. A single light look, chosen for judging colour. */
 :root {
-  --page: #ECEDF0;
-  --frame: #FFFFFF;
-  --frame-edge: rgba(20, 24, 32, .05);
+  --page: #FFFFFF;
+  --frame: #F2F3F5;
+  --knob: #FFFFFF;
   --ink: #23262D;
   --sub: #6B707A;
-  --track: #DEE0E5;
+  --track: #EEEFF2;
   --on: #23262D;
   --font: 'Open Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   color-scheme: light;
@@ -24,7 +24,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--font); font-size: 13px; }
 main {
-  max-width: 1280px; margin: 0 auto; display: grid; gap: 24px;
+  max-width: 1180px; margin: 0 auto; display: grid; gap: 24px;
   padding-block: 28px 56px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -39,10 +39,10 @@ main {
   transition: background-color .16s, color .16s, box-shadow .16s;
 }
 .seg button:hover { color: var(--ink); }
-.seg button[aria-checked="true"] { background: var(--frame); color: var(--ink); box-shadow: 0 1px 2px rgba(20, 24, 32, .12); }
+.seg button[aria-checked="true"] { background: var(--knob); color: var(--ink); box-shadow: 0 1px 2px rgba(20, 24, 32, .12); }
 .dots { display: inline-flex; }
 .dots i { width: 9px; height: 9px; border-radius: 50%; margin-left: -3px; box-shadow: 0 0 0 1.5px var(--track); }
-.seg button[aria-checked="true"] .dots i { box-shadow: 0 0 0 1.5px var(--frame); }
+.seg button[aria-checked="true"] .dots i { box-shadow: 0 0 0 1.5px var(--knob); }
 .dots i:first-child { margin-left: 0; }
 
 /* Switch */
@@ -60,15 +60,15 @@ main {
 .seg button:focus-visible, .switch:focus-visible, .tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* Wall */
-.grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: clamp(8px, 1.2vw, 14px); }
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Column counts that divide sixty, so no row is left short. */
+.grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 1.4vw, 16px); }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .tile {
-  aspect-ratio: 1; max-width: 100%; border-radius: 22%; background: var(--frame);
-  box-shadow: 0 0 0 1px var(--frame-edge), 0 1px 2px var(--frame-edge);
+  aspect-ratio: 1; max-width: 100%; border-radius: 14%; background: var(--frame);
   display: grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
-.ic { width: 42%; display: block; }
+.ic { width: 28%; display: block; }
 .ic svg { width: 100%; height: auto; overflow: visible; display: block; }
 .ol { fill: none; stroke-width: 2; }
 .ln { fill: none; stroke-width: 1.6; stroke-linecap: round; }
