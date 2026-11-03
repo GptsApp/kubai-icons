@@ -1,9 +1,9 @@
-# Lumno Icons
+# Kubai Icons
 
 按 `PROMPT.md` 生成的一套动态功能图标，构造方法来自 Lumno 的书签文件夹图标。整个仓库同时也是一个 Claude skill（见 `SKILL.md`），装到 skills 目录就能直接使用：
 
 ```bash
-git clone https://github.com/kubai087/lumno-icons.git ~/.claude/skills/dynamic-icons
+git clone https://github.com/kubai087/kubai-icons.git ~/.claude/skills/kubai-icons
 ```
 
 - `index.html`：66 个图标的展示页，可以切换色板、开关演示。直接用浏览器打开即可。

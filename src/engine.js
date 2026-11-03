@@ -1,4 +1,4 @@
-// Lumno dynamic icons: colour derivation, motion, geometry, gradients and filters, and the
+// Kubai Icons: colour derivation, motion, geometry, gradients and filters, and the
 // runtime that mounts, paints and animates an icon. Loaded before icons.js and app.js.
 
 // ---------- Color: the same tint rule as Lumno's tintFolderColor ----------
