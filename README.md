@@ -1,13 +1,15 @@
 <h1 align="center">Kubai Icons</h1>
 
 <p align="center">
-  66 functional icons that change shape on hover, built the way the bookmark folder icon in
-  <a href="https://github.com/kubai087/lumno-extension">Lumno</a> is built.
+  <strong>A Claude skill that draws dynamic icons in one consistent style, every time.</strong>
   <br />
-  The repository is also a Claude skill that draws new icons in the same style.
+  Layered like a folder, outlined outside the fill, coloured from a single accent,
+  and moving the way the object itself would when you hover.
 </p>
 
 <p align="center">
+  <a href="https://www.kubai.design/kubai-icons/">Live gallery</a> ·
+  <a href="#install">Install</a> ·
   <a href="PROMPT.md">Rules</a> ·
   <a href="SKILL.md">Skill</a>
   <br />
@@ -16,45 +18,82 @@
 </p>
 
 <p align="center">
-  <img src="assets/gallery.png" alt="The gallery: 66 icons in 11 columns, with the palette switcher and demo switch above them" />
+  <img src="assets/hover.webp" alt="Sixteen icons opening one after another on hover: a folder opens, an envelope unseals, a calendar turns a page, a lock springs open, a gear turns" />
 </p>
 
-## What's inside
+## What it is
 
-| Path | What it is |
+Kubai Icons is a skill for Claude. Give it a feature list or a product's code, and it draws icons that sit next to the 66 in this repository as if the same designer had made them, with hover motion included. The repository ships everything that makes that repeatable, so the model only has to decide what the icon is and draw its shapes:
+
+| Part | What it does for the model |
 | --- | --- |
-| `index.html` | The gallery: every icon, a palette switcher and a demo switch. Open it in a browser. |
-| `src/engine.js` | Colour derivation, motion, geometry, gradients and filters, and the runtime that mounts, paints and animates an icon. |
-| `src/icons.js` | The icons. Each one is `svg(u)`, `target(hover, state)` and `draw(p, E)`. |
-| `src/app.js` | The gallery grid and controls. `ORDER` decides which icons show and in what order. |
-| `scripts/check.mjs` | The self-check. Renders rest, hover, the motion in between, 24px, 28px and every palette in headless Chrome, and reports script errors. |
-| `PROMPT.md` | The rules every icon follows. |
-| `SKILL.md` | How to use the repository as a Claude skill. |
-| `history/` | Three earlier versions, kept as a record of how the set took shape. |
+| [`PROMPT.md`](PROMPT.md) | The rules, each one a hard requirement: canvas and keylines, layers, corners and outlines, light, colour, marks and motion. |
+| [`src/engine.js`](src/engine.js) | Colour derivation, outside outlines, gradients, shadows, interpolation and palettes are already built. New icons reuse them instead of reinventing them. |
+| [`src/icons.js`](src/icons.js) | 66 worked examples. Each new icon starts from the closest one in structure. |
+| [`scripts/check.mjs`](scripts/check.mjs) | A headless self-check: rest, hover, every moment in between, 24px, 28px and every palette. The model looks at the screenshots and fixes the icon until the checklist passes. |
 
-## How an icon is built
+## Drawn by the skill
 
-Each icon is a back piece, optional white content and a front piece, like a folder holding a sheet of paper. Outlines sit outside the fill, so shapes keep their full size. Every gradient, outline and shadow is derived from one accent colour. Each part has exactly two keyframes, rest and hover, and the motion is something the object itself does: the folder opens, the envelope unseals, the calendar turns to the next day.
+<p align="center">
+  <img src="assets/skill.webp" alt="Six icons on hover: an alarm clock rings, a notebook opens, a scan line sweeps a QR code, a door opens to an exit arrow, a calculator key presses, a compass needle settles north" />
+</p>
 
-![Eight icons from rest (top) to the end of the hover (bottom)](assets/motion.png)
+These six icons were drawn by a fresh Claude session that had nothing but `SKILL.md` and `PROMPT.md`: an alarm clock, a notebook, a QR scanner, an exit door, a calculator and a compass. Each round of these blind tests closes the gaps it finds in the rules, so the next set comes out closer to the rest.
 
-Seven palettes come with the set: one colour per icon, five clear tones built from a single base colour, and black.
-
-![The same eight icons in all seven palettes](assets/palettes.png)
-
-[PROMPT.md](PROMPT.md) has the full rules: canvas and keylines, layers, corners and outlines, light, colour, marks, motion, and the checklist each icon has to pass.
-
-## Use it as a Claude skill
+## Install
 
 ```bash
 git clone https://github.com/kubai087/kubai-icons.git ~/.claude/skills/kubai-icons
 ```
 
-Then ask Claude for icons, for example "add a scissors icon to this set" or "make a set of dynamic icons for this app". The skill reads `PROMPT.md`, writes each icon after the closest existing one, and runs the self-check until the icons pass. [SKILL.md](SKILL.md) describes the workflow.
+Claude Code picks the skill up automatically the next time it starts.
+
+### Use Claude Opus 5.5
+
+The skill asks for careful geometry, layering across animation frames, and several rounds of looking at its own screenshots. It was developed and blind-tested with **Claude Opus 5.5**, which gives the most consistent results. Choose it in your client's model picker, or start Claude Code with:
+
+```bash
+claude --model claude-opus-5-5
+```
+
+### Ask for icons
+
+Describe what you need in plain words. The skill triggers on requests about icons, so you don't need to name it.
+
+- "Read this repository and draw dynamic icons for its main features."
+- "Add a scissors icon and a map icon to this set."
+- "We need an icon for Export that matches the others."
+
+### What happens next
+
+1. Claude reads `PROMPT.md`, then writes one line per feature: an everyday object and what it does on hover ("a folder opens", "a lock springs open").
+2. It draws each icon after the closest existing one, reusing the engine.
+3. It runs the self-check with a few existing icons beside the new ones, compares sizes, outlines, layers and colours, and repeats until every item on the checklist passes.
+4. It adds the icons to the gallery and updates the counts.
+
+To start a new set for your own product, the skill copies the engine, gallery and self-check into your project and works there.
+
+## How an icon is built
+
+Every icon is a back piece, optional white content and a front piece, like a folder holding a sheet of paper. Outlines sit outside the fill, so shapes keep their full size. Every gradient, outline and shadow is derived from one accent colour, so a single value repaints the whole icon. Each part has exactly two keyframes, rest and hover, and the motion is something the object itself does: the folder opens, the envelope unseals, the calendar turns to the next day.
+
+<p align="center">
+  <img src="assets/palettes.webp" alt="Eight icons moving through seven palettes: one colour per icon, five clear tones, and black" />
+</p>
+
+Seven palettes come with the set: one colour per icon, five clear tones built from a single base colour (blue-grey, celadon, mint, lavender, apricot), and black. Changing palette animates the colours too.
+
+## Live gallery
+
+<p align="center">
+  <a href="https://www.kubai.design/kubai-icons/"><img src="assets/gallery.png" alt="The gallery: 66 icons in 11 columns, with the palette switcher and demo switch above them" /></a>
+</p>
+
+[www.kubai.design/kubai-icons](https://www.kubai.design/kubai-icons/) shows the whole set. Hover any icon, switch palettes, or turn on the demo to watch them all move. Locally, open `index.html` in a browser.
 
 ## Self-check
 
-Requires Node.js 18 or later and Chrome. Everything runs headless; no window opens.
+Needs Node.js 18 or later and Chrome. Everything runs headless; no window opens.
 
 ```bash
 node scripts/check.mjs --only 剪刀,地图 --with 文件夹,邮件,下载
@@ -68,7 +107,7 @@ node scripts/check.mjs --only 剪刀,地图 --with 文件夹,邮件,下载
 | `--scale 3` | Renders every sheet at 3×, to look for seams. |
 | `--out dir` | Writes the screenshots somewhere other than `check-out/`. |
 
-`CHROME` overrides the browser path.
+`CHROME` overrides the browser path. The animations in this README come from `node scripts/media.mjs`, which also needs `ffmpeg` and `img2webp`.
 
 ## Contributing
 
@@ -83,4 +122,4 @@ This repository is under the [Kubai Icons License](LICENSE). It is source-availa
 - **Use and share the skill freely.** You may run it for any work, change it for your own use, and share exact, unmodified copies for free.
 - **Don't republish it as something else.** Don't distribute a modified or translated version of the rules (`PROMPT.md`, `SKILL.md`), sell the skill, remove its notices, or present it under another name or as your own work.
 
-The Kubai and Lumno names and logos are not licensed for reuse.
+The Kubai and Lumno names and logos are not licensed for reuse. The construction comes from the bookmark folder icon in [Lumno](https://github.com/kubai087/lumno-extension).

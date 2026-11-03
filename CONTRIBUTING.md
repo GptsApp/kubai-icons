@@ -40,6 +40,7 @@ node scripts/check.mjs --only 新图标 --with 文件夹,邮件,下载
 - **Rules.** Every icon follows `PROMPT.md`; section 10 is the checklist. If a rule had to bend, say which and why in the pull request.
 - **Engine.** New icons reuse `src/engine.js` and follow the pattern of the closest existing icon. Engine changes need an issue first.
 - **Counts.** When the number of icons changes, update the count in both READMEs and make every column count in `index.html` divide the new total.
+- **README media.** When an icon shown in the README animations changes, rerun `node scripts/media.mjs` (needs `ffmpeg` and `img2webp`) and commit the new files in `assets/`.
 - **Comments** explain the code to its reader. Keep discussion and history in the pull request.
 - **Commits.** One change per commit, with a short imperative subject, for example "Keep the compass needle level at rest".
 
