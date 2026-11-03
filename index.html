@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: one control bar (palette segmented control, demo switch) above a 6-column wall (3 on phones) of large gray frames on a white page, each holding one small icon. A single light look, chosen for judging colour. */
+/* Layout: one control bar (palette segmented control, demo switch) above a 6-column wall (3 on phones, 11 on wide screens) of large gray frames on a white page, each holding one small icon. A single light look, chosen for judging colour. */
 :root {
   --page: #FFFFFF;
   --frame: #F2F3F5;
@@ -63,6 +63,11 @@ main {
 /* Every column count divides the number of icons, so no row is left short. */
 .grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 1.4vw, 16px); }
 @media (max-width: 560px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Wide screens: 11 columns, narrowed when needed so all six rows fit one screen height. */
+@media (min-width: 1600px) {
+  main { max-width: min(2200px, calc((100vh - 188px) * 11 / 6 + 288px)); padding-block: 24px; padding-inline: 64px; }
+  .grid { grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 16px; }
+}
 .tile {
   aspect-ratio: 1; max-width: 100%; border-radius: 14%; background: var(--frame);
   display: grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent;
