@@ -35,6 +35,7 @@ const insts = LIST.map((icon, i) => {
   tile.tabIndex = 0;
   tile.setAttribute('role', 'img');
   tile.setAttribute('aria-label', icon.name);
+  if (icon.by) tile.title = `${icon.name} · @${icon.by}`;
   const host = document.createElement('span');
   host.className = 'ic';
   tile.appendChild(host);

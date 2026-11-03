@@ -1,6 +1,7 @@
 // Copyright (c) 2026 Kubai087. Licensed under the Kubai Icons License; see LICENSE.
 // The icon set. Each entry: svg(u) builds the layers, target(hover, state) returns the
-// numbers for rest or hover, draw(p, E) writes the interpolated numbers back.
+// numbers for rest or hover, draw(p, E) writes the interpolated numbers back. A contributed
+// icon also names its designer's GitHub handle in `by`.
 
 // ---------- Icons ----------
 // Fills: u.lo(h) / u.up(h) carry the thin bottom band. Use them only on a flat-bottomed
