@@ -1,8 +1,8 @@
-<h1 align="center">Kubai Icons</h1>
+<p align="center">
+  <img src="assets/social.png" alt="Kubai Icons, a Claude skill: dynamic icons in one consistent style, every time. Hover motion or static SVG." />
+</p>
 
 <p align="center">
-  <strong>A Claude skill that draws dynamic icons in one consistent style, every time.</strong>
-  <br />
   Layered like a folder, outlined outside the fill, coloured from a single accent,
   and moving the way the object itself would when you hover, or exported as static SVG.
 </p>

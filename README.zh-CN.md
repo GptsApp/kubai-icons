@@ -1,8 +1,8 @@
-<h1 align="center">Kubai Icons</h1>
+<p align="center">
+  <img src="assets/social.zh-CN.png" alt="Kubai Icons，一个 Claude skill：每次都能画出同一种风格的动态图标，可以带悬停动效，也可以导出静态 SVG。" />
+</p>
 
 <p align="center">
-  <strong>一个 Claude skill，每次都能画出同一种风格的动态图标。</strong>
-  <br />
   文件夹式的前后分层，外描边，一个主色定全部颜色，
   悬停时做物体本来就会做的动作。不需要动效时，也能导出静态 SVG。
 </p>
