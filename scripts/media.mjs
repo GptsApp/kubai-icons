@@ -4,7 +4,8 @@
 //   assets/hover.webp     a wave of icons opening and closing
 //   assets/skill.webp     the icons drawn by a fresh session from the skill alone
 //   assets/palettes.webp  the same icons moving through every palette
-//   assets/social.png     the repository's social preview card, 1280×640
+//   assets/social.png     the social preview card and README cover, 1280×640
+//   assets/social.zh-CN.png  the same card in Chinese, for the Chinese README
 //
 //   node scripts/media.mjs [--only hover,skill,palettes,social]
 //
@@ -147,7 +148,12 @@ function render(name, scene, work) {
 
 // The social card: name and promise on the left, a wall of icons on the right with every
 // other one caught at the end of its hover.
-function card(work) {
+const CARDS = {
+  'social': { tag: 'Claude skill', lines: ['Dynamic icons in one consistent style,', 'every time. Hover motion or static SVG.'] },
+  'social.zh-CN': { tag: 'Claude skill', lines: ['每次都能画出同一种风格的动态图标。', '可以带悬停动效，也可以导出静态 SVG。'] }
+};
+
+function card(name, text, work) {
   const names = ['文件夹', '邮件', '日历', '锁', '设置', '下载', '闹钟', '指南针', '相机', '礼物', '回收站', '星标', '书本', '钱包', '眼睛', '喜欢'];
   const tile = 104, gap = 14, cols = 4;
   const css = `main{display:none}body{margin:0;background:#fff}
@@ -162,9 +168,12 @@ function card(work) {
     .c svg{width:54px;height:auto;overflow:visible;display:block}`;
   const script = `const names = ${JSON.stringify(names)};
     const card = document.createElement('div'); card.className = 'card';
-    card.innerHTML = '<div class="copy"><span class="tag">Claude skill</span><h1>Kubai Icons</h1>'
-      + '<p>Dynamic icons in one consistent style, every time. Hover motion or static SVG.</p>'
+    const text = ${JSON.stringify(text)};
+    card.innerHTML = '<div class="copy"><span class="tag"></span><h1>Kubai Icons</h1><p></p>'
       + '<div class="url">kubai.design/kubai-icons</div></div><div class="wall"></div>';
+    card.querySelector('.tag').textContent = text.tag;
+    const p = card.querySelector('p');
+    text.lines.forEach((line, i) => { if (i) p.appendChild(document.createElement('br')); p.appendChild(document.createTextNode(line)); });
     document.body.appendChild(card);
     const wall = card.querySelector('.wall');
     names.forEach((name, j) => {
@@ -178,8 +187,8 @@ function card(work) {
     });`;
   const page = html.replace(/<script src="src\/engine\.js"><\/script>\s*<script src="src\/icons\.js"><\/script>\s*<script src="src\/app\.js"><\/script>/,
     `<script>\n${js}\n</script><script>{${script}}</script><style>${css}</style>`);
-  const file = path.join(work, 'social.html');
-  const out = path.join(root, 'assets', 'social.png');
+  const file = path.join(work, `${name}.html`);
+  const out = path.join(root, 'assets', `${name}.png`);
   fs.writeFileSync(file, page);
   execFileSync(chrome, ['--headless=new', '--disable-gpu', '--force-prefers-reduced-motion', `--user-data-dir=${path.join(work, 'profile')}`,
     '--hide-scrollbars', '--virtual-time-budget=5000', '--window-size=1280,640', `--screenshot=${out}`, 'file://' + file], { stdio: 'ignore' });
@@ -190,7 +199,7 @@ const work = fs.mkdtempSync(path.join(os.tmpdir(), 'kubai-icons-media-'));
 try {
   fs.mkdirSync(path.join(root, 'assets'), { recursive: true });
   for (const [name, scene] of Object.entries(scenes)) if (!pick || pick.includes(name)) render(name, scene, work);
-  if (!pick || pick.includes('social')) card(work);
+  if (!pick || pick.includes('social')) for (const [name, text] of Object.entries(CARDS)) card(name, text, work);
 } finally {
   fs.rmSync(work, { recursive: true, force: true });
 }
