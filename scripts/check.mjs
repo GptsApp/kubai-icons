@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 // Self-check for the icon set (PROMPT.md section 10). Renders the gallery in headless
-// Chrome with reduced motion, so every state lands on its end frame, and writes:
+// Chrome with reduced motion, so every state lands exactly where it is set, and writes:
 //   rest.png, hover.png       the chosen icons at gallery size, at rest and hovered
+//   frames.png                one row per moment of the hover motion, from rest to end
 //   size-24.png, size-28.png  the same icons at 24px and 28px, rest above hover
 //   palettes.png              one row per palette
-// and prints any script error raised while the page loads.
+// and prints any script error raised while a page loads.
 //
-//   node scripts/check.mjs [--only 名字,名字] [--with 名字,名字] [--out dir]
+//   node scripts/check.mjs [--only 名字,名字] [--with 名字,名字] [--scale n] [--out dir]
 //
 // --only limits the check to some icons; --with adds existing icons beside them for
-// comparison. CHROME overrides the browser path. Nothing ever opens a visible window.
+// comparison; --scale renders every sheet at n× (use 3 or 4 to look for seams).
+// CHROME overrides the browser path. Nothing ever opens a visible window, and every
+// temporary file stays inside the output folder.
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -22,7 +24,9 @@ const opt = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1
 const list = (v) => (v ? v.split(',').map((s) => s.trim()).filter(Boolean) : []);
 const only = list(opt('--only'));
 const extra = list(opt('--with'));
+const scale = Math.max(1, Number(opt('--scale')) || 1);
 const out = path.resolve(opt('--out') || path.join(root, 'check-out'));
+
 const chrome = process.env.CHROME || [
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   '/Applications/Chromium.app/Contents/MacOS/Chromium',
@@ -34,30 +38,34 @@ if (!chrome) {
   console.error('Chrome not found. Set CHROME to the browser binary.');
   process.exit(1);
 }
-fs.mkdirSync(out, { recursive: true });
-const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'icon-check-'));
 
 const read = (f) => fs.readFileSync(path.join(root, f), 'utf8');
-const js = ['src/engine.js', 'src/icons.js', 'src/app.js'].map(read).join('\n');
+const icons = read('src/icons.js');
+const js = [read('src/engine.js'), icons, read('src/app.js')].join('\n');
 const html = read('index.html');
-const shown = [...extra, ...only];
+
 // Names must match icons that exist, or the screenshots would silently leave them out.
-const known = new Set([...js.matchAll(/^  {\n    name: '([^']+)'/gm)].map((m) => m[1]));
+const known = new Set([...icons.matchAll(/\bname:\s*'([^']+)'/g)].map((m) => m[1]));
+const shown = [...extra, ...only];
 const unknown = shown.filter((n) => !known.has(n));
 if (unknown.length) {
   console.error(`Unknown icon names: ${unknown.join(', ')}`);
   process.exit(1);
 }
 
-// Errors are recorded on the root element before any icon code runs, then read back
-// from the dumped DOM; external scripts would only report "Script error." from file://.
+fs.mkdirSync(out, { recursive: true });
+const work = fs.mkdtempSync(path.join(out, '.work-'));
+const pages = [];
+
+// Errors are recorded on the root element before any icon code runs, then read back from
+// the dumped DOM; from file:// an external script would only report "Script error.".
+// Injected code runs in its own block, so it never collides with the page's own names.
 function page(css, script) {
   const pick = shown.length
-    ? `const keep = new Set(${JSON.stringify(shown)});
-       document.querySelectorAll('.tile').forEach((t) => { if (!keep.has(t.getAttribute('aria-label'))) t.remove(); });
-       const order = ${JSON.stringify(shown)};
-       const grid = document.getElementById('grid');
-       order.forEach((n) => { const t = [...grid.children].find((c) => c.getAttribute('aria-label') === n); if (t) grid.appendChild(t); });`
+    ? `const keep = ${JSON.stringify(shown)};
+       const g = document.getElementById('grid');
+       [...g.children].forEach((t) => { if (!keep.includes(t.getAttribute('aria-label'))) t.remove(); });
+       keep.forEach((n) => { const t = [...g.children].find((c) => c.getAttribute('aria-label') === n); if (t) g.appendChild(t); });`
     : '';
   return html
     .replace('<head>', '<head><script>window.addEventListener("error",(e)=>{const r=document.documentElement;r.dataset.err=(r.dataset.err?r.dataset.err+" | ":"")+e.message+" @"+e.lineno;});</script>')
@@ -65,61 +73,89 @@ function page(css, script) {
       `<script>\n${js}\n</script><script>{${pick}}{${script || ''}}</script><style>${css || ''}</style>`);
 }
 
-const count = shown.length || (js.match(/^  {\n    name: '/gm) || []).length || 60;
-const files = [];
-function shot(name, content, w, h, scale = 1) {
-  const file = path.join(profile, name + '.html');
+function shot(name, content, w, h, factor = 1) {
+  const file = path.join(work, name + '.html');
   fs.writeFileSync(file, content);
-  files.push(file);
-  execFileSync(chrome, ['--headless=new', '--disable-gpu', '--force-prefers-reduced-motion', `--user-data-dir=${profile}`,
-    '--hide-scrollbars', '--virtual-time-budget=3000', `--window-size=${w},${h}`, `--force-device-scale-factor=${scale}`,
-    `--screenshot=${path.join(out, name + '.png')}`, 'file://' + file], { stdio: 'ignore' });
+  pages.push(file);
+  execFileSync(chrome, ['--headless=new', '--disable-gpu', '--force-prefers-reduced-motion', `--user-data-dir=${path.join(work, 'profile')}`,
+    '--hide-scrollbars', '--virtual-time-budget=3000', `--window-size=${Math.round(w)},${Math.round(h)}`,
+    `--force-device-scale-factor=${factor * scale}`, `--screenshot=${path.join(out, name + '.png')}`, 'file://' + file],
+  { stdio: 'ignore' });
 }
 
-const cols = Math.min(6, count);
-const rows = Math.ceil(count / cols);
-const hoverAll = 'setTimeout(()=>document.querySelectorAll(".tile").forEach((t)=>t.dispatchEvent(new Event("focus"))),50);';
+// The icons on show, in order, and helpers that mount extra copies of them. A copy takes
+// the colours of the icon it copies in every palette, so all sheets match the gallery.
+const prelude = `const shownTiles = [...document.getElementById('grid').children];
+  const shownIcons = shownTiles.map((t) => ICONS.find((x) => x.name === t.getAttribute('aria-label')));
+  let nextKey = 1000;
+  const copy = (icon, host, pal) => {
+    const src = insts.findIndex((x) => x.icon === icon), k = nextKey++;
+    PALETTES.forEach((p) => { p.colors[k] = p.colors[src]; if (p.edges) p.edges[k] = p.edges[src]; });
+    const prev = runtime.palette; if (pal) runtime.palette = pal;
+    const inst = mountIcon(icon, k, host);
+    runtime.palette = prev;
+    return inst;
+  };
+  const pose = (inst, t) => {
+    const prev = runtime.palette; runtime.palette = inst.pal || prev;
+    inst.hover = 0; const a = targetOf(inst); inst.hover = 1; const b = targetOf(inst);
+    inst.cur = interp(a, b, EASE(t)); render(inst);
+    runtime.palette = prev;
+  };
+  const row = (label) => { const r = document.createElement('div'); r.className = 'row';
+    const l = document.createElement('span'); l.className = 'lab'; l.textContent = label; r.appendChild(l); return r; };
+  const cell = (r) => { const h = document.createElement('span'); h.className = 'cell'; r.appendChild(h); return h; };`;
+const sheet = (size) => `.bar{display:none}main{padding:12px!important;max-width:none!important}
+  .row{display:flex;align-items:center;gap:8px;padding:4px 0}.lab{width:64px;flex:none;font-size:11px;color:#6B707A}
+  .cell{width:${size + 16}px;height:${size + 16}px;flex:none;border-radius:8px;background:#F2F3F5;display:grid;place-items:center}
+  .cell svg{width:${size}px;height:auto;overflow:visible;display:block}`;
+
+const count = shown.length || (js.match(/^const ORDER = \[([\s\S]*?)\];/m)?.[1].match(/'[^']+'/g) || []).length || known.size;
 const hideBar = '.bar{display:none}main{padding-block:12px!important}';
-shot('rest', page(hideBar + `.grid{grid-template-columns:repeat(${cols},minmax(0,1fr))!important}`), 1180, 60 + rows * 195);
-shot('hover', page(hideBar + `.grid{grid-template-columns:repeat(${cols},minmax(0,1fr))!important}`, hoverAll), 1180, 60 + rows * 195);
+const cols = Math.min(6, count), rowsN = Math.ceil(count / cols);
+const gridCss = `${hideBar}.grid{grid-template-columns:repeat(${cols},minmax(0,1fr))!important}`;
+const hoverAll = 'setTimeout(()=>document.querySelectorAll(".tile").forEach((t)=>t.dispatchEvent(new Event("focus"))),50);';
 
-// Small sizes: one row at rest, the same icons hovered in a second row.
-for (const px of [24, 28]) {
-  const tile = px + 16, perRow = Math.min(count, 30);
-  const small = `${hideBar}main{padding:12px!important;max-width:none!important}.grid{grid-template-columns:repeat(${perRow},${tile}px)!important;gap:6px!important}.tile{border-radius:8px}.ic{width:${px}px!important}`;
-  const both = `const g=document.getElementById('grid');[...g.children].forEach((t)=>{const c=t.cloneNode(false);g.appendChild(c);});`;
-  // The hovered row re-mounts each icon so it can sit next to its resting copy.
-  const hoverRow = `${both}const tiles=[...g.children];const half=tiles.length/2;
-    tiles.slice(0,half).forEach((t,i)=>{const host=document.createElement('span');host.className='ic';tiles[half+i].appendChild(host);
-      const icon=ICONS.find((x)=>x.name===t.getAttribute('aria-label'));const idx=insts.findIndex((x)=>x.icon===icon);
-      PALETTES.forEach((pal)=>{pal.colors[1000+i]=pal.colors[idx];if(pal.edges)pal.edges[1000+i]=pal.edges[idx];});
-      const inst=mountIcon(icon,1000+i,host);inst.hover=1;inst.cur=targetOf(inst);render(inst);});`;
-  shot(`size-${px}`, page(small, hoverRow), 24 + Math.min(count, 30) * (tile + 6), 24 + 2 * (tile + 6) * Math.ceil(count / 30), 2);
+try {
+  shot('rest', page(gridCss), 1180, 60 + rowsN * 195);
+  shot('hover', page(gridCss, hoverAll), 1180, 60 + rowsN * 195);
+
+  // Moments of the hover motion, eased as the real animation is. Back-and-forth motions end
+  // where they started, so this sheet is the only place they can be judged.
+  const steps = [0, 0.15, 0.3, 0.5, 0.75, 1];
+  const frames = `${prelude}const g = document.getElementById('grid');
+    const rows = ${JSON.stringify(steps)}.map((t) => { const r = row(Math.round(t * 100) + '%');
+      shownIcons.forEach((icon) => pose(copy(icon, cell(r)), t)); return r; });
+    const box = document.createElement('div'); box.append(...rows); g.replaceWith(box);`;
+  shot('frames', page(sheet(56), frames), 100 + count * 80, 30 + steps.length * 82, 2);
+
+  // Small sizes: the icons at rest, then the same icons hovered.
+  for (const px of [24, 28]) {
+    const small = `${prelude}const g = document.getElementById('grid');
+      const rows = [0, 1].map((t) => { const r = row(t ? 'hover' : 'rest');
+        shownIcons.forEach((icon) => pose(copy(icon, cell(r)), t)); return r; });
+      const box = document.createElement('div'); box.append(...rows); g.replaceWith(box);`;
+    shot(`size-${px}`, page(sheet(px), small), 100 + count * (px + 24), 30 + 2 * (px + 26), 2);
+  }
+
+  // Palettes: one row per palette, each copy painted with its own palette.
+  const palettes = `${prelude}const g = document.getElementById('grid');
+    const rows = PALETTES.map((pal) => { const r = row(pal.name);
+      shownIcons.forEach((icon) => { const inst = copy(icon, cell(r), pal); inst.pal = pal; }); return r; });
+    const box = document.createElement('div'); box.append(...rows); g.replaceWith(box);`;
+  shot('palettes', page(sheet(36), palettes), 100 + count * 60, 30 + 8 * 60, 2);
+
+  // Errors: dump each page's DOM and read the attribute the listener recorded.
+  const errors = pages.map((file) => {
+    const dom = execFileSync(chrome, ['--headless=new', '--disable-gpu', '--force-prefers-reduced-motion', `--user-data-dir=${path.join(work, 'profile')}`,
+      '--virtual-time-budget=3000', '--dump-dom', 'file://' + file],
+    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 256 * 1024 * 1024 });
+    const m = dom.match(/data-err="([^"]*)"/);
+    return m ? `${path.basename(file, '.html')}: ${m[1]}` : null;
+  }).filter(Boolean);
+  console.log(errors.length ? `Script errors:\n${errors.join('\n')}` : 'No script errors.');
+  console.log(`Screenshots in ${out}`);
+  process.exitCode = errors.length ? 1 : 0;
+} finally {
+  fs.rmSync(work, { recursive: true, force: true });
 }
-
-// Palettes: one screenshot per palette, stacked into one sheet by the page itself.
-const palettes = `const rows=[];const g=document.getElementById('grid');
-  PALETTES.forEach((pal,pi)=>{const row=document.createElement('div');row.className='prow';
-    const label=document.createElement('span');label.textContent=pal.name;row.appendChild(label);
-    [...g.children].forEach((t,i)=>{const icon=ICONS.find((x)=>x.name===t.getAttribute('aria-label'));const host=document.createElement('span');host.className='pic';row.appendChild(host);
-      const idx=insts.findIndex((x)=>x.icon===icon);const k=2000+pi*100+i;pal.colors[k]=pal.colors[idx];if(pal.edges)pal.edges[k]=pal.edges[idx];
-      const prev=runtime.palette;runtime.palette=pal;const inst=mountIcon(icon,k,host);runtime.palette=prev;
-    });
-    rows.push(row);});
-  g.replaceWith(...rows);`;
-// Each palette row is painted with its own palette at mount time; later paints never run.
-shot('palettes', page(`${hideBar}.prow{display:flex;align-items:center;gap:14px;padding:6px 0}.prow span:first-child{width:56px;font-size:12px;color:#6B707A}.pic{width:36px;display:block}.pic svg{width:100%;height:auto;overflow:visible;display:block}`, palettes),
-  Math.max(400, 100 + count * 50), 40 + 8 * 70, 2);
-
-// Errors: dump each page's DOM and read the attribute the listener recorded.
-const errors = files.map((file) => {
-  const dom = execFileSync(chrome, ['--headless=new', '--disable-gpu', '--force-prefers-reduced-motion', `--user-data-dir=${profile}`,
-    '--virtual-time-budget=3000', '--dump-dom', 'file://' + file], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
-  const m = dom.match(/data-err="([^"]*)"/);
-  return m ? `${path.basename(file, '.html')}: ${m[1]}` : null;
-}).filter(Boolean);
-const err = errors.join('\n');
-fs.rmSync(profile, { recursive: true, force: true });
-console.log(err ? `Script errors:\n${err}` : 'No script errors.');
-console.log(`Screenshots in ${out}`);
-process.exitCode = err ? 1 : 0;
