@@ -66,6 +66,23 @@ It must print `No script errors.`; CI runs the same command and a static export.
 - **README media.** When an icon shown in the README animations changes, rerun `node scripts/media.mjs` and commit the new files in `assets/`.
 - **Commits.** One change per commit, with a short imperative subject, for example "Keep the compass needle level at rest".
 
+## Releasing
+
+For maintainers. A release ships two zips built from a committed revision: the standard skill, and a copy for skill marketplaces that read `version`, `display_name`, `display_name_en`, `description_zh` and `description_en` at the top of the frontmatter instead of under `metadata`.
+
+1. In a pull request, raise `metadata.version` in `SKILL.md`, and update the other metadata fields if the name or description changed.
+2. After it merges, build both zips from `master`:
+
+   ```bash
+   node scripts/pack.mjs
+   ```
+
+3. Publish them:
+
+   ```bash
+   gh release create v<version> dist/kubai-icons-v<version>.zip dist/kubai-icons-v<version>-platform.zip
+   ```
+
 ## Licensing
 
 This repository is under the [Kubai Icons License](LICENSE), which is source-available rather than open source. Forks made to propose changes back are allowed.

@@ -73,6 +73,8 @@ git clone https://github.com/kubai087/kubai-icons.git ~/.claude/skills/kubai-ico
 
 两种方式都一样，重启 Claude Code 就会自动加载。
 
+如果要上传到要求在 `SKILL.md` 里填版本号和展示名的 skill 市场，请用同一个 release 里的 `kubai-icons-v*-platform.zip`，这些字段已经放在 frontmatter 最外层了。
+
 ### 推荐用 Claude Opus 5.5
 
 画这套图标要算准几何、照顾好每一帧的前后遮挡，还要反复看截图自己返工。这个 skill 就是用 **Claude Opus 5.5** 开发和盲测的，换它效果最稳。在客户端的模型列表里选它，或者这样启动 Claude Code：

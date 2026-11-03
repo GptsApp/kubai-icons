@@ -71,6 +71,8 @@ git clone https://github.com/kubai087/kubai-icons.git ~/.claude/skills/kubai-ico
 
 Either way, Claude Code picks the skill up the next time it starts.
 
+Publishing to a skill marketplace that asks for a version and display names in `SKILL.md`? Upload `kubai-icons-v*-platform.zip` from the same release; it carries those fields at the top of the frontmatter.
+
 ### Use Claude Opus 5.5
 
 The skill asks for careful geometry, layering across animation frames, and several rounds of looking at its own screenshots. It was developed and blind-tested with **Claude Opus 5.5**, which gives the most consistent results. Choose it in your client's model picker, or start Claude Code with:
