@@ -71,6 +71,7 @@ function rp(pts, r, full) {
   return d + 'Z';
 }
 const rr = (x, y, w, h, r) => rp(R(x, y, w, h), r);
+// Counter-clockwise, while R() runs clockwise: overlapping the two in one path punches a hole.
 const circ = (cx, cy, r) => `M${f(cx - r)} ${f(cy)}A${f(r)} ${f(r)} 0 1 0 ${f(cx + r)} ${f(cy)}A${f(r)} ${f(r)} 0 1 0 ${f(cx - r)} ${f(cy)}Z`;
 const poly = (pts) => 'M' + pts.map((p) => f(p[0]) + ' ' + f(p[1])).join('L');
 // Content lines, 3 apart: few and thick so they still read at 24px.
