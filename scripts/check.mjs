@@ -23,7 +23,17 @@ const list = (v) => (v ? v.split(',').map((s) => s.trim()).filter(Boolean) : [])
 const only = list(opt('--only'));
 const extra = list(opt('--with'));
 const out = path.resolve(opt('--out') || path.join(root, 'check-out'));
-const chrome = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const chrome = process.env.CHROME || [
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/Applications/Chromium.app/Contents/MacOS/Chromium',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser'
+].find((p) => fs.existsSync(p));
+if (!chrome) {
+  console.error('Chrome not found. Set CHROME to the browser binary.');
+  process.exit(1);
+}
 fs.mkdirSync(out, { recursive: true });
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'icon-check-'));
 

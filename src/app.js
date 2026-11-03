@@ -1,4 +1,4 @@
-// The gallery: sixty icons, a palette control and a demo switch.
+// The gallery: every icon in ORDER, a palette control and a demo switch.
 
 const ORDER = [
   '文件夹', '文档', '便签', '剪贴板', '复制', '搜索', '筛选', '书签', '标签', '星标',

@@ -60,7 +60,7 @@ main {
 .seg button:focus-visible, .switch:focus-visible, .tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* Wall */
-/* Column counts that divide sixty, so no row is left short. */
+/* Every column count divides the number of icons, so no row is left short. */
 .grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 1.4vw, 16px); }
 @media (max-width: 900px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

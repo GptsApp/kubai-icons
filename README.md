@@ -1,6 +1,10 @@
 # Lumno Icons
 
-按 `PROMPT.md` 生成的一套动态功能图标，构造方法来自 Lumno 的书签文件夹图标。整个仓库同时也是一个 Claude skill（见 `SKILL.md`）：复制到 `~/.claude/skills/dynamic-icons/` 就能直接使用。
+按 `PROMPT.md` 生成的一套动态功能图标，构造方法来自 Lumno 的书签文件夹图标。整个仓库同时也是一个 Claude skill（见 `SKILL.md`），装到 skills 目录就能直接使用：
+
+```bash
+git clone https://github.com/kubai087/lumno-icons.git ~/.claude/skills/dynamic-icons
+```
 
 - `index.html`：60 个图标的展示页，可以切换色板、开关演示。直接用浏览器打开即可。
 - `src/engine.js`：颜色推导、动效、几何工具、渐变与滤镜，以及挂载、绘制、动画的运行时。
