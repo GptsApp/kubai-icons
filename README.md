@@ -4,7 +4,7 @@
   <strong>A Claude skill that draws dynamic icons in one consistent style, every time.</strong>
   <br />
   Layered like a folder, outlined outside the fill, coloured from a single accent,
-  and moving the way the object itself would when you hover.
+  and moving the way the object itself would when you hover, or exported as static SVG.
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 
 ## What it is
 
-Kubai Icons is a skill for Claude. Give it a feature list or a product's code, and it draws icons that sit next to the 66 in this repository as if the same designer had made them, with hover motion included. The repository ships everything that makes that repeatable, so the model only has to decide what the icon is and draw its shapes:
+Kubai Icons is a skill for Claude. Give it a feature list or a product's code, and it draws icons that sit next to the 66 in this repository as if the same designer had made them, either with hover motion or as static SVG files. The repository ships everything that makes that repeatable, so the model only has to decide what the icon is and draw its shapes:
 
 | Part | What it does for the model |
 | --- | --- |
@@ -73,6 +73,31 @@ Describe what you need in plain words. The skill triggers on requests about icon
 
 To start a new set for your own product, the skill copies the engine, gallery and self-check into your project and works there.
 
+## Dynamic or static
+
+Tell Claude which one you need, or it will ask.
+
+| | Dynamic (default) | Static |
+| --- | --- | --- |
+| What you get | SVG + JS that changes shape on hover, run by the engine | Self-contained `.svg` files, one per icon, no script or stylesheet |
+| Where it fits | Web pages and any interface that runs JavaScript | Design tools, native apps, documents, `<img>` tags |
+| Motion | Two keyframes per part, rest and hover | None; the rest pose or the end of the hover |
+
+Ask for "static SVG files" or "icons I can drop into Figma", and the skill draws the icons the same way, then exports them. You can also export any icon in this repository yourself:
+
+```bash
+node scripts/export.mjs --only 文件夹,日历 --palette 薄荷 --out icons/
+```
+
+| Option | What it does |
+| --- | --- |
+| `--palette` | 彩色 (default), 蓝灰, 青瓷, 薄荷, 薰衣草, 杏色 or 黑色. |
+| `--accent #hex` | Paints every icon in one accent colour. |
+| `--state hover` | Exports the end of the hover instead of the rest pose. |
+| `--size 96` | Width and height in pixels. |
+| `--pad 2.5` | Room around the canvas, in icon units, so the shadow isn't cut off. |
+| `--out dir` | Where the files go; `export/` by default. |
+
 ## How an icon is built
 
 Every icon is a back piece, optional white content and a front piece, like a folder holding a sheet of paper. Outlines sit outside the fill, so shapes keep their full size. Every gradient, outline and shadow is derived from one accent colour, so a single value repaints the whole icon. Each part has exactly two keyframes, rest and hover, and the motion is something the object itself does: the folder opens, the envelope unseals, the calendar turns to the next day.
@@ -111,7 +136,12 @@ node scripts/check.mjs --only 剪刀,地图 --with 文件夹,邮件,下载
 
 ## Contributing
 
-Bug reports, rule feedback and fixes are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md) first; security issues go through [SECURITY.md](SECURITY.md).
+There are two ways in:
+
+- **Improve the skill.** Report a rule that left you guessing, run a blind test with a fresh session, or fix a script. Rule changes start from an issue.
+- **Add your own icon.** Design an icon with the skill and open a pull request. Once merged, it joins the gallery, credited to you when someone hovers it.
+
+[CONTRIBUTING.md](CONTRIBUTING.md) has the rules for both. Please read the [code of conduct](CODE_OF_CONDUCT.md) too; security issues go through [SECURITY.md](SECURITY.md).
 
 ## License
 
@@ -119,6 +149,7 @@ This repository is under the [Kubai Icons License](LICENSE). It is source-availa
 
 - **Your icons are yours.** Icons you make with the skill belong to you, for any use including commercial, with no credit required.
 - **Ship the engine with them.** You may copy the engine, the gallery, the example icons and the self-check into your own icon set's project, change them, and ship that project, as long as the copyright notice at the top of each file stays.
+- **Use the example icons too.** The 66 icons here may go into your products, animated or exported as SVG, without credit, but not into an icon set or pack of their own.
 - **Use and share the skill freely.** You may run it for any work, change it for your own use, and share exact, unmodified copies for free.
 - **Don't republish it as something else.** Don't distribute a modified or translated version of the rules (`PROMPT.md`, `SKILL.md`), sell the skill, remove its notices, or present it under another name or as your own work.
 
