@@ -44,11 +44,34 @@
 
 ## 安装
 
+### 让 Claude 帮你装
+
+把下面这段话复制给 Claude Code，发出去就行：
+
+```text
+帮我安装 Kubai Icons skill：
+把 https://github.com/kubai087/kubai-icons 克隆到 ~/.claude/skills/kubai-icons，
+已经装过的话就拉取最新版本；
+确认 ~/.claude/skills/kubai-icons/SKILL.md 存在，装好后告诉我。
+```
+
+装好后重启 Claude Code，就可以用了。
+
+### 自己动手装
+
+从[最新 release](https://github.com/kubai087/kubai-icons/releases/latest) 下载 `kubai-icons-v*.zip`，解压到 skills 目录：
+
+```bash
+unzip kubai-icons-v1.0.0.zip -d ~/.claude/skills/
+```
+
+或者直接克隆仓库：
+
 ```bash
 git clone https://github.com/kubai087/kubai-icons.git ~/.claude/skills/kubai-icons
 ```
 
-重启 Claude Code 就会自动加载。
+两种方式都一样，重启 Claude Code 就会自动加载。
 
 ### 推荐用 Claude Opus 5.5
 

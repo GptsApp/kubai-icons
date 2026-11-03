@@ -42,11 +42,34 @@ These six icons were drawn by a fresh Claude session that had nothing but `SKILL
 
 ## Install
 
+### Let Claude install it
+
+Copy this into Claude Code and send it:
+
+```text
+Install the Kubai Icons skill for me:
+clone https://github.com/kubai087/kubai-icons into ~/.claude/skills/kubai-icons
+(if it's already there, pull the latest version instead),
+make sure ~/.claude/skills/kubai-icons/SKILL.md exists, and tell me when it's ready.
+```
+
+Then restart Claude Code, and the skill is ready to use.
+
+### Or install it yourself
+
+Download `kubai-icons-v*.zip` from the [latest release](https://github.com/kubai087/kubai-icons/releases/latest) and unzip it into your skills folder:
+
+```bash
+unzip kubai-icons-v1.0.0.zip -d ~/.claude/skills/
+```
+
+Or clone the repository there:
+
 ```bash
 git clone https://github.com/kubai087/kubai-icons.git ~/.claude/skills/kubai-icons
 ```
 
-Claude Code picks the skill up automatically the next time it starts.
+Either way, Claude Code picks the skill up the next time it starts.
 
 ### Use Claude Opus 5.5
 
