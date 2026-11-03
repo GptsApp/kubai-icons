@@ -7,10 +7,12 @@
 //   palettes.png              one row per palette
 // and prints any script error raised while a page loads.
 //
-//   node scripts/check.mjs [--only 名字,名字] [--with 名字,名字] [--scale n] [--out dir]
+//   node scripts/check.mjs [--only 名字,名字] [--with 名字,名字] [--accent #hex] [--scale n] [--out dir]
 //
 // --only limits the check to some icons; --with adds existing icons beside them for
-// comparison; --scale renders every sheet at n× (use 3 or 4 to look for seams).
+// comparison; --accent paints every icon in one accent colour in the colourful palette
+// (use a light one such as #F59E0B to check marks); --scale renders every sheet at n×
+// (use 3 or 4 to look for seams).
 // CHROME overrides the browser path. Nothing ever opens a visible window, and every
 // temporary file stays inside the output folder.
 import { execFileSync } from 'node:child_process';
@@ -25,6 +27,7 @@ const list = (v) => (v ? v.split(',').map((s) => s.trim()).filter(Boolean) : [])
 const only = list(opt('--only'));
 const extra = list(opt('--with'));
 const scale = Math.max(1, Number(opt('--scale')) || 1);
+const accent = opt('--accent');
 const out = path.resolve(opt('--out') || path.join(root, 'check-out'));
 
 const chrome = process.env.CHROME || [
@@ -44,12 +47,23 @@ const icons = read('src/icons.js');
 const js = [read('src/engine.js'), icons, read('src/app.js')].join('\n');
 const html = read('index.html');
 
-// Names must match icons that exist, or the screenshots would silently leave them out.
+// Names must match icons that exist and are listed in ORDER, or the screenshots would
+// silently leave them out.
 const known = new Set([...icons.matchAll(/\bname:\s*'([^']+)'/g)].map((m) => m[1]));
+const order = (js.match(/^const ORDER = \[([\s\S]*?)\];/m)?.[1].match(/'[^']+'/g) || []).map((s) => s.slice(1, -1));
 const shown = [...extra, ...only];
 const unknown = shown.filter((n) => !known.has(n));
 if (unknown.length) {
   console.error(`Unknown icon names: ${unknown.join(', ')}`);
+  process.exit(1);
+}
+const unlisted = shown.filter((n) => !order.includes(n));
+if (unlisted.length) {
+  console.error(`Not in ORDER (src/app.js): ${unlisted.join(', ')}`);
+  process.exit(1);
+}
+if (accent && !/^#[0-9a-f]{6}$/i.test(accent)) {
+  console.error('--accent takes a colour like #F59E0B.');
   process.exit(1);
 }
 
@@ -60,6 +74,10 @@ const pages = [];
 // Errors are recorded on the root element before any icon code runs, then read back from
 // the dumped DOM; from file:// an external script would only report "Script error.".
 // Injected code runs in its own block, so it never collides with the page's own names.
+// --accent repaints the colourful palette in one colour before anything is copied.
+const recolor = accent
+  ? `PALETTES[0].colors.fill(${JSON.stringify(accent)}); insts.forEach((x) => { x.cur = targetOf(x); render(x); });`
+  : '';
 function page(css, script) {
   const pick = shown.length
     ? `const keep = ${JSON.stringify(shown)};
@@ -70,7 +88,7 @@ function page(css, script) {
   return html
     .replace('<head>', '<head><script>window.addEventListener("error",(e)=>{const r=document.documentElement;r.dataset.err=(r.dataset.err?r.dataset.err+" | ":"")+e.message+" @"+e.lineno;});</script>')
     .replace(/<script src="src\/engine\.js"><\/script>\s*<script src="src\/icons\.js"><\/script>\s*<script src="src\/app\.js"><\/script>/,
-      `<script>\n${js}\n</script><script>{${pick}}{${script || ''}}</script><style>${css || ''}</style>`);
+      `<script>\n${js}\n</script><script>{${recolor}}{${pick}}{${script || ''}}</script><style>${css || ''}</style>`);
 }
 
 function shot(name, content, w, h, factor = 1) {
@@ -110,15 +128,19 @@ const sheet = (size) => `.bar{display:none}main{padding:12px!important;max-width
   .cell{width:${size + 16}px;height:${size + 16}px;flex:none;border-radius:8px;background:#F2F3F5;display:grid;place-items:center}
   .cell svg{width:${size}px;height:auto;overflow:visible;display:block}`;
 
-const count = shown.length || (js.match(/^const ORDER = \[([\s\S]*?)\];/m)?.[1].match(/'[^']+'/g) || []).length || known.size;
+const count = shown.length || order.length || known.size;
+// Tiles keep the gallery's desktop size however few icons are shown, and the window is
+// sized to fit them, so no row is cut off.
+const tile = 178, gap = 16;
 const hideBar = '.bar{display:none}main{padding-block:12px!important}';
 const cols = Math.min(6, count), rowsN = Math.ceil(count / cols);
-const gridCss = `${hideBar}.grid{grid-template-columns:repeat(${cols},minmax(0,1fr))!important}`;
+const gridCss = `${hideBar}.grid{grid-template-columns:repeat(${cols},${tile}px)!important;gap:${gap}px!important}`;
+const gridW = 32 + cols * tile + (cols - 1) * gap, gridH = 24 + rowsN * tile + (rowsN - 1) * gap;
 const hoverAll = 'setTimeout(()=>document.querySelectorAll(".tile").forEach((t)=>t.dispatchEvent(new Event("focus"))),50);';
 
 try {
-  shot('rest', page(gridCss), 1180, 60 + rowsN * 195);
-  shot('hover', page(gridCss, hoverAll), 1180, 60 + rowsN * 195);
+  shot('rest', page(gridCss), gridW, gridH);
+  shot('hover', page(gridCss, hoverAll), gridW, gridH);
 
   // Moments of the hover motion, eased as the real animation is. Back-and-forth motions end
   // where they started, so this sheet is the only place they can be judged.
