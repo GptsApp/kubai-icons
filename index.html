@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: one control bar (palette segmented control, demo switch) above a 6-column wall of large gray frames on a white page, each holding one small icon. A single light look, chosen for judging colour. */
+/* Layout: one control bar (palette segmented control, demo switch) above a 6-column wall (3 on phones) of large gray frames on a white page, each holding one small icon. A single light look, chosen for judging colour. */
 :root {
   --page: #FFFFFF;
   --frame: #F2F3F5;
@@ -62,7 +62,6 @@ main {
 /* Wall */
 /* Every column count divides the number of icons, so no row is left short. */
 .grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 1.4vw, 16px); }
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .tile {
   aspect-ratio: 1; max-width: 100%; border-radius: 14%; background: var(--frame);

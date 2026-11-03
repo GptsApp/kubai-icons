@@ -6,7 +6,7 @@
 git clone https://github.com/kubai087/lumno-icons.git ~/.claude/skills/dynamic-icons
 ```
 
-- `index.html`：60 个图标的展示页，可以切换色板、开关演示。直接用浏览器打开即可。
+- `index.html`：66 个图标的展示页，可以切换色板、开关演示。直接用浏览器打开即可。
 - `src/engine.js`：颜色推导、动效、几何工具、渐变与滤镜，以及挂载、绘制、动画的运行时。
 - `src/icons.js`：图标定义。每个图标由 `svg(u)`、`target(hover, state)`、`draw(p, E)` 三部分组成。
 - `src/app.js`：展示页的网格和控件。

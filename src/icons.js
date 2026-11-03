@@ -1061,5 +1061,151 @@ const ICONS = [
       <g data-n="q"><text x="15.5" y="18.4" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" data-w="fill">?</text></g>`,
     target: (h) => ({ y: h ? -1 : 0, a: h ? 10 : 0 }),
     draw(p, E) { at(E.q, { transform: `translate(0 ${f(p.y)}) rotate(${f(p.a)} 15.5 12.5)` }); }
+  },
+  {
+    name: '闹钟',
+    // An alarm clock with twin bells on two feet. On hover it rings: it rocks on its feet,
+    // the swings die away and it comes to rest upright again.
+    svg: (u) => {
+      const body = circ(15.5, 13.4, 9.8), bells = circ(8.7, 6.6, 4.2) + circ(22.3, 6.6, 4.2);
+      return `
+      <g data-n="r0"><path d="M11.2 20.4L8.4 23.4M19.8 20.4L22.6 23.4" fill="none" stroke-width="2.2" stroke-linecap="round" ${DEEPS}/></g>
+      <g filter="${u.sh}"><g filter="${u.hi}"><g data-n="r1"><path d="${bells}" fill="${u.upS}"/></g></g></g>
+      <g data-n="r2"><path d="${bells}" ${OL}/></g>
+      <g filter="${u.sh}"><g filter="${u.hi}"><g data-n="r3"><path d="${body}" fill="${u.loS}"/></g></g></g>
+      <g data-n="r4"><path d="${body}" ${OL}/>
+        <path d="${circ(15.5, 13.4, 7.4)}" fill="#fff"/>
+        <path d="M15.5 13.4V9.6" transform="rotate(${CLOCK_MINUTES / 2} 15.5 13.4)" stroke-width="2.6" stroke-linecap="round" data-t="stroke:#89B5FF"/>
+        <path d="M15.5 13.4V7.8" transform="rotate(${(CLOCK_MINUTES * 6) % 360} 15.5 13.4)" stroke-width="2" stroke-linecap="round" ${DEEPS}/>
+        <circle cx="15.5" cy="13.4" r="1.7" ${DEEP}/></g>`;
+    },
+    target: (h) => ({ o: h ? 1 : 0 }),
+    draw(p, E) {
+      // One 0→1 progress drives a damped rattle that starts and ends upright.
+      const o = Math.max(0, Math.min(1, p.o));
+      const a = 12 * (1 - o) * Math.sin(5 * Math.PI * o);
+      const t = `rotate(${f(a)} 15.5 23.4)`;
+      ['r0', 'r1', 'r2', 'r3', 'r4'].forEach((n) => at(E[n], { transform: t }));
+    }
+  },
+  {
+    name: '笔记本',
+    // A spiral notebook. On hover the cover turns over on its rings and folds away behind,
+    // leaving the lined first page.
+    svg: (u) => {
+      const back = rr(6.3, 1, 18.4, 23, KR);
+      const rings = [5.5, 10.2, 14.8, 19.5].map((y) => rr(3.8, y - 1.2, 7.4, 2.4, 1.2)).join('');
+      return `
+      <g filter="${u.sh}"><g filter="${u.hi}"><path d="${back}" fill="${u.loS}"/></g></g>
+      <path d="${back}" ${OL}/>
+      <path d="${rr(9.4, 3, 13.3, 19, CR)}" fill="#fff"/>
+      <path d="${lines(13.4, 8.4, [7.4, 5])}" ${ACC}/>
+      <g data-n="cvG"><g filter="${u.hi}"><path data-n="cv" fill="${u.upS}"/></g>
+        <path data-n="shade" ${DEEP} opacity="0"/>
+        <path data-n="cvO" ${OL}/>
+        <g data-n="label"><path d="${lines(13.4, 7.4, [7])}" class="ln" ${DEEPS} stroke-opacity=".55"/></g></g>
+      <path d="${rings}" ${DEEP}/>`;
+    },
+    target: (h) => ({ o: h ? 1 : 0 }),
+    draw(p, E) {
+      // The cover's width shrinks to its hinge on the rings, darkening as it faces away; at
+      // the end it has gone round behind the back.
+      const o = Math.max(0, Math.min(1, p.o));
+      const s = Math.cos(o * Math.PI / 2), w = 15.3 * s;
+      const d = rp(R(9.4, 1, w, 23), [1.6, KR, KR, 1.6]);
+      at(E.cv, { d }); at(E.cvO, { d }); at(E.shade, { d, opacity: f(0.4 * Math.sin(o * Math.PI / 2)) });
+      at(E.label, { transform: `translate(9.4 0) scale(${f(Math.max(0.001, s))} 1) translate(-9.4 0)` });
+      at(E.cvG, { opacity: o > 0.985 ? 0 : 1 });
+    }
+  },
+  {
+    name: '扫码',
+    // A QR code on a card with a scan bar lying across it. On hover the bar sweeps down
+    // over the code and back up past the middle, then settles where it began.
+    svg: (u) => {
+      const card = rr(5.2, 2.2, 20.6, 20.6, KR), bar = rr(3.6, -1.2, 23.8, 2.4, 1.2);
+      const finder = (x, y) => rr(x, y, 5.9, 5.9, 1.4) + rr(x + 1.6, y + 1.6, 2.7, 2.7, 0.6);
+      const code = finder(7.4, 4.4) + finder(17.7, 4.4) + finder(7.4, 14.7) + rr(17.7, 14.7, 2.4, 2.4, 0.5) + rr(21.2, 18.2, 2.4, 2.4, 0.5);
+      return `
+      <g filter="${u.sh}"><g filter="${u.hi}"><path d="${card}" fill="${u.loS}"/></g></g>
+      <path d="${card}" ${OL}/>
+      <path d="${code}" fill-rule="evenodd" fill="#fff" data-w="fill"/>
+      <g data-n="bar"><g filter="${u.sh}"><g filter="${u.hi}"><path d="${bar}" fill="${u.upS}"/></g></g><path d="${bar}" ${OL}/></g>`;
+    },
+    // At rest and at the end the bar's outline meets both rows of the code exactly.
+    target: (h) => ({ o: h ? 1 : 0 }),
+    draw(p, E) {
+      const o = Math.max(0, Math.min(1, p.o));
+      at(E.bar, { transform: `translate(0 ${f(12.5 + 7.6 * Math.sin(2 * Math.PI * o) * (1 - 0.35 * o))})` });
+    }
+  },
+  {
+    name: '退出',
+    // A door with an arrow beside it. On hover the door swings open on its left hinge to
+    // the bright outside and the arrow heads on out.
+    svg: (u) => {
+      const frame = rr(4, 1, 12.2, 23, KR), way = rp(R(7, 4, 6.2, 20), [1.6, 1.6, 0, 0]);
+      return `
+      <g filter="${u.sh}"><g filter="${u.hi}"><path d="${frame}" fill="${u.loS}"/></g></g>
+      <path d="${frame}" ${OL}/>
+      <path d="${way}" fill="#fff"/>
+      <g filter="${u.hi}"><path data-n="leaf" fill="${u.upS}"/></g>
+      <path data-n="leafO" ${OL}/>
+      <circle data-n="knob" cy="14" r="1.2" ${DEEP}/>
+      <g data-n="arrow"><path d="M20.3 12.5H24" fill="none" stroke-width="2.2" stroke-linecap="round" ${DEEPS}/>
+        <path d="${rp([[23.6, 9.9], [27, 12.5], [23.6, 15.1]], 0.5)}" ${DEEP}/></g>`;
+    },
+    target: (h) => ({ s: h ? 0.5 : 1, x: h ? 1.4 : 0 }),
+    draw(p, E) {
+      const w = 6.2 * p.s, d = rp(R(7, 4, w, 20), [1.6, 1.6, 0, 0]);
+      at(E.leaf, { d }); at(E.leafO, { d });
+      // The knob keeps to the free edge and never leaves the narrowing leaf.
+      at(E.knob, { cx: f(7 + w * (0.29 + 0.42 * p.s)) });
+      at(E.arrow, { transform: `translate(${f(p.x)} 0)` });
+    }
+  },
+  {
+    name: '计算器',
+    // A calculator with a display and four operator keys. On hover the equals key is
+    // pressed, lights up, and the display fills with the result.
+    svg: (u) => {
+      const body = rr(6.3, 1, 18.4, 23, KR), eq = rr(16.5, 16.8, 6.2, 5.2, CR);
+      const eqMark = 'M18.3 18.1H20.9M18.3 20.7H20.9';
+      return `
+      <g filter="${u.sh}"><g filter="${u.hi}"><path d="${body}" fill="${u.loS}"/></g></g>
+      <path d="${body}" ${OL}/>
+      <path d="${rr(8.3, 3, 14.4, 4.6, CR)}" fill="#fff"/>
+      <path data-n="read" class="ln" ${DEEPS}/>
+      <path d="${rr(8.3, 9.6, 6.2, 5.2, CR) + rr(16.5, 9.6, 6.2, 5.2, CR) + rr(8.3, 16.8, 6.2, 5.2, CR)}" fill="#fff"/>
+      <path d="M10.1 12.2H12.7M11.4 10.9V13.5M18.3 12.2H20.9M10.4 18.4L12.4 20.4M12.4 18.4L10.4 20.4" class="ln" ${DEEPS}/>
+      <g data-n="eq"><path d="${eq}" fill="#fff"/><path data-n="lit" d="${eq}" fill="${u.pure('#2F6FE0')}"/>
+        <path data-n="eqD" d="${eqMark}" class="ln" ${DEEPS}/><path data-n="eqW" d="${eqMark}" class="ln" stroke="#fff" data-w="stroke"/></g>`;
+    },
+    target: (h) => ({ o: h ? 1 : 0, s: h ? 0.9 : 1, n: h ? 9.6 : 3.4 }),
+    draw(p, E) {
+      const o = Math.max(0, Math.min(1, p.o));
+      at(E.eq, { transform: `translate(19.6 19.4) scale(${f(p.s)}) translate(-19.6 -19.4)` });
+      at(E.lit, { opacity: f(o) }); at(E.eqW, { opacity: f(o) }); at(E.eqD, { opacity: f(1 - o) });
+      at(E.read, { d: `M${f(20.9 - p.n)} 5.3H20.9` });
+    }
+  },
+  {
+    name: '指南针',
+    // A compass resting a little off north. On hover the needle swings past north and back,
+    // each swing smaller, and settles pointing north.
+    svg: (u) => `
+      <g filter="${u.sh}"><g filter="${u.hi}"><path d="${circ(15.5, 12.5, 11.5)}" fill="${u.loS}"/></g></g>
+      <path d="${circ(15.5, 12.5, 11.5)}" ${OL}/>
+      <path d="${circ(15.5, 12.5, 8.6)}" fill="#fff"/>
+      <g data-n="needle">
+        <path d="${rp([[13.1, 12.5], [15.5, 5.9], [17.9, 12.5]], [0, 0.6, 0])}" ${DEEP}/>
+        <path d="${rp([[17.9, 12.5], [15.5, 19.1], [13.1, 12.5]], [0, 0.6, 0])}" data-t="fill:#89B5FF"/>
+        <circle cx="15.5" cy="12.5" r="1.3" fill="#fff"/>
+      </g>`,
+    target: (h) => ({ o: h ? 1 : 0 }),
+    draw(p, E) {
+      const o = Math.max(0, Math.min(1, p.o));
+      at(E.needle, { transform: `rotate(${f(40 * (1 - o) * Math.cos(3 * Math.PI * o))} 15.5 12.5)` });
+    }
   }
 ];
