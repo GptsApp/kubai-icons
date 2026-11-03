@@ -2,6 +2,12 @@
 name: kubai-icons
 description: 生成一套风格统一的功能图标，可以交付悬停时会形变的动态版（SVG + JS），也可以导出静态 SVG 文件，沿用 Lumno 书签文件夹图标的构造：后片、内容、前片分层，外描边，所有颜色从一个主色推导，两组关键帧的悬停动效，可切换色板。用户要做图标、功能图标、动态图标、静态 SVG 图标、icon set、带 hover 动效的图标，或要往这套图标里加新图标时使用。
 license: Kubai Icons License (source-available). Complete terms in LICENSE.
+metadata:
+  version: "1.0.1"
+  display_name: "Kubai 动态图标"
+  display_name_en: "Kubai Icons"
+  description_zh: "按同一种风格稳定地画出功能图标：文件夹式的前后分层、外描边、一个主色推导全部颜色，悬停时做物体本身会做的动作；也可以导出静态 SVG。"
+  description_en: "Draws functional icons in one consistent style: folder-like layers, outside outlines, every colour derived from one accent, and hover motion the object itself would make. Can also export static SVG."
 ---
 
 # Kubai Icons
