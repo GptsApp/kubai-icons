@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Kubai087. Licensed under the Kubai Icons License; see LICENSE.
 // Kubai Icons: colour derivation, motion, geometry, gradients and filters, and the
 // runtime that mounts, paints and animates an icon. Loaded before icons.js and app.js.
 

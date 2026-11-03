@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// Copyright (c) 2026 Kubai087. Licensed under the Kubai Icons License; see LICENSE.
 // Self-check for the icon set (PROMPT.md section 10). Renders the gallery in headless
 // Chrome with reduced motion, so every state lands exactly where it is set, and writes:
 //   rest.png, hover.png       the chosen icons at gallery size, at rest and hovered

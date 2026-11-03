@@ -1,6 +1,7 @@
 ---
 name: kubai-icons
 description: 生成一套风格统一、悬停时会形变的功能图标（SVG + JS），沿用 Lumno 书签文件夹图标的构造：后片、内容、前片分层，外描边，所有颜色从一个主色推导，两组关键帧的悬停动效，可切换色板。用户要做图标、功能图标、动态图标、icon set、带 hover 动效的图标，或要往这套图标里加新图标时使用。
+license: Kubai Icons License (source-available). Complete terms in LICENSE.
 ---
 
 # 动态功能图标
@@ -19,7 +20,7 @@ description: 生成一套风格统一、悬停时会形变的功能图标（SVG 
 
 1. 读 `PROMPT.md`。
 2. 确定在哪里做：
-   - 新做一套：把本 skill 的 `index.html`、`src/`、`scripts/` 复制到目标位置（一个新目录或新仓库），在那份副本里工作。
+   - 新做一套：把本 skill 的 `index.html`、`src/`、`scripts/` 复制到目标位置（一个新目录或新仓库），在那份副本里工作。保留每个文件开头的版权声明；`PROMPT.md` 和 `SKILL.md` 只留在 skill 里，不要复制进去（见 `LICENSE` 第 3 条）。
    - 往已有的一套里加：直接在那份 `src/icons.js` 里追加。
 3. 读产品代码，列出功能。每个功能写一句"物体 + 悬停动作"（`PROMPT.md` 第 1 节）。
 4. 每写一个图标之前，先在 `src/icons.js` 里找一两个结构最接近的范例读一遍（例如翻开的东西看信封和日历，切出前片的看下载和上传，会旋转的看齿轮和星标），照它们的写法来。
@@ -37,3 +38,7 @@ description: 生成一套风格统一、悬停时会形变的功能图标（SVG 
 
 - Node 18 以上，以及 Chrome。浏览器路径可以用环境变量 `CHROME` 覆盖。
 - 所有检查都在无头模式下进行，不会打开任何可见窗口，也不会动用户正在用的浏览器。
+
+---
+
+Copyright (c) 2026 Kubai087. Licensed under the Kubai Icons License; see LICENSE.

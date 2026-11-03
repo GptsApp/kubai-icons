@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Kubai087. Licensed under the Kubai Icons License; see LICENSE.
 // The gallery: every icon in ORDER, a palette control and a demo switch.
 
 const ORDER = [
