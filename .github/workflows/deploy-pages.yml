@@ -25,11 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      # Only the gallery is published; the rules and the self-check stay in the repository.
+      # Only the gallery and its link preview image are published; the rules and the
+      # scripts stay in the repository.
       - name: Collect the gallery
         run: |
-          mkdir _site
+          mkdir -p _site/assets
           cp -R index.html src _site/
+          cp assets/social.png _site/assets/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
