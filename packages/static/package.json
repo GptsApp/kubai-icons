@@ -1,6 +1,6 @@
 {
   "name": "kubai-icons-static",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Kubai Icons as standalone SVG files, for <img>, design tools, native apps and CDNs.",
   "license": "MIT",
   "files": ["svg", "svg-soft", "icons.json", "categories.json", "LICENSE", "README.md"],
