@@ -159,6 +159,15 @@ if (targets.has('site')) {
   // category module, which lets the modules themselves be cached indefinitely.
   const hashes = Object.fromEntries([...byCat.keys()].map((cat) => [cat, crypto.createHash('sha256').update(fs.readFileSync(path.join(out, 'icons', `${cat}.js`))).digest('hex').slice(0, 10)]));
   write(path.join(out, 'index.json'), JSON.stringify({ version, count: icons.length, bases: icons.filter((i) => !i.base).length, categories, hashes, icons: meta }));
+  // The markup behind /api/icon/<name>.svg, in one file per first two letters, so a
+  // request reads only a small part of the set.
+  const shards = new Map();
+  for (const ic of icons) {
+    const prefix = ic.name.slice(0, 2);
+    if (!shards.has(prefix)) shards.set(prefix, {});
+    shards.get(prefix)[ic.name] = [renderInner(ic, { k: '__K__', paint: 'template', names: false }), ...(ic.tone ? [ic.tone] : [])];
+  }
+  for (const [prefix, shard] of shards) write(path.join(out, 'templates', `${prefix}.json`), JSON.stringify(shard));
   // Search keywords load separately, so the grid does not wait for them.
   const allKeywords = JSON.parse(fs.readFileSync(path.join(root, 'icons', 'keywords.json'), 'utf8'));
   write(path.join(out, 'keywords.json'), JSON.stringify(Object.fromEntries(icons.filter((i) => !i.base && allKeywords[i.name]).map((i) => [i.name, allKeywords[i.name]]))));

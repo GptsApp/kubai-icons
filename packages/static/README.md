@@ -16,6 +16,6 @@ Each file includes a margin for the drop shadow, so a 28px image matches a live 
 - `svg-soft/`: the soft variant on blue-grey
 - `icons.json`, `categories.json`: metadata
 
-For other colours, open an icon on the [website](https://icons.kubai.design/icons/) and download it in the colour you pick.
+For any other color, request `https://icons.kubai.design/api/icon/folder.svg?color=EC4899`, or open an icon on the [website](https://icons.kubai.design/icons/) and download it in the color you pick.
 
 MIT License

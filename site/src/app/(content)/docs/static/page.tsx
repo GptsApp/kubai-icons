@@ -25,6 +25,19 @@ export default function Page() {
         </div>
       <Code lang="html" code={`<img src="https://cdn.jsdelivr.net/npm/kubai-icons-static@0/svg/folder.svg" width="28" height="28" alt="" />`} />
       <div className="my-5 space-y-5">
+        <h2>Any color</h2>
+        <p>The files above come in two colors. For another accent color, request the icon by URL. This also suits agents and tools that cannot install packages.</p>
+      </div>
+      <Code lang="html" code={`<img src="https://icons.kubai.design/api/icon/folder.svg?color=EC4899" width="28" height="28" alt="" />`} />
+      <div className="my-5 space-y-5">
+        <ul>
+          <li><code>color</code>: a six-digit hex value, with or without the <code>#</code>. Default: 5393FF.</li>
+          <li><code>variant</code>: <code>color</code> or <code>soft</code>.</li>
+          <li><code>badge</code>: <code>semantic</code> or a hex value, for badged icons.</li>
+          <li><code>size</code>: width and height in pixels, from 16 to 2048. Default: 96.</li>
+        </ul>
+      </div>
+      <div className="my-5 space-y-5">
           <p>On jsDelivr, a URL with an exact version is cached long-term. A URL with a major version, such as <code>@0</code>, is refreshed periodically and picks up new releases.</p>
           <h2>Custom colors</h2>
           <p>In the <Link href="/icons/">icon browser</Link>, you can download an icon as SVG or PNG in a chosen color and variant. These files use plain hex colors, which design tools such as Figma read correctly.</p>

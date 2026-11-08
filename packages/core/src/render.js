@@ -99,9 +99,19 @@ export function makeU(k) {
 
 /**
  * Colour resolvers. `css` writes color-mix() over custom properties (the accent comes
- * from currentColor); a palette object { c, e, deep } writes exact hex values.
+ * from currentColor); a palette object { c, e, deep } writes exact hex values; 'template'
+ * writes tokens that fillTemplate() turns into exact values later.
  */
 function painter(paint) {
+  if (paint === 'template') {
+    return {
+      css: false,
+      template: true,
+      tint: (src, edge, tone) => `{t${src}${tone ? `b${tone}` : edge ? 'e' : 'c'}}`,
+      white: '{w}',
+      pureTop: (base) => `{p${base}}`
+    };
+  }
   if (!paint || paint === 'css') {
     return {
       css: true,
@@ -143,7 +153,7 @@ function defsMarkup(k, grads, P) {
     + `<feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>`;
   return g
     + `<filter id="sh-${k}" x="-40%" y="-40%" width="180%" height="190%" color-interpolation-filters="sRGB">`
-    + (P.css ? liveShadow : portableShadow(P.shadow, 0.21)) + `</filter>`
+    + (P.css ? liveShadow : P.template ? '{s}' : portableShadow(P.shadow, 0.21)) + `</filter>`
     + `<filter id="hi-${k}" x="-10%" y="-10%" width="120%" height="130%" color-interpolation-filters="sRGB">`
     + `<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="a"/>`
     + `<feOffset in="a" dy="0.7"/><feGaussianBlur stdDeviation="0.35"/>`
@@ -250,7 +260,7 @@ function innerOutlines(def, state) {
  * - hover: render the end of the hover instead of the rest pose.
  * - progress: 0..1 between rest and hover (overrides hover), for frame sheets.
  * - state: tap state passed to target().
- * - paint: 'css' (default) or { c, e, deep, b } for exact colours (b: badge colour).
+ * - paint: 'css' (default), 'template', or { c, e, deep, b } for exact colours (b: badge colour).
  * - names: keep data-n attributes so a runtime can animate the markup (default true).
  */
 export function renderInner(def, { k = 'k', hover = false, progress, state = {}, paint = 'css', names = true } = {}) {

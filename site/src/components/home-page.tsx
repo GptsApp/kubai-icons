@@ -8,6 +8,7 @@ import { localize, pick, type Locale } from "@/lib/i18n";
 import { AUTHOR, MODULE_DEMO, REPO } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { InstallTabs } from "@/components/install-tabs";
+import { AgentGuide } from "@/components/agent-guide";
 import { Container } from "@/components/kit/layout";
 import { HeroWall } from "@/components/hero-wall";
 import { HeroBadge } from "@/components/hero-badge";
@@ -55,7 +56,8 @@ export function HomePage({ locale }: { locale: Locale }) {
               {pick(locale, "Browse icons", "浏览图标")}
               <RiArrowRightSLine data-icon="inline-end" className="transition-[translate] duration-200 group-hover/button:translate-x-0.5 motion-reduce:transition-none" />
             </Button>
-            <Button size="xl" variant="outline" render={<Link href={localize("/docs/", locale)} />}>{pick(locale, "Documentation", "查看文档")}</Button>
+            <AgentGuide />
+            <Button size="xl" variant="ghost" className="px-3 text-muted-foreground max-sm:hidden" render={<Link href={localize("/docs/", locale)} />}>{pick(locale, "Documentation", "查看文档")}</Button>
           </div>
           <div className="rise-in [--i:4]"><InstallTabs /></div>
         </div>
