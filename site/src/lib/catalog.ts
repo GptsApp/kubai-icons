@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { gzipSync } from "node:zlib";
-import type { Category, IconIndex, IconMeta } from "./icons";
+import { zhName, type Category, type IconIndex, type IconMeta, type KeywordIndex } from "./icons";
 
 let cached: IconIndex | null = null;
 const index = () => (cached ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data/index.json"), "utf8")) as IconIndex);
@@ -20,10 +20,12 @@ export const moduleBytes = (names: string[]) =>
     }
   });
 
-let keywordsCache: Record<string, { zh: string[] }> | null = null;
+let keywordsCache: KeywordIndex | null = null;
+const keywords = () => (keywordsCache ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data/keywords.json"), "utf8")) as KeywordIndex);
 /** An icon's Chinese search words; the first is its name in Chinese. */
-export const zhWords = (name: string) =>
-  (keywordsCache ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data/keywords.json"), "utf8")))![name]?.zh ?? [];
+export const zhWords = (name: string) => keywords()[name]?.zh ?? [];
+/** An icon's name in Chinese, with its badge if it has one. */
+export const zhNameOf = (meta: IconMeta) => zhName(meta, keywords());
 
 /** Base icons only: a badged version is shown on its base icon's page. */
 export const baseIcons = () => index().icons.filter((i) => !i.base);

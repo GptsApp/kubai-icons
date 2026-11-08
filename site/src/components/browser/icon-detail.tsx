@@ -11,7 +11,7 @@ import { Segmented } from "@/components/kit/segmented";
 import { Glide } from "@/components/kit/glide";
 import { quietLink, tile } from "@/components/kit/styles";
 import { toggleSaved, useSaved } from "@/lib/collection";
-import { FACETS, loadKeywords, pascal, type IconMeta, type Category, type Keywords } from "@/lib/icons";
+import { FACETS, loadKeywords, pascal, zhBadgeName, type IconMeta, type Category, type Keywords } from "@/lib/icons";
 import { download, resolvedSvg, svgToPng } from "@/lib/export";
 import { track } from "@/lib/analytics";
 import { REPO, asset } from "@/lib/site";
@@ -19,7 +19,7 @@ import { useLocalize, useTr } from "@/lib/use-locale";
 import { nudgeSponsor } from "@/lib/sponsor-nudge";
 import { cn } from "@/lib/utils";
 import { PREVIEW_SIZE, type Badge as BadgeMode } from "./prefs";
-import { useIcon } from "./icon-tile";
+import { useIcon, useZhName } from "./icon-tile";
 
 type Props = {
   meta: IconMeta;
@@ -120,7 +120,10 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
   };
   const variants = related.filter((r) => r.base);
   const root = related.find((r) => !r.base);
-
+  const zh = useZhName(meta);
+  const rootZh = useZhName(root);
+  // Chinese pages lead with the Chinese name and keep the code name beside it.
+  const codeName = tr(null, zh ? meta.name : null);
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] sm:grid-cols-[17rem_minmax(0,1fr)]">
@@ -156,22 +159,23 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
           <Description className="flex h-5 items-center gap-0.5 pr-24 text-control whitespace-nowrap sm:pr-8 text-muted-foreground *:[a]:no-underline">
             {onCategory ? (
               <>
-                <a href={asset(loc(`/icons/category/${meta.category}/`))} onClick={(e) => { if (!e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); onCategory(meta.category); } }} className={cn("tap relative", quietLink)}>{catName}</a>
+                <a href={asset(loc(`/icons/category/${meta.category}/`))} onClick={(e) => { if (!e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); onCategory(meta.category); } }} className={cn("tap relative", quietLink, root && meta.base && "max-sm:hidden")}>{catName}</a>
                 {root && meta.base && (
                   <>
-                    <RiArrowRightSLine aria-hidden className="size-4 shrink-0" />
-                    <button type="button" onClick={() => onOpen(root)} className={cn("tap relative", quietLink)}>{root.name}</button>
+                    <RiArrowRightSLine aria-hidden className="size-4 shrink-0 max-sm:hidden" />
+                    <button type="button" onClick={() => onOpen(root)} className={cn("tap relative", quietLink)}>{rootZh ?? root.name}</button>
                   </>
                 )}
                 <RiArrowRightSLine aria-hidden className="size-4 shrink-0" />
-                <span className="min-w-0 truncate text-foreground">{meta.name}</span>
+                <span className="min-w-0 truncate text-foreground">{zh && meta.base ? zhBadgeName(meta) : zh ?? meta.name}</span>
               </>
             ) : catName}
             {meta.by && <a href={`https://github.com/${meta.by}`} target="_blank" rel="noreferrer" className={cn("tap relative ml-2 shrink-0", quietLink)}>by @{meta.by}</a>}
           </Description>
           <div className="flex h-8 items-center gap-1">
-            <Title className="min-w-0 truncate font-mono text-heading font-semibold">{meta.name}</Title>
-            <Button variant="ghost" size="icon-sm" className="shrink-0 text-muted-foreground" onClick={actions.copyName} aria-label={tr("Copy name", "复制名称")} title={tr("Copy name", "复制名称")}>
+            <Title className={cn("min-w-0 truncate text-heading font-semibold", !zh && "font-mono", codeName && "shrink-0")}>{zh ?? meta.name}</Title>
+            {codeName && <span className="ml-1 min-w-0 truncate font-mono text-control text-muted-foreground">{codeName}</span>}
+            <Button variant="ghost" size="icon-sm" className="shrink-0 text-muted-foreground" onClick={actions.copyName} aria-label={tr("Copy name", "复制英文名")} title={tr("Copy name", "复制英文名")}>
               <RiFileCopyLine />
             </Button>
             <button type="button" onClick={actions.copyColor} aria-label={tr(`Copy color ${hex}`, `复制色值 ${hex}`)} title={tr("Copy color", "复制色值")} className={cn("tap absolute -top-1 right-0 flex h-7 shrink-0 items-center gap-1.5 rounded-control border px-2 font-mono text-caption sm:relative sm:top-0 sm:ml-auto", quietLink)}>
@@ -284,10 +288,11 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
 
 function VariantChip({ meta, active, color, variant, badge, onOpen }: { meta: IconMeta; active: boolean; color: string; variant: "color" | "soft"; badge?: string; onOpen: (m: IconMeta) => void }) {
   const icon = useIcon(meta);
+  const zh = useZhName(meta);
   return (
     <button
       type="button"
-      title={meta.name}
+      title={zh ?? meta.name}
       aria-current={active}
       data-kubai-trigger
       onClick={() => onOpen(meta)}

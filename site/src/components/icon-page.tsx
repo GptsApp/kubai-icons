@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/kit/layout";
 import { IconLinks } from "@/components/browser/icon-links";
 import { IconPageView } from "@/components/browser/icon-page-view";
-import { allCategories, familyOf, iconByName, relatedTo, zhWords } from "@/lib/catalog";
+import { allCategories, familyOf, iconByName, relatedTo, zhNameOf, zhWords } from "@/lib/catalog";
 import { localize, pick, type Locale } from "@/lib/i18n";
 import { absolute, iconLabel, pageMeta, SITE_NAME } from "@/lib/seo";
 import { REPO, reportIconUrl } from "@/lib/site";
@@ -38,7 +38,7 @@ export function IconPageBody({ name, locale }: { name: string; locale: Locale })
   const category = categories.find((c) => c.id === meta.category);
   const categoryName = category ? pick(locale, category.en, category.zh ?? category.en) : undefined;
   const family = familyOf(name);
-  const badged = family.filter((i) => i.base).map((i) => i.name);
+  const badged = family.filter((i) => i.base).map((i) => pick(locale, i.name, zhNameOf(i) ?? i.name));
   const related = relatedTo(meta);
   const terms = pick(locale, meta.tags, zhWords(name));
   return (

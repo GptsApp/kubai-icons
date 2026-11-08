@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>An agent skill that draws animated icons in one consistent style.</strong><br />
-  Plus 2,871 open-source icons drawn with it, for React, Vue and the web.
+  Plus 2,800+ open-source icons drawn with it, for React, Vue and the web.
 </p>
 
 <p align="center">
@@ -25,8 +25,8 @@
 | Part | What you get |
 | --- | --- |
 | **Agent skill** | The rules, engine and self-check that draw every icon in one hand. Give Claude Code, Codex or another coding agent a product, and it draws the icons that product needs. |
-| **Icon library** | 2,871 icons: 890 objects, plus badged and slashed "off" versions. For React, Vue, plain JavaScript, web components and static SVG. MIT licensed. |
-| **Website** | [icons.kubai.design](https://icons.kubai.design/) searches every icon by name, shape or meaning, recolors it, copies its code and downloads it as SVG or PNG. |
+| **Icon library** | 2,800+ icons: nearly 900 objects, plus badged and slashed "off" versions. For React, Vue, plain JavaScript, web components and static SVG. MIT licensed. |
+| **Website** | [icons.kubai.design](https://icons.kubai.design/), in English and Chinese. Search every icon by name, shape or meaning, recolor it, copy its code or a prompt for your agent, download it as SVG or PNG, and save a collection as a ZIP. |
 
 ## Install the skill
 
@@ -59,7 +59,7 @@ git clone https://github.com/kubai087/kubai-icons.git ~/.claude/skills/kubai-ico
 Or download `kubai-icons-v*.zip` from the [latest release](https://github.com/kubai087/kubai-icons/releases/latest) and unzip it there:
 
 ```bash
-unzip kubai-icons-v1.0.0.zip -d ~/.claude/skills/
+unzip kubai-icons-v*.zip -d ~/.claude/skills/
 ```
 
 The agent picks the skill up the next time it starts.
@@ -130,7 +130,7 @@ No build step? One script tag loads any icon on demand:
 - **One accent, every color.** Gradients, outlines, marks and shadows derive from one color through CSS, so icons follow `currentColor` and recolor without script.
 - **Pay for what you use.** One side-effect-free ES module per icon, pre-rendered markup, server rendering, and a tiny runtime that only runs while an icon moves.
 
-Guides for every package are in the [documentation](https://icons.kubai.design/docs/).
+Find an icon and copy its code on the [website](https://icons.kubai.design/icons/). Guides for every package are in the [documentation](https://icons.kubai.design/docs/).
 
 ## How an icon is built
 
@@ -156,7 +156,7 @@ The complete rules are in [`PROMPT.md`](PROMPT.md).
 | [`src/icons.js`](src/icons.js) | 66 worked examples. Each new icon starts from the closest one in structure. |
 | [`scripts/check.mjs`](scripts/check.mjs) | A headless self-check: rest, hover, every moment in between, 24px, 28px and every palette. |
 
-The skill's own gallery opens locally from `index.html`.
+`index.html` opens a local gallery of these 66 examples. The full library is on the [website](https://icons.kubai.design/icons/).
 
 </details>
 
@@ -165,7 +165,7 @@ The skill's own gallery opens locally from `index.html`.
 
 <br />
 
-Icon and palette names in the skill's gallery are in Chinese.
+This exports the skill's own icons, whose names and palettes are in Chinese. For the library, download from the [website](https://icons.kubai.design/icons/) or use [`kubai-icons-static`](packages/static).
 
 ```bash
 node scripts/export.mjs --only 文件夹,日历 --palette 薄荷 --out icons/

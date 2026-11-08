@@ -57,12 +57,15 @@ export type Keywords = { shape: string[]; object: string[]; meaning: string[]; a
 export type KeywordIndex = Record<string, Keywords>;
 
 let keywordsPromise: Promise<KeywordIndex> | null = null;
+let keywordsLoaded: KeywordIndex | null = null;
+export const peekKeywords = () => keywordsLoaded;
 export function loadKeywords(): Promise<KeywordIndex> {
   keywordsPromise ??= fetch(asset("/data/keywords.json"))
     .then((r) => {
       if (!r.ok) throw new Error(`keywords.json: ${r.status}`);
       return r.json();
     })
+    .then((all: KeywordIndex) => (keywordsLoaded = all))
     .catch((e) => {
       keywordsPromise = null;
       throw e;
@@ -111,6 +114,37 @@ const BADGE_ZH: Record<string, string[]> = {
   sparkle: ["智能", "星光"],
   off: ["关闭", "禁用", "停用"],
 };
+
+/** What each badge shows, as it reads in an icon's Chinese name. */
+const BADGE_NAME_ZH: Record<string, string> = {
+  plus: "加号",
+  minus: "减号",
+  check: "对勾",
+  x: "叉号",
+  alert: "警告",
+  info: "信息",
+  search: "搜索",
+  lock: "锁",
+  clock: "时钟",
+  cog: "设置",
+  heart: "爱心",
+  star: "星标",
+  sync: "同步",
+  up: "向上",
+  down: "向下",
+  right: "向右",
+  bolt: "闪电",
+  sparkle: "星光",
+  off: "禁用",
+};
+
+export const zhBadgeName = (meta: IconMeta) => BADGE_NAME_ZH[meta.badge ?? "off"];
+
+/** An icon's name in Chinese: the first Chinese keyword of its base icon, then what its badge shows. */
+export function zhName(meta: IconMeta, keywords: KeywordIndex) {
+  const name = keywords[meta.base ?? meta.name]?.zh[0];
+  return name && meta.base ? `${name} · ${zhBadgeName(meta)}` : name;
+}
 
 /** A badged version is found by its base icon's keywords too. */
 export const prepare = (icons: IconMeta[], keywords: KeywordIndex = {}): Searchable[] =>

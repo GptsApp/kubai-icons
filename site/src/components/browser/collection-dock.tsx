@@ -18,7 +18,7 @@ import { loadIndex, type IconMeta } from "@/lib/icons";
 import { nudgeSponsor } from "@/lib/sponsor-nudge";
 import { cn } from "@/lib/utils";
 import { useTr } from "@/lib/use-locale";
-import { useIcon } from "./icon-tile";
+import { useIcon, useZhName } from "./icon-tile";
 import { MIXED, MIXED_FILL, SWATCHES, mixedColor } from "./prefs";
 
 
@@ -155,13 +155,14 @@ export function CollectionDock() {
 function SavedTile({ item, meta }: { item: SavedIcon; meta: IconMeta }) {
   const tr = useTr();
   const icon = useIcon(meta);
+  const zh = useZhName(meta);
   return (
-    <div title={item.name} className={cn(tile({ interactive: false }), "group relative aspect-square")}>
+    <div title={zh ? `${zh} ${item.name}` : item.name} className={cn(tile({ interactive: false }), "group relative aspect-square")}>
       {icon ? <IconImage icon={icon} size={28} color={item.color} variant={item.variant} badgeColor={item.badge} /> : null}
       <button
         type="button"
         onClick={() => removeSaved(item.name)}
-        aria-label={tr(`Remove ${item.name}`, `移除 ${item.name}`)}
+        aria-label={tr(`Remove ${item.name}`, `移除 ${zh ?? item.name}`)}
         className="tap absolute top-0.5 right-0.5 grid size-5 place-items-center rounded-control text-muted-foreground transition-opacity hover:text-foreground focus-visible:opacity-100 pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100"
       >
         <RiCloseLine className="size-3.5" />
