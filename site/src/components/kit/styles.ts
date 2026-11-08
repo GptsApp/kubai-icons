@@ -3,7 +3,7 @@
 import { cva } from "class-variance-authority";
 
 /** The soft square behind an icon: grid tiles, previews, the home page wall. */
-export const tile = cva("grid place-items-center rounded-tile bg-surface outline-none transition-[background-color,box-shadow,scale] duration-150 focus-visible:ring-2 focus-visible:ring-ring", {
+export const tile = cva("grid place-items-center rounded-tile bg-surface transition-[background-color,box-shadow,scale] duration-150", {
   variants: {
     interactive: { true: "hover:bg-surface-hover active:scale-[.97] motion-reduce:active:scale-100", false: "" },
     active: { true: "bg-surface-hover ring-1 ring-foreground/20 in-[[data-glide]]:bg-transparent in-[[data-glide]]:ring-0", false: "" },
@@ -12,7 +12,7 @@ export const tile = cva("grid place-items-center rounded-tile bg-surface outline
 });
 
 /** A row in a side list: icon categories, docs pages. */
-export const navItem = cva("flex w-full items-center gap-2 rounded-control px-2.5 py-1.5 text-left text-control transition-colors", {
+export const navItem = cva("focus-inset flex w-full items-center gap-2 rounded-control px-2.5 py-1.5 text-left text-control transition-colors", {
   variants: {
     active: {
       true: "bg-muted text-foreground in-[[data-glide]]:bg-transparent",
@@ -23,7 +23,7 @@ export const navItem = cva("flex w-full items-center gap-2 rounded-control px-2.
 });
 
 /** A small rounded filter button. */
-export const chip = cva("inline-flex h-7 shrink-0 items-center rounded-pill border px-3 text-caption transition-colors pointer-coarse:h-9", {
+export const chip = cva("focus-inset inline-flex h-7 shrink-0 items-center rounded-pill border px-3 text-caption transition-colors pointer-coarse:h-9", {
   variants: {
     active: { true: "border-foreground/30 bg-muted text-foreground in-[[data-glide]]:border-transparent in-[[data-glide]]:bg-transparent", false: "text-muted-foreground hover:text-foreground" },
   },

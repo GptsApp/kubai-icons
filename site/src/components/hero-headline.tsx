@@ -38,10 +38,10 @@ export function HeroHeadline({ className }: { className?: string }) {
 
   if (!lines) {
     return (
-      <h1 ref={ref} className={cn(className, "flex items-center gap-[.2em] whitespace-nowrap")}>
+      <h1 ref={ref} className={cn(className, "flex items-center gap-[.06em] whitespace-nowrap")}>
         <OutlinedPhrase text="让图标" />
         {/* The icons of the wall's story take turns here, each playing as its beat comes. */}
-        <span aria-hidden className="grid size-[1.1em] shrink-0 *:[grid-area:1/1]">
+        <span aria-hidden className="grid size-[1em] shrink-0 *:[grid-area:1/1]">
           {STORY.map(({ Icon, color }, i) => (
             <Icon key={i} size={48} color={color} trigger="none" hover={beat === i} className={cn("size-full transition-opacity duration-300 motion-reduce:transition-none", (beat ?? 0) !== i && "opacity-0")} />
           ))}

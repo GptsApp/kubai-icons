@@ -4,7 +4,7 @@
 //   assets/hover.webp     a wave of icons opening and closing
 //   assets/skill.webp     the icons drawn by a fresh session from the skill alone
 //   assets/palettes.webp  the same icons moving through every palette
-//   assets/social.png     the social preview card and README cover, 1280×640
+//   assets/social.png     the social preview card, 1280×640
 //
 //   node scripts/media.mjs [--only hover,skill,palettes,social]
 //
@@ -95,7 +95,7 @@ function render(name, scene, work) {
   const w = PAD * 2 + scene.cols * CELL + (scene.cols - 1) * GAP;
   const h = PAD * 2 + rows * CELL + (rows - 1) * GAP;
   const per = Math.max(1, Math.floor(MAX_SHEET / (h * SCALE)));
-  const css = `main{display:none}body{background:#fff}
+  const css = `main{display:none}body{background:transparent}
     .f{display:grid;grid-template-columns:repeat(${scene.cols},${CELL}px);gap:${GAP}px;padding:${PAD}px;height:${h}px;box-sizing:border-box;align-content:start}
     .c{width:${CELL}px;height:${CELL}px;border-radius:22px;background:#F2F3F5;display:grid;place-items:center}
     .c svg{width:${ICON}px;height:auto;overflow:visible;display:block}`;
@@ -135,9 +135,9 @@ function render(name, scene, work) {
     const sheet = path.join(work, `${name}-${chunk}.png`);
     fs.writeFileSync(file, page);
     execFileSync(chrome, ['--headless=new', '--disable-gpu', '--force-prefers-reduced-motion', `--user-data-dir=${path.join(work, 'profile')}`,
-      '--hide-scrollbars', '--virtual-time-budget=5000', `--window-size=${w},${h * part.length}`,
+      '--hide-scrollbars', '--default-background-color=00000000', '--virtual-time-budget=5000', `--window-size=${w},${h * part.length}`,
       `--force-device-scale-factor=${SCALE}`, `--screenshot=${sheet}`, 'file://' + file], { stdio: 'ignore' });
-    execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', sheet, '-vf', `untile=1x${part.length}`, path.join(work, `${name}-${chunk}-%04d.png`)]);
+    execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', sheet, '-vf', `untile=1x${part.length}`, '-pix_fmt', 'rgba', path.join(work, `${name}-${chunk}-%04d.png`)]);
     for (let i = 1; i <= part.length; i++) files.push(path.join(work, `${name}-${chunk}-${String(i).padStart(4, '0')}.png`));
   }
   const out = path.join(root, 'assets', `${name}.webp`);
