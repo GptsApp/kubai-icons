@@ -20,6 +20,11 @@ export const moduleBytes = (names: string[]) =>
     }
   });
 
+let keywordsCache: Record<string, { zh: string[] }> | null = null;
+/** An icon's Chinese search words; the first is its name in Chinese. */
+export const zhWords = (name: string) =>
+  (keywordsCache ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data/keywords.json"), "utf8")))![name]?.zh ?? [];
+
 /** Base icons only: a badged version is shown on its base icon's page. */
 export const baseIcons = () => index().icons.filter((i) => !i.base);
 export const iconByName = (name: string) => baseIcons().find((i) => i.name === name);

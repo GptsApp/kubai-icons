@@ -158,7 +158,7 @@ if (targets.has('site')) {
   // The index the site searches. It is revalidated on every visit and carries a hash of each
   // category module, which lets the modules themselves be cached indefinitely.
   const hashes = Object.fromEntries([...byCat.keys()].map((cat) => [cat, crypto.createHash('sha256').update(fs.readFileSync(path.join(out, 'icons', `${cat}.js`))).digest('hex').slice(0, 10)]));
-  write(path.join(out, 'index.json'), JSON.stringify({ version, count: icons.length, bases: icons.filter((i) => !i.base).length, categories: publicCategories, hashes, icons: meta }));
+  write(path.join(out, 'index.json'), JSON.stringify({ version, count: icons.length, bases: icons.filter((i) => !i.base).length, categories, hashes, icons: meta }));
   // Search keywords load separately, so the grid does not wait for them.
   const allKeywords = JSON.parse(fs.readFileSync(path.join(root, 'icons', 'keywords.json'), 'utf8'));
   write(path.join(out, 'keywords.json'), JSON.stringify(Object.fromEntries(icons.filter((i) => !i.base && allKeywords[i.name]).map((i) => [i.name, allKeywords[i.name]]))));

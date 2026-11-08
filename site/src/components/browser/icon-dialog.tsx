@@ -7,6 +7,7 @@ import type { IconMeta, Category } from "@/lib/icons";
 import { asset } from "@/lib/site";
 import { hostSponsorNudge } from "@/lib/sponsor-nudge";
 import { cn } from "@/lib/utils";
+import { useLocalize, useTr } from "@/lib/use-locale";
 import type { Badge as BadgeMode } from "./prefs";
 import { IconDetail } from "./icon-detail";
 
@@ -35,6 +36,8 @@ export function IconDialog({ meta: current, related: currentRelated, onClose, ..
   if (current) kept.current = { meta: current, related: currentRelated };
   const { meta, related } = kept.current;
   const popup = useRef<HTMLDivElement>(null);
+  const tr = useTr();
+  const loc = useLocalize();
   // Focus starts on the panel rather than its first control, so opening from the address
   // shows no focus ring. The arrow keys scroll the panel from here.
   const content = useRef<HTMLDivElement>(null);
@@ -70,10 +73,10 @@ export function IconDialog({ meta: current, related: currentRelated, onClose, ..
         </div>
         {note && (
           <div className="absolute top-full left-1/2 mt-2.5 flex -translate-x-1/2 items-center gap-3.5 rounded-xl bg-popover py-1.5 pr-1.5 pl-4 whitespace-nowrap shadow-lg ring-1 ring-foreground/10 duration-200 animate-in fade-in-0 slide-in-from-top-1 motion-reduce:animate-none">
-            <span className="text-muted-foreground">Kubai Icons is free to use.</span>
-            <a href={asset("/sponsor/")} target="_blank" rel="noreferrer" data-kubai-trigger className={cn(buttonVariants({ variant: "outline", size: "sm" }), "gap-1.5 pr-2.5 pl-2")}>
+            <span className="text-muted-foreground">{tr("Kubai Icons is free to use.", "Kubai Icons 免费使用")}</span>
+            <a href={asset(loc("/sponsor/"))} target="_blank" rel="noreferrer" data-kubai-trigger className={cn(buttonVariants({ variant: "outline", size: "sm" }), "gap-1.5 pr-2.5 pl-2")}>
               <Heart size={16} color="#EC4899" trigger="parent" className="size-4" />
-              Sponsor
+              {tr("Sponsor", "赞助")}
             </a>
           </div>
         )}

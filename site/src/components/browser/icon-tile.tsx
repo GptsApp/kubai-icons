@@ -7,6 +7,7 @@ import { tile } from "@/components/kit/styles";
 import { toggleSaved, useSaved } from "@/lib/collection";
 import { loadCategory, peekIcon, type IconMeta } from "@/lib/icons";
 import { cn } from "@/lib/utils";
+import { useTr } from "@/lib/use-locale";
 
 /** The live icon for a name, loading its category chunk on first use. */
 export function useIcon(meta: IconMeta | null) {
@@ -26,6 +27,7 @@ type TileProps = { meta: IconMeta; size: number; raster?: number; color: string;
 export const IconTile = memo(function IconTile({ meta, size, raster, color, variant, selecting, hit, onOpen }: TileProps) {
   const icon = useIcon(meta);
   const saved = useSaved(meta.name);
+  const tr = useTr();
   const toggle = () => toggleSaved({ name: meta.name, color, variant });
   return (
     <div className="group/tile relative">
@@ -60,8 +62,8 @@ export const IconTile = memo(function IconTile({ meta, size, raster, color, vari
           tabIndex={-1}
           onClick={toggle}
           aria-pressed={saved}
-          aria-label={`Save ${meta.name} to collection`}
-          title={saved ? "Remove from collection" : "Save to collection"}
+          aria-label={tr(`Save ${meta.name} to collection`, `将 ${meta.name} 加入收藏夹`)}
+          title={saved ? tr("Remove from collection", "移出收藏夹") : tr("Save to collection", "加入收藏夹")}
           className={cn(
             "absolute top-1 right-1 grid size-6 place-items-center rounded-control transition-opacity hover:text-foreground",
             saved ? "text-foreground" : "pointer-events-none text-muted-foreground opacity-0 group-hover/tile:pointer-events-auto group-hover/tile:opacity-100",

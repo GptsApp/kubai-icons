@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
 import { cn } from "@/lib/utils"
+import { useTr } from "@/lib/use-locale"
 
 import { Button } from "@/components/ui/button"
 import { RiCloseLine } from "@remixicon/react"
@@ -49,6 +50,7 @@ function DialogContent({
   showCloseButton?: boolean
   closeClassName?: string
 }) {
+  const closeLabel = useTr()("Close", "关闭")
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -74,7 +76,7 @@ function DialogContent({
           >
             <RiCloseLine
             />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{closeLabel}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Popup>

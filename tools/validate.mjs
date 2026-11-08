@@ -15,6 +15,7 @@ export function validate(icons, badges) {
   const cats = new Set(categories.map((c) => c.id));
   const seen = new Map();
   const keywords = JSON.parse(fs.readFileSync(path.join(root, 'icons', 'keywords.json'), 'utf8'));
+  let missing = 0;
   for (const ic of icons) {
     const where = ic.base ? `${ic.name} (from ${ic.file})` : ic.file;
     const bad = (msg) => out.push(`${where}: ${msg}`);
@@ -27,7 +28,8 @@ export function validate(icons, badges) {
     if (!Array.isArray(ic.tags) || !ic.tags.length || ic.tags.some((t) => typeof t !== 'string' || !t.trim())) bad('tags must be a non-empty list of strings');
     if (!ic.base) {
       const kw = keywords[ic.name];
-      if (!kw) bad('needs an entry in icons/keywords.json');
+      // Icons being drawn have no keywords yet; a pull request must have them.
+      if (!kw) { if (process.env.CI) bad('needs an entry in icons/keywords.json'); else missing++; }
       else for (const facet of ['shape', 'object', 'meaning', 'action', 'zh']) if (!Array.isArray(kw[facet]) || !kw[facet].length) bad(`icons/keywords.json needs a non-empty "${facet}" list`);
       if (typeof ic.svg !== 'function' || typeof ic.target !== 'function' || typeof ic.draw !== 'function') bad('needs svg(u), target(hover, state) and draw(p, E)');
       for (const v of ic.variants || []) if (!badges.has(v)) bad(`unknown badge "${v}"`);
@@ -43,6 +45,7 @@ export function validate(icons, badges) {
       bad(`fails to render: ${e.message}`);
     }
   }
+  if (missing) console.warn(`${missing} icons have no keywords yet; CI will require them.`);
   return out;
 }
 

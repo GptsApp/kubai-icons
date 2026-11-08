@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { localeOf, localize } from "./i18n";
 import { SITE_URL } from "./site";
 
 export const SITE_NAME = "Kubai Icons";
 export const HOME_TITLE = "Kubai Icons: animated open-source icons for React, Vue and SVG";
+export const HOME_TITLE_ZH = "Kubai Icons：开源的动态图标，提供 React、Vue 组件与静态 SVG";
+export const HOME_DESCRIPTION_ZH = "带悬停动效的开源分层图标，支持 React、Vue、Web Component 和静态 SVG。";
 export const HOME_DESCRIPTION = "Open-source layered icons with hover motion for React, Vue, web components and static SVG. Folders open, bells ring and locks unlock.";
 /** The full address of a page, given its path with the trailing slash. */
 export const absolute = (path: string) => `${SITE_URL}${path}`;
@@ -16,8 +19,11 @@ export function pageMeta({ title, description, path, fullTitle }: { title?: stri
   return {
     title: fullTitle ? { absolute: fullTitle } : title,
     description,
-    alternates: { canonical: url },
-    openGraph: { type: "website", siteName: SITE_NAME, title: shown, description, url, images: [IMAGE] },
+    alternates: {
+      canonical: url,
+      languages: { en: absolute(localize(path, "en")), "zh-CN": absolute(localize(path, "zh")), "x-default": absolute(localize(path, "en")) },
+    },
+    openGraph: { type: "website", siteName: SITE_NAME, locale: localeOf(path) === "zh" ? "zh_CN" : "en_US", title: shown, description, url, images: [IMAGE] },
     twitter: { card: "summary_large_image", title: shown, description, images: [IMAGE.url] },
   };
 }

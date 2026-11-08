@@ -3,16 +3,17 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { RiCheckLine, RiFileCopyLine } from "@remixicon/react";
 import { Button } from "@/components/ui/button";
+import { browserLocale, pick } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 
 export async function copyText(text: string) {
   try {
     await navigator.clipboard.writeText(text);
-    toast.success("Copied");
+    toast.success(pick(browserLocale(), "Copied", "已复制"));
     return true;
   } catch {
-    toast.error("Copy failed");
+    toast.error(pick(browserLocale(), "Copy failed", "复制失败"));
     return false;
   }
 }
@@ -24,7 +25,7 @@ export function CopyButton({ text, className, onCopy }: { text: string; classNam
       variant="ghost"
       size="icon-sm"
       className={cn("text-muted-foreground", className)}
-      aria-label="Copy"
+      aria-label={pick(browserLocale(), "Copy", "复制")}
       data-kubai-trigger
       onClick={async () => {
         if (await copyText(text)) {

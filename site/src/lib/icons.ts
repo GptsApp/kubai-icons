@@ -12,7 +12,7 @@ export type IconMeta = {
   tap?: boolean;
   by?: string;
 };
-export type Category = { id: string; en: string };
+export type Category = { id: string; en: string; zh?: string };
 export type IconIndex = { version: string; count: number; bases: number; categories: Category[]; hashes: Record<string, string>; icons: IconMeta[] };
 
 let indexPromise: Promise<IconIndex> | null = null;
@@ -72,10 +72,10 @@ export function loadKeywords(): Promise<KeywordIndex> {
 
 /** The keyword groups shown to readers. Chinese terms are searchable but not listed. */
 export const FACETS = [
-  { key: "object", label: "Object" },
-  { key: "shape", label: "Shape" },
-  { key: "meaning", label: "Meaning" },
-  { key: "action", label: "Used for" },
+  { key: "object", label: "Object", zh: "物体" },
+  { key: "shape", label: "Shape", zh: "形状" },
+  { key: "meaning", label: "Meaning", zh: "含义" },
+  { key: "action", label: "Used for", zh: "用途" },
 ] as const;
 
 type Phrase = { text: string; words: string[] };
@@ -89,6 +89,29 @@ const phrase = (raw: string): Phrase => {
 };
 const field = (values: string[] | undefined, weight: number): Field => ({ phrases: (values ?? []).map(phrase), weight });
 
+/** Chinese words for each badge, and for "off" on a slashed icon. */
+const BADGE_ZH: Record<string, string[]> = {
+  plus: ["添加", "新增", "加号"],
+  minus: ["移除", "减少", "减号"],
+  check: ["完成", "确认", "对勾"],
+  x: ["关闭", "删除", "取消", "错误", "叉号"],
+  alert: ["警告", "注意", "提醒"],
+  info: ["信息", "说明"],
+  search: ["搜索", "查找", "放大镜"],
+  lock: ["锁", "锁定", "加密"],
+  clock: ["定时", "时钟", "时间"],
+  cog: ["设置", "齿轮", "配置"],
+  heart: ["喜欢", "爱心", "收藏"],
+  star: ["星标", "星星", "收藏"],
+  sync: ["同步", "刷新"],
+  up: ["上传", "向上", "上移"],
+  down: ["下载", "向下", "下移"],
+  right: ["转到", "移动", "发送"],
+  bolt: ["闪电", "快速", "充电"],
+  sparkle: ["智能", "星光"],
+  off: ["关闭", "禁用", "停用"],
+};
+
 /** A badged version is found by its base icon's keywords too. */
 export const prepare = (icons: IconMeta[], keywords: KeywordIndex = {}): Searchable[] =>
   icons.map((ic) => {
@@ -96,7 +119,7 @@ export const prepare = (icons: IconMeta[], keywords: KeywordIndex = {}): Searcha
     return {
       ...ic,
       nameWords: ic.name.split("-"),
-      fields: [field(kw?.object, 30), field(kw?.zh, 30), field(ic.tags, 20), field(kw?.meaning, 18), field(kw?.action, 14), field(kw?.shape, 12)],
+      fields: [field(kw?.object, 30), field(kw?.zh.slice(0, 1), 34), field(kw?.zh, 30), field(ic.base ? BADGE_ZH[ic.badge ?? "off"] : undefined, 24), field(ic.tags, 20), field(kw?.meaning, 18), field(kw?.action, 14), field(kw?.shape, 12)],
     };
   });
 
@@ -104,7 +127,8 @@ export const prepare = (icons: IconMeta[], keywords: KeywordIndex = {}): Searcha
 function closeness({ text, words }: Phrase, term: string, prefixFrom: number) {
   if (text === term) return 1;
   if (words.includes(term)) return 0.85;
-  if (HAN.test(term)) return text.includes(term) ? 0.7 : 0;
+  // A lone character must sit at the end of a phrase, so 人 skips 仙人掌.
+  if (HAN.test(term)) return (term.length > 1 ? text.includes(term) : text.startsWith(term) || text.endsWith(term)) ? 0.7 : 0;
   return term.length >= prefixFrom && words.some((w) => w.startsWith(term)) ? 0.55 : 0;
 }
 
@@ -171,12 +195,34 @@ export function matchedKeyword(ic: Searchable, query: string) {
 export const pascal = (s: string) => s.replace(/(^|-)([a-z0-9])/g, (_, __, c: string) => c.toUpperCase());
 export const camel = (s: string) => s.replace(/-([a-z0-9])/g, (_, c: string) => c.toUpperCase());
 
-/**
- * Search for the grid, which shows base objects only. A badged icon that matches counts
- * for its base when the query also names the base ("folder plus" finds folder), so a
- * badge word alone ("lock") does not list every object that takes a lock badge.
- */
+/** Splits an unspaced Chinese query into known keywords, longest first: 下载文件 becomes 下载 文件. */
+function segment(query: string, all: Searchable[]) {
+  const known = new Set(all.flatMap((i) => i.fields.flatMap((f) => f.phrases.map((p) => p.text))));
+  const parts: string[] = [];
+  for (let at = 0; at < query.length;) {
+    let end = Math.min(query.length, at + 8);
+    while (end > at && !known.has(query.slice(at, end))) end--;
+    if (end === at) return null;
+    parts.push(query.slice(at, end));
+    at = end;
+  }
+  return parts.length > 1 ? parts : null;
+}
+
+/** Search for the grid. Chinese is written without spaces, so a query that finds nothing is split into keywords. */
 export function searchObjects(all: Searchable[], query: string, category = ""): Searchable[] {
+  const found = findObjects(all, query, category);
+  if (found.length || !HAN.test(query)) return found;
+  const parts = segment(query.trim().toLowerCase(), all);
+  return parts ? findObjects(all, parts.join(" "), category) : found;
+}
+
+/**
+ * Finds base objects only. A badged icon that matches counts for its base when the query
+ * also names the base ("folder plus" finds folder), so a badge word alone ("lock") does not
+ * list every object that takes a lock badge.
+ */
+function findObjects(all: Searchable[], query: string, category: string): Searchable[] {
   const inCat = (i: Searchable) => !category || i.category === category;
   const q = query.trim().toLowerCase();
   if (!q) return all.filter((i) => !i.base && inCat(i));

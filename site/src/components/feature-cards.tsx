@@ -7,6 +7,7 @@ import { tile } from "@/components/kit/styles";
 import { SWATCHES } from "@/lib/palette";
 import { MODULE_DEMO } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { useTr } from "@/lib/use-locale";
 
 /** In the order of MODULE_DEMO. */
 const MODULE_COMPONENTS = [Folder, Bell, Lock, Mail];
@@ -28,60 +29,65 @@ function Card({ title, body, children }: { title: string; body: string; children
 const Row = ({ children }: { children: ReactNode }) => <div className="flex items-center gap-3">{children}</div>;
 
 function MotionCard() {
+  const tr = useTr();
   return (
-    <Card title="Motion" body="Animates on interaction and respects reduced motion.">
+    <Card title={tr("Motion", "动效")} body={tr("Animates on interaction and respects reduced motion.", "随交互播放，并遵循系统的“减弱动态效果”设置")}>
       <Row>
         <Mail size={ICON} color="#5393FF" />
         <Trash size={ICON} color="#F43F5E" />
         <Gift size={ICON} color="#22C55E" />
         <Download size={ICON} color="#F97316" />
       </Row>
-      <p className="flex h-8 items-center text-caption text-muted-foreground">Hover or tap to play</p>
+      <p className="flex h-8 items-center text-caption text-muted-foreground">{tr("Hover or tap to play", "悬停或点击播放")}</p>
     </Card>
   );
 }
 
 function ColorCard() {
+  const tr = useTr();
   const [color, setColor] = useState(SWATCHES[0].value);
   return (
-    <Card title="Color" body="All tones are derived from a single accent color.">
+    <Card title={tr("Color", "配色")} body={tr("All tones are derived from a single accent color.", "所有色调均由同一主色派生")}>
       <Row>
         <Folder size={ICON} color={color} />
         <Heart size={ICON} color={color} />
         <Star size={ICON} color={color} />
         <Bell size={ICON} color={color} />
       </Row>
-      <Swatches className="min-h-8" value={color} options={SWATCHES.slice(0, 4)} onChange={setColor} label="Accent color" customLabel="Custom color" hexLabel="Hex color" />
+      <Swatches className="min-h-8" value={color} options={SWATCHES.slice(0, 4)} onChange={setColor} label={tr("Accent color", "主色")} customLabel={tr("Custom color", "自定义颜色")} hexLabel={tr("Hex color", "十六进制颜色")} />
     </Card>
   );
 }
 
 function BadgesCard() {
+  const tr = useTr();
   const [tone, setTone] = useState<"mono" | "semantic">("semantic");
   const badgeColor = tone === "semantic" ? "semantic" : undefined;
   return (
-    <Card title="Badges" body="Common states are provided as badged variants.">
+    <Card title={tr("Badges", "角标")} body={tr("Common states are provided as badged variants.", "常用状态均提供对应角标")}>
       <Row>
         {[FolderPlus, FolderCheck, FolderX, FolderLock].map((Icon, i) => <Icon key={i} size={ICON} color="#5393FF" badgeColor={badgeColor} />)}
       </Row>
-      <Segmented value={tone} onChange={setTone} label="Badge color" options={[{ value: "mono", label: "Mono" }, { value: "semantic", label: "Color" }]} />
+      <Segmented value={tone} onChange={setTone} label={tr("Badge color", "角标颜色")} options={[{ value: "mono", label: tr("Mono", "单色") }, { value: "semantic", label: tr("Color", "彩色") }]} />
     </Card>
   );
 }
 
 function ModulesCard({ bytes }: { bytes: number[] }) {
+  const tr = useTr();
   const [picked, setPicked] = useState([0]);
   const toggle = (i: number) => setPicked((p) => (p.includes(i) ? p.filter((x) => x !== i) : [...p, i]));
   const total = picked.reduce((sum, i) => sum + bytes[i], 0);
   const known = bytes.every(Boolean);
-  const summary = `${picked.length} imported${known ? `, ${(total / 1000).toFixed(1)} KB gzipped` : ""}`;
+  const size = (total / 1000).toFixed(1);
+  const summary = tr(`${picked.length} imported${known ? `, ${size} KB gzipped` : ""}`, `已引入 ${picked.length} 个${known ? `，gzip 后 ${size} KB` : ""}`);
   return (
-    <Card title="Modules" body="Icons are separate ES modules, bundled on import.">
+    <Card title={tr("Modules", "模块")} body={tr("Icons are separate ES modules, bundled on import.", "每个图标均为独立的 ES 模块，仅在导入时打包")}>
       <div className="flex items-center gap-1.5">
         {MODULE_COMPONENTS.map((Icon, i) => {
           const on = picked.includes(i);
           return (
-            <button key={i} type="button" aria-pressed={on} aria-label={`Import ${MODULE_DEMO[i]}`} data-kubai-trigger onClick={() => toggle(i)} className={cn(tile({ active: on }), "size-11 rounded-card")}>
+            <button key={i} type="button" aria-pressed={on} aria-label={tr(`Import ${MODULE_DEMO[i]}`, `引入 ${MODULE_DEMO[i]}`)} data-kubai-trigger onClick={() => toggle(i)} className={cn(tile({ active: on }), "size-11 rounded-card")}>
               <Icon size={26} color="#8B5CF6" trigger="parent" />
             </button>
           );

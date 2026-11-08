@@ -209,9 +209,51 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* The keyboard focus indicator. An outline follows each control's own corners. */
+:root {
+  --focus: color-mix(in oklab, var(--foreground) 55%, transparent);
+}
+
+/* For controls inside a scrolling list, which would cut off anything drawn outside them. */
+@utility focus-inset {
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+}
+
+/* For an area that fills a rounded panel's corner: the ring sits inside it, with its own corners. */
+@utility focus-area {
+  outline: none;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: calc(var(--radius) * 1.8);
+    pointer-events: none;
+  }
+  &:focus-visible::after,
+  &:has(:focus-visible)::after {
+    outline: 2px solid var(--focus);
+  }
+}
+
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+  }
+  :is(a, button):not([class*="rounded"]):focus-visible {
+    border-radius: 3px;
+    outline-offset: 2px;
+  }
+  :is(input, textarea, select):focus-visible {
+    outline-offset: -1px;
+  }
+  .sr-only:focus-visible {
+    outline: none;
   }
   body {
     @apply bg-background text-foreground;
@@ -301,6 +343,12 @@
 @media (prefers-reduced-motion: reduce) {
   .page-in, .swap-in, .rise-in, .route-in, .reveal { animation: none; }
 }
+
+/* Chinese has no use for the tight tracking set for Latin headings. */
+html[lang="zh-CN"] :is(h1, h2, h3, .font-heading, [data-slot="sheet-title"], [data-slot="dialog-title"]) {
+  letter-spacing: 0;
+}
+html[lang="zh-CN"] h1 { line-height: 1.25; }
 
 /* Switching theme cross-fades the whole page. */
 ::view-transition-old(root),

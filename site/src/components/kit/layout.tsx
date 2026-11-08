@@ -6,6 +6,11 @@ export function Container({ className, children }: { className?: string; childre
   return <div className={cn("mx-auto w-full max-w-7xl px-gutter", className)}>{children}</div>;
 }
 
+/** A standalone page in a narrower column; these pages share one width and title position. */
+export function NarrowPage({ children }: { children: ReactNode }) {
+  return <Container className="min-h-[calc(100dvh-var(--header))] max-w-4xl space-y-8 pt-10 pb-section">{children}</Container>;
+}
+
 /** A page section with the standard vertical rhythm. */
 export function Section({ className, children }: { className?: string; children: ReactNode }) {
   return <section className={cn("py-section", className)}>{children}</section>;

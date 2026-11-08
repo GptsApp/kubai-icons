@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog"
 import { cn } from "@/lib/utils"
+import { useTr } from "@/lib/use-locale"
 
 import { Button } from "@/components/ui/button"
 import { RiCloseLine } from "@remixicon/react"
@@ -46,6 +47,7 @@ function SheetContent({
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
 }) {
+  const closeLabel = useTr()("Close", "关闭")
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -72,7 +74,7 @@ function SheetContent({
           >
             <RiCloseLine
             />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{closeLabel}</span>
           </SheetPrimitive.Close>
         )}
       </SheetPrimitive.Popup>

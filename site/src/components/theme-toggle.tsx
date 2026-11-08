@@ -3,9 +3,11 @@ import { flushSync } from "react-dom";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "kubai-icons-react";
 import { Button } from "@/components/ui/button";
+import { useTr } from "@/lib/use-locale";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
+  const tr = useTr();
   const flip = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
   const toggle = () => {
     if (!document.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) flip();
@@ -15,7 +17,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      aria-label="Toggle dark mode"
+      aria-label={tr("Toggle dark mode", "切换深色模式")}
       onClick={toggle}
       className="text-muted-foreground hover:text-foreground"
     >

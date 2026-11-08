@@ -4,11 +4,13 @@ import type { Category, IconMeta } from "@/lib/icons";
 import { iconLabel } from "@/lib/seo";
 import { asset } from "@/lib/site";
 import { IconDetail } from "./icon-detail";
+import { useTr } from "@/lib/use-locale";
 import { MIXED, mixedColor, usePrefs } from "./prefs";
 
 /** The icon's page: the panel from the browser, showing the icon or one of its badged versions. */
 export function IconPageView({ meta, related, categories }: { meta: IconMeta; related: IconMeta[]; categories: Category[] }) {
   const [prefs, setPrefs] = usePrefs();
+  const tr = useTr();
   const [current, setCurrent] = useState(meta);
   return (
     <div className="max-w-3xl overflow-hidden rounded-panel border">
@@ -26,7 +28,7 @@ export function IconPageView({ meta, related, categories }: { meta: IconMeta; re
         // Shown in the page's HTML until the live icon has loaded.
         placeholder={current.name === meta.name ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={asset(`/icons/${meta.name}/preview.svg`)} alt={`${iconLabel(meta.name)} icon`} width={128} height={128} />
+          <img src={asset(`/icons/${meta.name}/preview.svg`)} alt={tr(`${iconLabel(meta.name)} icon`, `${iconLabel(meta.name)} 图标`)} width={128} height={128} />
         ) : null}
       />
     </div>

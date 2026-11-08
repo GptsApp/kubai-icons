@@ -4,6 +4,7 @@
 import { useSyncExternalStore } from "react";
 import { download, resolvedSvg, svgToPng } from "./export";
 import { loadCategory, loadIndex, peekIcon } from "./icons";
+import { browserLocale, localize } from "./i18n";
 import { asset } from "./site";
 
 export type SavedIcon = { name: string; color: string; variant: "color" | "soft"; badge?: string };
@@ -95,7 +96,7 @@ export function shareLink(list: SavedIcon[]) {
     const flags = (i.variant === "soft" ? "s" : "") + (i.badge ? "b" : "");
     return [i.name, i.color.slice(1), ...(flags ? [flags] : [])].join(".");
   });
-  return `${window.location.origin}${asset("/icons/")}${SHARE}${entries.join(",")}`;
+  return `${window.location.origin}${asset(localize("/icons/", browserLocale()))}${SHARE}${entries.join(",")}`;
 }
 
 /** The icons in the current address, if it is a shared link. Removes them from the address. */

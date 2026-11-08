@@ -16,6 +16,7 @@ import { loadIndex, loadKeywords, matchedKeyword, prepare, searchObjects, type C
 import { track } from "@/lib/analytics";
 import { agentPrompt, asset, requestUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { useLocale, useLocalize, useTr } from "@/lib/use-locale";
 import { IconGrid } from "./icon-grid";
 import { IconDialog } from "./icon-dialog";
 import { MIXED, MIXED_FILL, SWATCHES, mixedColor, usePrefs } from "./prefs";
@@ -35,6 +36,9 @@ const writeUrl = (s: { q: string; cat: string; icon: string }) => {
 };
 
 export function IconBrowser({ categories: cats }: { categories: Category[] }) {
+  const tr = useTr();
+  const loc = useLocalize();
+  const locale = useLocale();
   const [index, setIndex] = useState<IconIndex | null>(null);
   const [list, setList] = useState<Searchable[]>([]);
   const [q, setQ] = useState("");
@@ -134,11 +138,11 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
         <nav className="isolate sticky top-[calc(var(--header)+var(--stick))] -mr-2 max-h-[calc(100dvh-var(--header)-2*var(--stick))] space-y-0.5 overflow-y-auto pr-2 pb-6 [mask-image:linear-gradient(to_bottom,black_calc(100%-1.5rem),transparent)]">
           <Glide selector="[aria-current=true]" className="rounded-control bg-muted" />
           <button type="button" aria-current={!cat} onClick={() => pickCat("")} className={navItem({ active: !cat })}>
-            <span className="truncate">All</span>
+            <span className="truncate">{tr("All", "全部")}</span>
           </button>
           {cats.map((c) => (
-            <a key={c.id} href={asset(`/icons/category/${c.id}/`)} aria-current={cat === c.id} onClick={(e) => filterTo(e, c.id)} className={navItem({ active: cat === c.id })}>
-              <span className="truncate">{c.en}</span>
+            <a key={c.id} href={asset(loc(`/icons/category/${c.id}/`))} aria-current={cat === c.id} onClick={(e) => filterTo(e, c.id)} className={navItem({ active: cat === c.id })}>
+              <span className="truncate">{tr(c.en, c.zh ?? c.en)}</span>
             </a>
           ))}
         </nav>
@@ -156,9 +160,9 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
               ref={input}
               value={q}
               onChange={(e) => { setRefiltered(true); setQ(e.target.value); }}
-              placeholder="Search by name, shape or meaning"
+              placeholder={tr("Search by name, shape or meaning", "按名称、形状或含义搜索")}
               className="h-11 rounded-card pr-16 pl-10 text-field"
-              aria-label="Search icons"
+              aria-label={tr("Search icons", "搜索图标")}
             />
             <Kbd className="absolute top-1/2 right-3.5 -translate-y-1/2 pointer-coarse:hidden">/</Kbd>
           </div>
@@ -168,26 +172,28 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
               className="-mx-gutter w-[calc(100%+2*var(--gutter))] flex-nowrap overflow-x-auto px-gutter sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible sm:px-0"
               value={prefs.color}
               options={[
-                { value: MIXED, name: "Mixed", fill: MIXED_FILL },
+                { value: MIXED, name: tr("Mixed", "多色"), fill: MIXED_FILL },
                 ...SWATCHES.map((s) => ({ value: s.value, name: s.name })),
               ]}
               onChange={(color) => setPrefs({ color })}
-              label="Accent color"
-              customLabel="Custom color"
-              hexLabel="Hex color"
+              label={tr("Accent color", "主色")}
+              customLabel={tr("Custom color", "自定义颜色")}
+              hexLabel={tr("Hex color", "十六进制颜色")}
             />
             <Segmented
               value={prefs.variant}
               onChange={(variant) => setPrefs({ variant })}
-              label="Variant"
-              options={[{ value: "color", label: "Color" }, { value: "soft", label: "Soft" }]}
+              label={tr("Variant", "样式")}
+              options={[{ value: "color", label: tr("Color", "彩色") }, { value: "soft", label: tr("Soft", "柔和") }]}
             />
             <Button variant={selecting ? "default" : "outline"} size="sm" aria-pressed={selecting} onClick={() => setSelecting((v) => !v)}>
-              {selecting ? "Done" : "Select"}
+              {selecting ? tr("Done", "完成") : tr("Select", "多选")}
             </Button>
             <SizeControl
               className="w-full sm:ml-auto sm:w-auto"
-              label="Icon size"
+              label={tr("Icon size", "尺寸")}
+              commonLabel={tr("Common icon sizes", "常用尺寸")}
+              pixelsLabel={tr("Icon size in pixels", "尺寸（像素）")}
               value={prefs.size}
               min={16}
               max={64}
@@ -197,9 +203,9 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
           </div>
           <div className="relative isolate -mx-gutter mb-4 flex gap-1.5 overflow-x-auto px-gutter pb-0.5 lg:hidden">
             <Glide selector="[aria-current=true]" className={cn("rounded-pill", raised)} />
-            <button type="button" aria-current={!cat} className={chip({ active: !cat })} onClick={() => pickCat("")}>All</button>
+            <button type="button" aria-current={!cat} className={chip({ active: !cat })} onClick={() => pickCat("")}>{tr("All", "全部")}</button>
             {cats.map((c) => (
-              <a key={c.id} href={asset(`/icons/category/${c.id}/`)} aria-current={cat === c.id} className={chip({ active: cat === c.id })} onClick={(e) => filterTo(e, c.id)}>{c.en}</a>
+              <a key={c.id} href={asset(loc(`/icons/category/${c.id}/`))} aria-current={cat === c.id} className={chip({ active: cat === c.id })} onClick={(e) => filterTo(e, c.id)}>{tr(c.en, c.zh ?? c.en)}</a>
             ))}
           </div>
           </div>
@@ -207,8 +213,8 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
         <div className="min-h-dvh">
           {failed ? (
             <div className="grid place-items-center gap-3 rounded-panel border border-dashed py-20 text-center">
-              <p className="text-muted-foreground">The icons could not be loaded.</p>
-              <Button variant="outline" size="xl" onClick={load}>Try again</Button>
+              <p className="text-muted-foreground">{tr("The icons could not be loaded.", "图标加载失败")}</p>
+              <Button variant="outline" size="xl" onClick={load}>{tr("Try again", "重试")}</Button>
             </div>
           ) : index && results.length === 0 ? (
             <div className={cn("flex flex-col items-center px-4 py-20 text-center", refiltered && "swap-in")} data-kubai-trigger>
@@ -216,15 +222,15 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
                 <Search size={40} color="#5393FF" trigger="parent" />
               </div>
               <h2 className="mt-5 max-w-full truncate text-subheading font-semibold">
-                {query.trim() ? `No icons for “${query.trim()}”` : "No icons here yet"}
+                {query.trim() ? tr(`No icons for “${query.trim()}”`, `未找到与“${query.trim()}”相关的图标`) : tr("No icons here yet", "暂无图标")}
               </h2>
               <div className="mt-5 flex flex-wrap justify-center gap-2">
                 <Button render={<a href={requestUrl(query)} target="_blank" rel="noreferrer" onClick={() => track("request_icon", { q: query })} />}>
-                  Request this icon
+                  {tr("Request this icon", "申请此图标")}
                 </Button>
-                <Button variant="outline" onClick={() => { copyText(agentPrompt(query)); track("request_icon", { q: query, via: "agent_prompt" }); }}>
+                <Button variant="outline" onClick={() => { copyText(agentPrompt(query, locale)); track("request_icon", { q: query, via: "agent_prompt" }); }}>
                   <RiFileCopyLine data-icon="inline-start" />
-                  Copy agent prompt
+                  {tr("Copy agent prompt", "复制提示词")}
                 </Button>
               </div>
             </div>

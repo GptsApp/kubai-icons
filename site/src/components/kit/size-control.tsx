@@ -6,13 +6,15 @@ import { Glide } from "@/components/kit/glide";
 import { cn } from "@/lib/utils";
 
 /** A pixel size set by a common preset, by dragging, or by typing a number. */
-export function SizeControl({ value, onChange, min, max, presets, label, className }: {
+export function SizeControl({ value, onChange, min, max, presets, label, commonLabel, pixelsLabel, className }: {
   value: number;
   onChange: (size: number) => void;
   min: number;
   max: number;
   presets: number[];
   label: string;
+  commonLabel: string;
+  pixelsLabel: string;
   className?: string;
 }) {
   // What is being typed, which may be unfinished or out of range. Null when not typing.
@@ -40,7 +42,7 @@ export function SizeControl({ value, onChange, min, max, presets, label, classNa
 
   return (
     <div className={cn("flex items-center gap-2.5", className)}>
-      <div role="group" aria-label={`Common ${label.toLowerCase()}s`} className="relative isolate flex shrink-0">
+      <div role="group" aria-label={commonLabel} className="relative isolate flex shrink-0">
         <Glide selector="[aria-pressed=true]" className="rounded-control bg-muted" />
         {presets.map((size) => {
           const on = size === value;
@@ -70,7 +72,7 @@ export function SizeControl({ value, onChange, min, max, presets, label, classNa
         onKeyDown={onKey}
         onFocus={(e) => e.target.select()}
         inputMode="numeric"
-        aria-label={`${label} in pixels`}
+        aria-label={pixelsLabel}
         className="h-7 w-11 shrink-0 px-1 text-center text-caption tabular-nums pointer-coarse:h-9 pointer-coarse:w-12 pointer-coarse:text-field"
       />
     </div>
