@@ -13,7 +13,7 @@ export default function Page() {
       <div className="my-5 space-y-5">
           <h2>How icons load and run</h2>
           <ul>
-            <li><strong>One module per icon.</strong> Icon modules are side-effect free, so bundlers remove icons you do not import.</li>
+            <li><strong>One module per icon.</strong> Icon modules are side-effect free, so bundlers remove icons you do not import. Minified and gzipped, the first React or Vue icon adds about 4 KB, including the shared runtime, and each further icon about 0.6 KB.</li>
             <li><strong>Pre-rendered markup.</strong> The rest pose ships as a string, so it needs no calculation before first paint, on the server or in the browser.</li>
             <li><strong>Motion on demand.</strong> The motion code runs only while an icon is moving and stops when the motion ends.</li>
             <li><strong>Shared code.</strong> All icons share one geometry module, and all animated icons share one runtime, so browsers and CDNs cache that code once.</li>

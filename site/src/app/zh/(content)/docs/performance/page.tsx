@@ -13,7 +13,7 @@ export default function Page() {
       <div className="my-5 space-y-5">
           <h2>图标的加载与运行</h2>
           <ul>
-            <li><strong>每个图标一个模块。</strong>图标模块没有副作用，打包工具会移除未导入的图标。</li>
+            <li><strong>每个图标一个模块。</strong>图标模块没有副作用，打包工具会移除未导入的图标。压缩后，第一个 React 或 Vue 图标约增加 4 KB（含共享运行时），之后每个图标约增加 0.6 KB。</li>
             <li><strong>预渲染的SVG 代码。</strong>静止状态以字符串形式发布，无论在服务器还是浏览器中，首次绘制前都无需计算。</li>
             <li><strong>按需运行动效。</strong>动效代码只在图标运动时运行，动效结束即停止。</li>
             <li><strong>共享代码。</strong>所有图标共用一个几何模块，所有动态图标共用一个运行时，因此浏览器和 CDN 只需缓存一份。</li>

@@ -99,7 +99,8 @@ if (targets.has('core') || targets.has('site')) {
   write(path.join(dist, 'icon.d.ts'), `export * from './types.js';\n`);
   write(path.join(dist, 'color.d.ts'), `export declare const VARIANTS: Record<'color' | 'soft', Record<string, string>>;\n`);
   write(path.join(dist, 'icons', 'index.d.ts'), '');
-  for (const ic of icons) write(path.join(dist, 'icons', `${ic.name}.d.ts`), `import type { KubaiIconData } from '../types.js';\ndeclare const icon: KubaiIconData;\nexport default icon;\n`);
+  // Every icon module has the same type, so one declaration serves them all and installs stay small.
+  write(path.join(dist, 'icon-module.d.ts'), `import type { KubaiIconData } from './types.js';\ndeclare const icon: KubaiIconData;\nexport default icon;\n`);
   console.log(`kubai-icons → packages/core/dist`);
 }
 
@@ -114,8 +115,8 @@ for (const fw of ['react', 'vue']) {
     const P = pascal(ic.name);
     // React components hold motion state, so each one is a client module for React Server Components.
     write(path.join(dist, 'icons', `${ic.name}.js`), `${fw === 'react' ? "'use client';\n" : ''}import data from 'kubai-icons/icons/${ic.name}';\nimport { createKubaiIcon } from '../create.js';\nexport default /* @__PURE__ */ createKubaiIcon('${P}', data);\n`);
-    write(path.join(dist, 'icons', `${ic.name}.d.ts`), `import type { KubaiIconComponent } from '../create.js';\ndeclare const ${P}: KubaiIconComponent;\nexport default ${P};\n`);
   }
+  write(path.join(dist, 'icon-module.d.ts'), `import type { KubaiIconComponent } from './create.js';\ndeclare const icon: KubaiIconComponent;\nexport default icon;\n`);
   const lines = icons.map((ic) => { const P = pascal(ic.name); return `export { default as ${P}, default as ${P}Icon } from './icons/${ic.name}.js';`; });
   write(path.join(dist, 'index.js'), `export { createKubaiIcon, KubaiIcon } from './create.js';\nexport { setVariant, VARIANTS } from 'kubai-icons/runtime';\n${lines.join('\n')}\n`);
   write(path.join(dist, 'index.d.ts'), `export * from './create.js';\nexport { setVariant, VARIANTS } from 'kubai-icons/runtime';\nimport type { KubaiIconComponent } from './create.js';\n${icons.map((ic) => { const P = pascal(ic.name); return `/** ${ic.name} */\nexport declare const ${P}: KubaiIconComponent;\nexport declare const ${P}Icon: KubaiIconComponent;`; }).join('\n')}\n`);
