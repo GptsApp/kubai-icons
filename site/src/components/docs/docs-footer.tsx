@@ -30,7 +30,7 @@ export function DocsFooter() {
     <div className="mt-12 max-w-3xl space-y-3">
       {path === "/skill" ? null : <SkillPrompt />}
       <aside className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 rounded-card border px-5 py-4">
-        <p className="text-body">{tr("Found a problem, or need a component that isn’t here?", "发现问题，或需要其他组件？")}</p>
+        <p className="text-body">{tr("Found a problem, or need an icon that isn’t here?", "发现问题，或没有找到需要的图标？")}</p>
         <div className="flex flex-wrap gap-2">
           <FeedbackLink className={action}><RiGithubLine data-icon="inline-start" />{tr("Open an issue", "提交 Issue")}</FeedbackLink>
           <AuthorLink place="docs_footer" className={action}><RiTwitterXLine data-icon="inline-start" />{tr("Message on X", "在 X 上联系")}</AuthorLink>

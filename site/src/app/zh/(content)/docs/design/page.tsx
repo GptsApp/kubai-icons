@@ -7,7 +7,7 @@ export const metadata = pageMeta({ title: "图标设计语言", path: "/zh/docs/
 export default function Page() {
   return (
     <Prose>
-      <Title lead={"设计语言规定了所有图标共用的画布、图层、描边、颜色、内部图形和动效。文中尺寸均以画布单位计。"}>
+      <Title lead={"所有图标共用的画布、图层、描边、颜色、内部图形和动效规范。文中尺寸均以画布单位计。"}>
         设计语言
       </Title>
       <div className="my-5 space-y-5">

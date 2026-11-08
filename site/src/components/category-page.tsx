@@ -19,6 +19,13 @@ const leadFor = (count: number, name: string, locale: Locale) =>
     `“${name}”分类共有 ${count} 个开源图标，提供 React、Vue 组件、Web Component 和静态 SVG，每个图标都有各自的悬停动效。`,
   );
 const titleFor = (name: string, locale: Locale) => pick(locale, `${name} icons`, `${name}图标`);
+// Shown under the title, so unlike the search description it leaves out the category name.
+const visibleLead = (count: number, locale: Locale) =>
+  pick(
+    locale,
+    `${count} open-source animated icons for React, Vue and the web, each with its own hover motion and available as static SVG.`,
+    `共 ${count} 个开源图标，提供 React、Vue 组件、Web Component 和静态 SVG，每个图标都有各自的悬停动效`,
+  );
 
 export function categoryMeta(id: string, locale: Locale): Metadata {
   const category = categoryById(id);
@@ -46,7 +53,7 @@ export function CategoryPageBody({ id, locale }: { id: string; locale: Locale })
       />
       <Breadcrumbs trail={[{ name: pick(locale, "Icons", "图标"), path: localize("/icons/", locale) }, { name, path: localize(`/icons/category/${id}/`, locale) }]} />
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <Heading level={1} title={titleFor(name, locale)} lead={leadFor(icons.length, name, locale)} />
+        <Heading level={1} title={titleFor(name, locale)} lead={visibleLead(icons.length, locale)} />
         <Button variant="outline" render={<Link href={localize(`/icons/?category=${id}`, locale)} prefetch={false} />}>{pick(locale, "Search and recolor", "在图标库中查看")}</Button>
       </div>
       <IconLinks icons={icons} locale={locale} />

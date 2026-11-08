@@ -6,7 +6,7 @@ export const metadata = pageMeta({ title: "JavaScript 图标与 Web Component", 
 export default function Page() {
   return (
     <Prose>
-      <Title lead={<><code>kubai-icons</code> 通过原生 JavaScript 创建图标，并提供 <code>&lt;kubai-icon&gt;</code> Web Component。</>}>
+      <Title lead={<><code>kubai-icons</code> 通过原生 JavaScript 创建图标，并提供 <code>&lt;kubai-icon&gt;</code> Web Component</>}>
         JavaScript
       </Title>
       <h2>安装</h2>

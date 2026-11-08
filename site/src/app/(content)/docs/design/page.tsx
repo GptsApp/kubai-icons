@@ -7,7 +7,7 @@ export const metadata = pageMeta({ title: "Icon design language", path: "/docs/d
 export default function Page() {
   return (
     <Prose>
-      <Title lead={"The design language defines the canvas, layers, outlines, color, marks and motion shared by all icons. Measurements are in canvas units."}>
+      <Title lead={"The canvas, layers, outlines, color, marks and motion shared by all icons. Measurements are in canvas units."}>
         Design language
       </Title>
       <div className="my-5 space-y-5">

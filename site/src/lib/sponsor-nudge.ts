@@ -1,6 +1,7 @@
 import { createElement } from "react";
 import { Heart } from "kubai-icons-react";
 import { toast } from "sonner";
+import { browserLocale, localize, pick } from "./i18n";
 import { asset } from "./site";
 
 const KEY = "kubai-sponsor-nudged";
@@ -30,9 +31,10 @@ export function nudgeSponsor() {
   }
   window.setTimeout(() => {
     if (host?.()) return;
-    toast("Kubai Icons is free to use.", {
+    const locale = browserLocale();
+    toast(pick(locale, "Kubai Icons is free to use.", "Kubai Icons 免费使用"), {
       icon: createElement(Heart, { size: 16, color: "#EC4899" }),
-      action: { label: "Sponsor", onClick: () => window.open(asset("/sponsor/"), "_blank", "noopener") },
+      action: { label: pick(locale, "Sponsor", "赞助"), onClick: () => window.open(asset(localize("/sponsor/", locale)), "_blank", "noopener") },
     });
   }, DELAY);
 }

@@ -6,7 +6,7 @@ export const metadata = pageMeta({ title: "图标无障碍", path: "/zh/docs/acc
 export default function Page() {
   return (
     <Prose>
-      <Title lead={"本页说明图标对屏幕阅读器、键盘、触摸输入及减弱动态效果设置工作"}>
+      <Title lead={"本页说明图标如何配合屏幕阅读器、键盘、触摸输入和减弱动态效果设置"}>
         无障碍
       </Title>
       <h2>无障碍名称</h2>

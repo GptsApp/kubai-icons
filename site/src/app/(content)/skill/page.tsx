@@ -8,7 +8,7 @@ export const metadata = pageMeta({ title: "Agent skill for drawing icons", path:
 export default function Page() {
   return (
     <Prose>
-      <Title lead={"The Kubai Icons skill draws new icons in the style of the library. It works with Claude Code, Codex and other coding agents."}>
+      <Title lead={"Draws new icons in the style of the library. Works with Claude Code, Codex and other coding agents."}>
         Kubai Icons skill
       </Title>
       <div className="my-5 space-y-5">

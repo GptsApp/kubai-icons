@@ -8,7 +8,7 @@ export const metadata = pageMeta({ title: "绘制图标的智能体 Skill", path
 export default function Page() {
   return (
     <Prose>
-      <Title lead={"Kubai Icons Skill 按图标库的风格绘制新图标，可用于 Claude Code、Codex 和其他编程智能体"}>
+      <Title lead={"按图标库的风格绘制新图标，可用于 Claude Code、Codex 和其他编程智能体"}>
         Kubai Icons Skill
       </Title>
       <div className="my-5 space-y-5">

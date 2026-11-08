@@ -7,7 +7,7 @@ export const metadata = pageMeta({ title: "Vue 3 动态图标", path: "/zh/docs/
 export default function Page() {
   return (
     <Prose>
-      <Title lead={<><code>kubai-icons-vue</code> 将每个图标封装为一个 Vue 组件，要求 Vue 3.3 或更高版本。</>}>
+      <Title lead={<><code>kubai-icons-vue</code> 将每个图标封装为一个 Vue 组件，要求 Vue 3.3 或更高版本</>}>
         Vue
       </Title>
       <h2>安装</h2>

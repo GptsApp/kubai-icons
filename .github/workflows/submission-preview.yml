@@ -1,0 +1,59 @@
+name: Submission preview
+
+# Puts a side-by-side preview on each icon submission for a maintainer to judge by eye.
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  preview:
+    if: contains(github.event.issue.labels.*.name, 'icon submission') || startsWith(github.event.issue.title, '[Icon submission]')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: submission-preview-${{ github.event.issue.number }}
+      cancel-in-progress: true
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE: ${{ github.event.issue.number }}
+    steps:
+      # Submissions posted with the GitHub CLI by people outside the repository carry no label.
+      - name: Label the submission
+        run: gh issue edit "$ISSUE" --repo "$GITHUB_REPOSITORY" --add-label 'icon submission'
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      # Ubuntu 24.04 blocks the user namespaces Chrome's sandbox needs.
+      - name: Allow Chrome's sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Render the preview
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: node tools/preview-submission.mjs "$RUNNER_TEMP/preview"
+      - name: Publish the image
+        id: image
+        run: |
+          [ -f "$RUNNER_TEMP/preview/preview.png" ] || exit 0
+          mkdir "$RUNNER_TEMP/images" && cd "$RUNNER_TEMP/images"
+          git init -q
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git fetch -q --depth=1 origin submission-previews; then git checkout -q -b submission-previews FETCH_HEAD; else git checkout -q --orphan submission-previews; fi
+          cp "$RUNNER_TEMP/preview/preview.png" "$ISSUE.png"
+          git add "$ISSUE.png"
+          git diff --cached --quiet || git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "chore: preview for issue $ISSUE"
+          git push -q origin submission-previews
+          echo "url=https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/submission-previews/$ISSUE.png?v=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Post or update the comment
+        env:
+          IMAGE: ${{ steps.image.outputs.url }}
+        run: |
+          comment="$RUNNER_TEMP/preview/comment.md"
+          sed -i "s|__PREVIEW__|$IMAGE|" "$comment"
+          id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" --paginate --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- kubai-submission-preview -->"))) | .id' | head -1)
+          if [ -n "$id" ]; then gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F "body=@$comment" >/dev/null; else gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" -F "body=@$comment" >/dev/null; fi

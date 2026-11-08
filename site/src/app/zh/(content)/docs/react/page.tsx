@@ -7,7 +7,7 @@ export const metadata = pageMeta({ title: "React 动态图标", path: "/zh/docs/
 export default function Page() {
   return (
     <Prose>
-      <Title lead={<><code>kubai-icons-react</code> 将每个图标封装为一个 React 组件，要求 React 18 或更高版本。</>}>
+      <Title lead={<><code>kubai-icons-react</code> 将每个图标封装为一个 React 组件，要求 React 18 或更高版本</>}>
         React
       </Title>
       <h2>安装</h2>
