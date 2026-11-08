@@ -16,7 +16,7 @@ export default defineIcon({
   target: (h) => ({ o: h ? 1 : 0 }),
   draw(p, E) {
     at(E.btn, { r: f(1.4 - 0.25 * span(p.o, 0, 0.3)) });
-    at(E.w1, { opacity: f(0.3 + 0.7 * span(p.o, 0.1, 0.5)) });
-    at(E.w2, { opacity: f(0.3 + 0.7 * span(p.o, 0.4, 0.85)) });
+    at(E.w1, { opacity: f(0.55 + 0.45 * span(p.o, 0.1, 0.5)) });
+    at(E.w2, { opacity: f(0.55 + 0.45 * span(p.o, 0.4, 0.85)) });
   }
 });

@@ -151,7 +151,7 @@ export function SubmitForm() {
               <button type="button" onClick={() => copyText(files())} className="tap relative text-foreground underline underline-offset-3">Copy again</button>
             </p>
           ) : (
-            <p className="text-caption text-muted-foreground">Your files stay in this browser until you post the issue. Posting needs a GitHub account.</p>
+            <p className="text-caption text-muted-foreground">Posting needs a GitHub account.</p>
           )}
         </div>
       </div>

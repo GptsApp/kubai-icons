@@ -16,8 +16,10 @@ export default defineIcon({
   svg: (u) => {
     const ear = 'M10.4 10C10.4 5 14 1.4 18.4 1.4C23 1.4 26.4 5 26.4 9.6C26.4 13.8 24 15.6 22.4 17.4C21 19 21.2 23.6 16.6 23.6C13.6 23.6 11.8 21.6 11.8 19.4Z';
     const inner = 'M14.6 10C14.6 7.4 16.4 5.4 18.6 5.4C21 5.4 22.6 7.2 22.6 9.6C22.6 11.8 21 12.8 19.8 14C18.8 15 18.2 16.2 17.2 16.2C15.6 16.2 14.6 13 14.6 10Z';
+    const curl = 'M20.7 7.7C21.9 9.7 21.2 11.8 19.3 13.3';
     return `<g data-n="e"><g filter="${u.sh}"><g filter="${u.hi}"><path d="${ear}" fill="${u.loS}"/></g></g><path d="${ear}" ${OL}/>
-      <g filter="${u.hi}"><path d="${inner}" fill="${u.upS}"/></g><path d="${inner}" ${OL}/></g>
+      <g filter="${u.hi}"><path d="${inner}" fill="${u.upS}"/></g><path d="${inner}" ${OL}/>
+      <path d="${curl}" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${DEEPS}/></g>
       <path data-n="w1" fill="none" stroke-width="2.2" stroke-linecap="round" ${DEEPS}/>
       <path data-n="w2" fill="none" stroke-width="2.2" stroke-linecap="round" ${DEEPS}/>`;
   },

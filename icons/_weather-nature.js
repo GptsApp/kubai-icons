@@ -38,7 +38,7 @@ export function crescent(O, C) {
 }
 
 /** The small cloud that rain, snow and hail fall from; its lower part is a front piece. */
-export const SKY = { L: [9.4, 11.4, 4.8], T: [15.8, 7.4, 6.2], Rc: [21.8, 11.6, 4.6], chord: 12.6 };
+export const SKY = { L: [8.8, 11.4, 4.8], T: [15.1, 7.2, 6.4], Rc: [22, 11.8, 4.4], chord: 13.8 };
 /** The cloud's layers, with markup drawn behind it and in front of it. */
 export function sky(u, behind = '', front = '') {
   const d = cloud(SKY.L, SKY.T, SKY.Rc), fr = frontPiece(SKY.L, SKY.Rc, SKY.chord, 2);

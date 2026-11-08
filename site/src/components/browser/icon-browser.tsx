@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useCallback, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { RiSearchLine } from "@remixicon/react";
+import { RiFileCopyLine, RiSearchLine } from "@remixicon/react";
+import { Search } from "kubai-icons-react";
+import { copyText } from "@/components/copy-button";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
@@ -9,10 +11,10 @@ import { Segmented } from "@/components/kit/segmented";
 import { SizeControl } from "@/components/kit/size-control";
 import { Swatches } from "@/components/kit/swatches";
 import { Glide } from "@/components/kit/glide";
-import { chip, navItem, raised } from "@/components/kit/styles";
+import { chip, navItem, raised, tile as tileStyle } from "@/components/kit/styles";
 import { loadIndex, loadKeywords, matchedKeyword, prepare, searchObjects, type Category, type IconIndex, type IconMeta, type Searchable } from "@/lib/icons";
 import { track } from "@/lib/analytics";
-import { asset, requestUrl } from "@/lib/site";
+import { agentPrompt, asset, requestUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { IconGrid } from "./icon-grid";
 import { IconDialog } from "./icon-dialog";
@@ -42,7 +44,7 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
   const [openColor, setOpenColor] = useState<string | null>(null);
   // While on, clicking a tile adds it to the collection instead of opening it.
   const [selecting, setSelecting] = useState(false);
-  // The list fades only when the visitor changes it, never when the page loads.
+  // The list moves only when the visitor changes it, never when the page loads.
   const [refiltered, setRefiltered] = useState(false);
   // Only a slider drag lets the grid trail the size; a saved size applies at once.
   const [sizing, setSizing] = useState(false);
@@ -83,16 +85,19 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
   // A new category or query starts from the top of the grid, not somewhere in the middle
   // of a list that has just changed under the page. The page stops exactly where the
   // toolbar sticks, so the toolbar and the sidebar stay where they were.
+  const restScroll = useCallback(() => {
+    const toolbar = bar.current, column = toolbar?.parentElement;
+    if (!toolbar || !column) return Infinity;
+    const stuckAt = parseFloat(getComputedStyle(toolbar).top) || (document.querySelector("header")?.offsetHeight ?? 0);
+    const pulledUp = parseFloat(getComputedStyle(toolbar).marginTop) || 0;
+    return Math.ceil(column.getBoundingClientRect().top + window.scrollY + pulledUp - stuckAt);
+  }, []);
   const first = useRef(true);
   useLayoutEffect(() => {
     if (first.current) { first.current = false; return; }
-    const toolbar = bar.current, column = toolbar?.parentElement;
-    if (!toolbar || !column) return;
-    const stuckAt = parseFloat(getComputedStyle(toolbar).top) || (document.querySelector("header")?.offsetHeight ?? 0);
-    const pulledUp = parseFloat(getComputedStyle(toolbar).marginTop) || 0;
-    const top = Math.ceil(column.getBoundingClientRect().top + window.scrollY + pulledUp - stuckAt);
+    const top = restScroll();
     if (window.scrollY > top) window.scrollTo({ top, behavior: "instant" });
-  }, [cat, query]);
+  }, [cat, query, restScroll]);
 
   // Search analytics: one event per settled query.
   useEffect(() => {
@@ -150,7 +155,7 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
             <Input
               ref={input}
               value={q}
-              onChange={(e) => setQ(e.target.value)}
+              onChange={(e) => { setRefiltered(true); setQ(e.target.value); }}
               placeholder="Search by name, shape or meaning"
               className="h-11 rounded-card pr-16 pl-10 text-field"
               aria-label="Search icons"
@@ -199,24 +204,32 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
           </div>
           </div>
         </div>
-        <div key={cat} className={cn("min-h-dvh", refiltered && "swap-in")}>
+        <div className="min-h-dvh">
           {failed ? (
             <div className="grid place-items-center gap-3 rounded-panel border border-dashed py-20 text-center">
               <p className="text-muted-foreground">The icons could not be loaded.</p>
               <Button variant="outline" size="xl" onClick={load}>Try again</Button>
             </div>
           ) : index && results.length === 0 ? (
-            <div className="grid place-items-center gap-3 rounded-panel border border-dashed py-20 text-center">
-              <p className="text-muted-foreground">No results.</p>
-              <Button variant="outline" size="xl" render={<a href={requestUrl(query)} target="_blank" rel="noreferrer" onClick={() => track("request_icon", { q: query })} />}>
-                Request icon
-              </Button>
-              <Button variant="ghost" size="xl" className="text-muted-foreground" render={<Link href="/icons/submit/" />}>
-                Submit your own
-              </Button>
+            <div className={cn("flex flex-col items-center px-4 py-20 text-center", refiltered && "swap-in")} data-kubai-trigger>
+              <div className={cn(tileStyle({ interactive: false }), "size-20")}>
+                <Search size={40} color="#5393FF" trigger="parent" />
+              </div>
+              <h2 className="mt-5 max-w-full truncate text-subheading font-semibold">
+                {query.trim() ? `No icons for “${query.trim()}”` : "No icons here yet"}
+              </h2>
+              <div className="mt-5 flex flex-wrap justify-center gap-2">
+                <Button render={<a href={requestUrl(query)} target="_blank" rel="noreferrer" onClick={() => track("request_icon", { q: query })} />}>
+                  Request this icon
+                </Button>
+                <Button variant="outline" onClick={() => { copyText(agentPrompt(query)); track("request_icon", { q: query, via: "agent_prompt" }); }}>
+                  <RiFileCopyLine data-icon="inline-start" />
+                  Copy agent prompt
+                </Button>
+              </div>
             </div>
           ) : (
-            <IconGrid icons={results} tile={tile} size={gridSize} color={prefs.color} variant={prefs.variant} selecting={selecting} hits={hits} onOpen={openIcon} />
+            <IconGrid icons={results} tile={tile} size={gridSize} color={prefs.color} variant={prefs.variant} selecting={selecting} hits={hits} animateChanges={refiltered} restScroll={restScroll} onOpen={openIcon} />
           )}
         </div>
       </div>

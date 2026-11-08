@@ -15,9 +15,9 @@ export default defineIcon({
     <g filter="${u.hi}"><path data-n="front" fill="${u.upS}"/></g>
     <path data-n="frontO" ${OL}/>`,
   target: (h) => ({
-    L: [9.2, 15.8, h ? 6.3 : 6], T: [15.8, 9.6, h ? 8.4 : 8], Rc: [22.2, 16.2, h ? 5.9 : 5.6],
+    L: [9, 15.9, h ? 6 : 5.7], T: [15.8, 10, h ? 7.8 : 7.5], Rc: [22.3, 16.4, h ? 5.5 : 5.2],
     tip: h ? 4.8 : 6.4,
-    chord: h ? 17.6 : 16.8
+    chord: h ? 18.8 : 18.2
   }),
   draw(p, E) {
     const d = cloud(p.L, p.T, p.Rc);

@@ -31,6 +31,9 @@ export const reportIconUrl = (name: string) => `${REPO}/issues/new?template=icon
 /** The issue form for submitting an icon, with its name and motion filled in. */
 export const submitUrl = (name: string, motion: string) =>
   `${REPO}/issues/new?template=icon-submission.yml&title=${encodeURIComponent(`[Icon submission] ${name}`)}&name=${encodeURIComponent(name)}&motion=${encodeURIComponent(motion)}`;
+/** A prompt that has a coding agent draw an icon with the skill, installing it if needed. */
+export const agentPrompt = (query = "") =>
+  `Draw ${query.trim() ? `a "${query.trim()}" icon` : "a new icon"} with the Kubai Icons skill. If the skill is not installed, clone ${REPO} into your skills folder as kubai-icons first, then follow its SKILL.md.`;
 /** A prefilled GitHub issue for an icon request. */
 export const requestUrl = (query = "") =>
   `${REPO}/issues/new?template=icon-request.yml${query ? `&title=${encodeURIComponent(`[Icon request] ${query}`)}` : ""}`;

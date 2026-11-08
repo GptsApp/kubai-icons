@@ -7,7 +7,7 @@ export default defineIcon({
   category: 'home',
   tags: ['light', 'flame', 'candlelight', 'romantic', 'wax', '烛光'],
   variants: ['heart'],
-  // A candle on a dish; it lights on hover, the flame growing from the wick.
+  // A lit candle on a dish; on hover the flame grows from the wick.
   svg: (u) => {
     const dish = rr(6.2, 19.8, 18.6, 3.6, 1.8), wax = rr(10.8, 8.8, 9.4, 13, 1.8), fl = flame(15.5, 6.8, 5, 7.4);
     return `<g data-n="fl"><g filter="${u.sh}"><g filter="${u.hi}"><path d="${fl}" fill="${u.loS}"/></g></g><path d="${fl}" ${OL}/></g>
@@ -15,7 +15,7 @@ export default defineIcon({
       <g filter="${u.sh}"><g filter="${u.hi}"><path d="${dish}" fill="${u.loS}"/></g></g><path d="${dish}" ${OL}/>
       <g filter="${u.sh}"><g filter="${u.hi}"><path d="${wax}" fill="${u.upS}"/></g></g><path d="${wax}" ${OL}/>`;
   },
-  target: (h) => ({ s: h ? 1 : 0 }),
+  target: (h) => ({ s: h ? 1 : 0.55 }),
   draw(p, E) {
     const s = clamp01(p.s);
     at(E.fl, { transform: scaleAt(Math.max(0.001, s), 15.5, 6.8), opacity: f(clamp01(s * 4)) });
