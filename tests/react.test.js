@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createElement, act } from 'react';
 import { renderToString } from 'react-dom/server';
 import { createRoot } from 'react-dom/client';
@@ -29,8 +29,7 @@ describe('kubai-icons-react', () => {
     await act(async () => root.render(createElement(Folder, { hover: false })));
     const d0 = host.querySelector('[data-n="front"]').getAttribute('d');
     await act(async () => root.render(createElement(Folder, { hover: true })));
-    await new Promise((r) => setTimeout(r, 700));
-    expect(host.querySelector('[data-n="front"]').getAttribute('d')).not.toBe(d0);
+    await vi.waitFor(() => expect(host.querySelector('[data-n="front"]').getAttribute('d')).not.toBe(d0), { timeout: 5000, interval: 50 });
     await act(async () => root.unmount());
   });
 
