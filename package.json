@@ -1,0 +1,37 @@
+{
+  "name": "kubai-icons-monorepo",
+  "private": true,
+  "type": "module",
+  "description": "Kubai Icons: an icon library and the agent skill that draws it.",
+  "license": "SEE LICENSE IN LICENSING.md",
+  "workspaces": [
+    "packages/*",
+    "site"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "build:packages": "node tools/build.mjs --only core,react,vue,static",
+    "validate": "node tools/validate.mjs",
+    "check": "node tools/check.mjs",
+    "test": "vitest run",
+    "site:dev": "npm run build -- --only core,react,site && npm run dev -w site",
+    "site:build": "npm run build -- --only core,react,site && npm run build -w site",
+    "skill:check": "node scripts/check.mjs",
+    "skill:pack": "node scripts/pack.mjs",
+    "changeset": "changeset",
+    "release": "npm run build:packages && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^2.29.7",
+    "esbuild": "^0.25.10",
+    "jsdom": "^27.0.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "vitest": "^3.2.4",
+    "vue": "^3.5.22"
+  }
+}

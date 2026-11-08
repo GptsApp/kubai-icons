@@ -1,43 +1,68 @@
-name: Deploy GitHub Pages
+name: Deploy site
 
 on:
   push:
     branches: [master]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # The site, on Cloudflare Pages. Analytics turns on only when the repository defines
+  # these variables.
+  cloudflare:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build the packages and site data
+        run: npm run build
+      - name: Test
+        run: npm test
+      - name: Build the site
+        run: npm run build -w site
+        env:
+          NEXT_PUBLIC_SITE_URL: https://icons.kubai.design
+          NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${{ vars.UMAMI_WEBSITE_ID }}
+          NEXT_PUBLIC_UMAMI_SRC: ${{ vars.UMAMI_SRC }}
+          NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ vars.PLAUSIBLE_DOMAIN }}
+      - name: Publish
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site/out --project-name=kubai-icons --branch=master
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  # The previous address, on GitHub Pages, forwards visitors to the site.
+  forward-old-address:
+    needs: cloudflare
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      # Only the gallery and its link preview image are published; the rules and the
-      # scripts stay in the repository.
-      - name: Collect the gallery
+      - uses: actions/checkout@v6
+      - name: Prepare the forwarding page
         run: |
-          mkdir -p _site/assets
-          cp -R index.html src _site/
-          cp assets/social.png _site/assets/
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+          mkdir forward
+          cp tools/forward.html forward/index.html
+          cp tools/forward.html forward/404.html
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
-
-      - name: Deploy
-        id: deployment
+          path: forward
+      - id: deployment
         uses: actions/deploy-pages@v4

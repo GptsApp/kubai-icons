@@ -1,0 +1,10 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "kubai087/kubai-icons" }],
+  "commit": false,
+  "fixed": [["kubai-icons", "kubai-icons-react", "kubai-icons-vue", "kubai-icons-static"]],
+  "access": "public",
+  "baseBranch": "master",
+  "updateInternalDependencies": "patch",
+  "ignore": ["kubai-icons-site"]
+}

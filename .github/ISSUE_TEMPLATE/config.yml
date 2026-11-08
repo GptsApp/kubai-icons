@@ -1,1 +1,8 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Browse the icons
+    url: https://icons.kubai.design/icons/
+    about: Search every icon before requesting one.
+  - name: Documentation
+    url: https://icons.kubai.design/docs/
+    about: Install and usage guides for React, Vue, JavaScript and static SVG.

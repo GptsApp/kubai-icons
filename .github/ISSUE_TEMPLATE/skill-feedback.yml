@@ -1,19 +1,19 @@
-name: Skill feedback · Skill 反馈
-description: A rule in PROMPT.md or SKILL.md was unclear, contradictory or missing. PROMPT.md 或 SKILL.md 里的规则不清楚、互相矛盾或缺失。
+name: Skill feedback
+description: A rule in PROMPT.md or SKILL.md was unclear, contradictory or missing.
 labels: [skill]
 body:
   - type: textarea
     id: rule
     attributes:
-      label: The rule · 相关规则
-      description: The section number and a short quote. 章节号和简短引用。
-      placeholder: "PROMPT.md §4: 要么正好贴住、要么离开 2 个单位以上"
+      label: The rule
+      description: The section number and a short quote.
+      placeholder: "PROMPT.md §4"
     validations:
       required: true
   - type: textarea
     id: decision
     attributes:
-      label: What you had to decide · 你不得不自己决定的事
-      description: The icon you were drawing, what the rule left open, and what you chose. A screenshot helps. 当时在画哪个图标、规则没说清什么、你最后怎么选的。附截图更好。
+      label: What you had to decide
+      description: The icon you were drawing, what the rule left open, and what you chose. A screenshot helps.
     validations:
       required: true

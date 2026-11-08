@@ -2,6 +2,8 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -12,30 +14,81 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
+  library:
+    name: Icons, packages and site
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Validate every icon
+        run: npm run validate
+      - name: Build the packages
+        run: npm run build
+      - name: Test
+        run: npm test
+      - name: Build the site
+        run: npm run build -w site
+      - name: Check package contents
+        run: |
+          for p in core react vue static; do (cd packages/$p && npm pack --dry-run >/dev/null); done
 
+  sheets:
+    name: Contact sheets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       # Ubuntu 24.04 blocks the user namespaces Chrome's sandbox needs.
       - name: Allow Chrome's sandbox
         run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
-
-      - name: Self-check every icon
-        run: node scripts/check.mjs
-
-      - name: Export every icon as static SVG
-        run: node scripts/export.mjs
-
-      - name: Upload screenshots
+      - name: Render the icons changed in this pull request
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --depth=1 origin ${{ github.base_ref }}
+          names=$(git diff --name-only FETCH_HEAD -- icons badges | sed -n 's#^icons/\([a-z0-9-]*\)\.js$#\1*#p' | paste -sd, -)
+          if [ -n "$names" ]; then node tools/check.mjs --only "$names" --with folder,mail,download; else echo "No icon changed."; fi
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: check-out
+          name: contact-sheets
           path: check-out/
+          if-no-files-found: ignore
+
+  skill:
+    name: Skill self-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Allow Chrome's sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Self-check every gallery icon
+        run: node scripts/check.mjs
+      - name: Export every gallery icon as static SVG
+        run: node scripts/export.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: skill-check-out
+          path: check-out/
+
+  # The status check required by the branch rule. A job skipped after a failed dependency
+  # counts as passing, so this one always runs and reads the results itself.
+  check:
+    name: check
+    needs: [library, skill]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require the library and skill jobs to pass
+        run: test "${{ needs.library.result }}" = success && test "${{ needs.skill.result }}" = success

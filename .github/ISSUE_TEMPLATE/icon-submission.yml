@@ -1,0 +1,45 @@
+name: Icon submission
+description: Send in an icon you drew with the skill or by hand.
+title: "[Icon submission] "
+labels: [icon submission]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The easiest way to fill this in is the [submission page](https://icons.kubai.design/icons/submit/), which checks your files first.
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: English, kebab-case, the object first.
+      placeholder: snow-globe
+    validations:
+      required: true
+  - type: input
+    id: motion
+    attributes:
+      label: What it does on hover
+      placeholder: The globe shakes and the snow swirls.
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files
+      description: Paste the SVG, and the icon's source file if you want its motion reviewed. The submission page copies this for you.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Screenshots from the self-check, or anything else the reviewer should know.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms
+      options:
+        - label: I made this icon with the Kubai Icons skill or by hand. It contains no logos or trademarks, and nothing traced or copied from another icon set.
+          required: true
+        - label: If it is accepted, I agree to publish it under the MIT License, credited to my GitHub account.
+          required: true

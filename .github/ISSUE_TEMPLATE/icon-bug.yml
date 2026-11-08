@@ -1,23 +1,28 @@
-name: Icon or tool bug · 图标或工具问题
-description: An icon looks or moves wrong, or the gallery or self-check fails. 图标显示或动效异常，或展示页、自检脚本出错。
+name: Icon or tool bug
+description: An icon looks or moves wrong, a package misbehaves, or the site, gallery or self-check fails.
 labels: [bug]
 body:
   - type: input
     id: icons
     attributes:
-      label: Icons · 图标
-      placeholder: 指南针, 闹钟
+      label: Icons
+      placeholder: compass, alarm-clock
     validations:
       required: true
   - type: textarea
     id: what
     attributes:
-      label: What happened · 发生了什么
-      description: What you expected, what you saw instead, the palette and size, and a screenshot. For a self-check failure, paste the command and its output. 预期效果、实际效果、色板和尺寸，并附截图。自检失败请贴上命令和输出。
+      label: What happened
+      description: What you expected, what you saw instead, the palette and size, and a screenshot. For a self-check failure, paste the command and its output.
     validations:
       required: true
   - type: input
+    id: package
+    attributes:
+      label: Package and version
+      placeholder: kubai-icons-react 0.1.0, React 19
+  - type: input
     id: env
     attributes:
-      label: Browser and system · 浏览器与系统
+      label: Browser and system
       placeholder: Chrome 141 on macOS 26, Node 24

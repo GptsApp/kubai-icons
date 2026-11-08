@@ -1,0 +1,16 @@
+name: Site feedback
+description: An idea, a question, or something confusing or broken on the website.
+labels: [feedback]
+body:
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your feedback
+      description: What you were trying to do and what you would like to change. A screenshot helps.
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The page this is about, if any.

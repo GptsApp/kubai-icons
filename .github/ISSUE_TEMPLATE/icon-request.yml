@@ -1,0 +1,41 @@
+name: Icon request
+description: Ask for an icon the set doesn't have yet.
+title: "[Icon request] "
+labels: [icon request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search the [icon browser](https://icons.kubai.design/icons/) first; many states already exist as badges (`-plus`, `-check`, `-clock`, `-off` …).
+  - type: input
+    id: name
+    attributes:
+      label: Suggested name
+      description: English, kebab-case, the object first.
+      placeholder: watering-can
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: What it is for
+      description: The feature or screen it stands for, and where it will appear.
+    validations:
+      required: true
+  - type: textarea
+    id: object
+    attributes:
+      label: Object and hover motion
+      description: An everyday object that stands for it, and what the object itself would do on hover.
+      placeholder: A watering can tips forward and pours a few drops.
+  - type: textarea
+    id: refs
+    attributes:
+      label: References
+      description: Links or screenshots that show the meaning. No logos or icons from other sets to copy.
+  - type: checkboxes
+    id: draw
+    attributes:
+      label: Contribute
+      options:
+        - label: I'd like to draw it myself and open a pull request.

@@ -1,0 +1,43 @@
+name: Release
+
+# Versions and publishes the packages with Changesets. On master, it opens or updates a
+# "Version packages" pull request; merging that pull request publishes to npm.
+# Publishing uses npm trusted publishing (OIDC), configured once per package on npmjs.com.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run validate
+      - run: npm run build
+      - run: npm test
+      - name: Version or publish
+        uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          publish: npm run release
+          title: "chore(release): version packages"
+          commit: "chore(release): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

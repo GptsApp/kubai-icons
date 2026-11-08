@@ -1,0 +1,29 @@
+{
+  "name": "kubai-icons",
+  "version": "0.1.0",
+  "description": "Layered, colour-derived icons that move on hover. Framework-free core, web component and per-icon ES modules.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "./dist/element.js"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./icons/*": { "types": "./dist/icons/*.d.ts", "default": "./dist/icons/*.js" },
+    "./dynamic": { "types": "./dist/dynamic.d.ts", "default": "./dist/dynamic.js" },
+    "./element": { "types": "./dist/element.d.ts", "default": "./dist/element.js" },
+    "./runtime": { "types": "./dist/runtime.d.ts", "default": "./dist/runtime.js" },
+    "./icons.json": "./dist/icons.json",
+    "./categories.json": "./dist/categories.json",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "LICENSE", "README.md"],
+  "keywords": ["icons", "svg", "animated-icons", "icon-library", "web-component", "kubai"],
+  "homepage": "https://icons.kubai.design/",
+  "repository": { "type": "git", "url": "git+https://github.com/kubai087/kubai-icons.git", "directory": "packages/core" },
+  "bugs": "https://github.com/kubai087/kubai-icons/issues",
+  "publishConfig": { "access": "public", "provenance": true }
+}

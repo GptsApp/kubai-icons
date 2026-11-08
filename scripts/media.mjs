@@ -5,7 +5,6 @@
 //   assets/skill.webp     the icons drawn by a fresh session from the skill alone
 //   assets/palettes.webp  the same icons moving through every palette
 //   assets/social.png     the social preview card and README cover, 1280×640
-//   assets/social.zh-CN.png  the same card in Chinese, for the Chinese README
 //
 //   node scripts/media.mjs [--only hover,skill,palettes,social]
 //
@@ -149,8 +148,7 @@ function render(name, scene, work) {
 // The social card: name and promise on the left, a wall of icons on the right with every
 // other one caught at the end of its hover.
 const CARDS = {
-  'social': { tag: 'Claude skill', lines: ['Dynamic icons in one consistent style,', 'every time. Hover motion or static SVG.'] },
-  'social.zh-CN': { tag: 'Claude skill', lines: ['每次都能画出同一种风格的动态图标。', '可以带悬停动效，也可以导出静态 SVG。'] }
+  'social': { tag: 'Agent skill', lines: ['Dynamic icons in one consistent style,', 'every time. Hover motion or static SVG.'] }
 };
 
 function card(name, text, work) {
@@ -170,7 +168,7 @@ function card(name, text, work) {
     const card = document.createElement('div'); card.className = 'card';
     const text = ${JSON.stringify(text)};
     card.innerHTML = '<div class="copy"><span class="tag"></span><h1>Kubai Icons</h1><p></p>'
-      + '<div class="url">kubai.design/kubai-icons</div></div><div class="wall"></div>';
+      + '<div class="url">icons.kubai.design</div></div><div class="wall"></div>';
     card.querySelector('.tag').textContent = text.tag;
     const p = card.querySelector('p');
     text.lines.forEach((line, i) => { if (i) p.appendChild(document.createElement('br')); p.appendChild(document.createTextNode(line)); });

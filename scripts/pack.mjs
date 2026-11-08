@@ -21,7 +21,7 @@ const ref = opt('--ref', 'HEAD');
 const out = path.resolve(opt('--out', path.join(root, 'dist')));
 
 // What the skill needs at run time; the README media, history and repository tooling stay out.
-const FILES = ['SKILL.md', 'PROMPT.md', 'LICENSE', 'README.md', 'README.zh-CN.md', 'index.html', 'src', 'scripts/check.mjs', 'scripts/export.mjs'];
+const FILES = ['SKILL.md', 'PROMPT.md', 'LICENSE', 'README.md', 'index.html', 'src', 'scripts/check.mjs', 'scripts/export.mjs'];
 
 const git = (...a) => execFileSync('git', ['-C', root, ...a], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
 const skill = git('show', `${ref}:SKILL.md`);

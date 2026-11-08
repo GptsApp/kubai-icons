@@ -33,6 +33,7 @@ metadata:
 3. 确定在哪里做：
    - 新做一套：把本 skill 的 `index.html`、`src/`、`scripts/` 复制到目标位置（一个新目录或新仓库），在那份副本里工作。保留每个文件开头的版权声明；`PROMPT.md` 和 `SKILL.md` 只留在 skill 里，不要复制进去（见 `LICENSE` 第 3 条）。
    - 往已有的一套里加：直接在那份 `src/icons.js` 里追加。
+   - 往 kubai-icons 仓库的开源图标库里加：每个图标在 `icons/` 下单独一个文件，格式、命名和角标见 `docs/authoring.md`，自检用 `node tools/check.mjs --only 名字 --with folder,mail,download`。规则仍以 `PROMPT.md` 为准。
    - 只要静态：同样复制一份到工作目录里画，最后只把导出的 SVG 交给用户。
 4. 读产品代码，列出功能。动态版每个功能写一句"物体 + 悬停动作"；静态版只需要确定物体（`PROMPT.md` 第 1 节）。
 5. 每写一个图标之前，先在 `src/icons.js` 里找一两个结构最接近的范例读一遍（例如翻开的东西看信封和日历，切出前片的看下载和上传，会旋转的看齿轮和星标），照它们的写法来。
