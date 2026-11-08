@@ -2,7 +2,7 @@
   "name": "kubai-icons-monorepo",
   "private": true,
   "type": "module",
-  "description": "Kubai Icons: an icon library and the agent skill that draws it.",
+  "description": "Kubai Icons: an agent skill for drawing icons, with its icon library and website.",
   "license": "SEE LICENSE IN LICENSING.md",
   "workspaces": [
     "packages/*",

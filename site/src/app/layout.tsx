@@ -32,7 +32,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <TooltipProvider>
             <SiteHeader />
-            <main className="flex-1">{children}</main>
+            {/* At least a screen tall, so the footer never shows half-cut in the first view. */}
+            <main className="min-h-[calc(100svh-var(--header))] flex-1">{children}</main>
             <SiteFooter />
             {/* Clear of the collection bar, which sits at the same place. */}
             <Toaster position="bottom-center" offset={{ bottom: 84 }} mobileOffset={{ bottom: 84 }} />

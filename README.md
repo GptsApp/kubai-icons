@@ -3,15 +3,16 @@
 </p>
 
 <p align="center">
-  Layered like a folder, outlined outside the fill, coloured from a single accent,
-  and moving the way the object itself would when you hover, or exported as static SVG.
+  An agent skill that draws icons in one consistent style: layered like a folder, outlined
+  outside the fill, coloured from a single accent, and moving the way the object itself
+  would when you hover, or exported as static SVG.
 </p>
 
 <p align="center">
-  <a href="https://icons.kubai.design/icons/">Browse icons</a> ·
-  <a href="https://icons.kubai.design/docs/">Docs</a> ·
-  <a href="#use-the-icons">Use the icons</a> ·
   <a href="#install-the-skill">Install the skill</a> ·
+  <a href="https://icons.kubai.design/">Website</a> ·
+  <a href="#use-the-icons">Use the icons</a> ·
+  <a href="https://icons.kubai.design/docs/">Docs</a> ·
   <a href="PROMPT.md">Rules</a>
 </p>
 
@@ -19,68 +20,15 @@
   <img src="assets/hover.webp" alt="Sixteen icons opening one after another on hover: a folder opens, an envelope unseals, a calendar turns a page, a lock springs open, a gear turns" />
 </p>
 
-## Two things in one repository
+## What's in this repository
 
-- **An open-source icon library.** 2,613 icons (757 objects, plus versions with badges and slashed "off" versions) for React, Vue, plain JavaScript, web components and static SVG. MIT licensed.
-- **An agent skill.** The rules, engine and self-check that drew every one of those icons, ready to draw the ones your product is missing in the same hand. Works with Claude Code, Codex and other coding agents.
-
-## Use the icons
-
-| Package | For |
-| --- | --- |
-| [`kubai-icons-react`](packages/react) | React 18+ and Next.js, server rendering included |
-| [`kubai-icons-vue`](packages/vue) | Vue 3 and Nuxt |
-| [`kubai-icons`](packages/core) | Any page: a framework-free API and the `<kubai-icon>` web component |
-| [`kubai-icons-static`](packages/static) | Standalone SVG files for `<img>`, design tools, native apps and CDNs |
-
-```bash
-npm i kubai-icons-react
-```
-
-```tsx
-import { Folder, CalendarCheck } from "kubai-icons-react";
-
-<Folder />                                            {/* 24px, follows the text colour */}
-<CalendarCheck size={32} color="#22C55E" />           {/* any CSS colour */}
-<CalendarCheck variant="soft" badgeColor="semantic" /> {/* soft look, green badge */}
-
-<button data-kubai-trigger>
-  <Folder size={18} trigger="parent" /> Open          {/* plays when the button is hovered */}
-</button>
-```
-
-No build step? One script tag loads any icon on demand:
-
-```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/element.js"></script>
-<kubai-icon name="folder-plus" size="32" color="#6366F1"></kubai-icon>
-```
-
-- **Moves like the object.** Every icon has a rest pose and a hover pose, interpolated in 460ms. Hover, focus, a tap, a parent element or your own state can play it.
-- **One accent, every colour.** Gradients, outlines, marks and shadows derive from one colour through CSS, so icons follow `currentColor` and recolour without script. Badges stay black and white, or take semantic colours.
-- **Pay for what you use.** One side-effect-free ES module per icon, pre-rendered markup, server rendering, and a tiny runtime that only runs while an icon moves.
-- **Searchable.** Every icon has a name, a category and tags. Search them on the [website](https://icons.kubai.design/icons/), which also copies code and exports SVG or PNG in any colour.
-
-Guides for every package are in the [documentation](https://icons.kubai.design/docs/).
-
-### Working on the library
-
-Needs Node.js 20 or later; the contact sheets also need Chrome.
-
-```bash
-npm install
-npm run build        # every package, from icons/ and badges/
-npm run validate     # names, metadata and markup of every icon
-npm test
-node tools/check.mjs --only folder,mail --with download   # contact sheets in check-out/lib
-npm run site:dev     # the website
-```
-
-Each icon is one module in [`icons/`](icons); [`docs/authoring.md`](docs/authoring.md) explains the format.
+- **An agent skill.** The main project: the rules, engine and self-check that draw icons in one hand, for Claude Code, Codex and other coding agents. Give it a product and it draws the icons that product needs.
+- **A website.** [icons.kubai.design](https://icons.kubai.design/) searches every icon, recolours it, copies its code and downloads it as SVG or PNG. Its source is in [`site/`](site).
+- **An open-source icon library.** 2,613 icons drawn with the skill (757 objects, plus versions with badges and slashed "off" versions) for React, Vue, plain JavaScript, web components and static SVG. MIT licensed.
 
 ## The skill
 
-Kubai Icons is also a skill for coding agents. It is a folder of instructions and scripts, so any agent that can read files and run commands can use it, including Claude Code and Codex. We recommend Claude, which it was developed and tested with. Give it a feature list or a product's code, and it draws icons that sit next to the 66 in this repository as if the same designer had made them, either with hover motion or as static SVG files. The repository ships everything that makes that repeatable, so the model only has to decide what the icon is and draw its shapes:
+Kubai Icons is a skill for coding agents. It is a folder of instructions and scripts, so any agent that can read files and run commands can use it, including Claude Code and Codex. We recommend Claude, which it was developed and tested with. Give it a feature list or a product's code, and it draws icons that sit next to the 66 in this repository as if the same designer had made them, either with hover motion or as static SVG files. The repository ships everything that makes that repeatable, so the model only has to decide what the icon is and draw its shapes:
 
 | Part | What it does for the model |
 | --- | --- |
@@ -191,14 +139,6 @@ Every icon is a back piece, optional white content and a front piece, like a fol
 
 Seven palettes come with the set: one colour per icon, five clear tones built from a single base colour (blue-grey, celadon, mint, lavender, apricot), and black. Changing palette animates the colours too.
 
-## Live gallery
-
-<p align="center">
-  <a href="https://icons.kubai.design/"><img src="assets/gallery.png" alt="The gallery: 66 icons in 11 columns, with the palette switcher and demo switch above them" /></a>
-</p>
-
-[icons.kubai.design](https://icons.kubai.design/) shows the whole library: search it, change colours, and hover any icon to see it move. The skill's own gallery, pictured above with its palette and demo switches, opens locally from `index.html`.
-
 ## Self-check
 
 Needs Node.js 18 or later and Chrome. Everything runs headless; no window opens.
@@ -217,12 +157,77 @@ node scripts/check.mjs --only 剪刀,地图 --with 文件夹,邮件,下载
 
 `CHROME` overrides the browser path. The animations in this README come from `node scripts/media.mjs`, which also needs `ffmpeg` and `img2webp`.
 
+## The website
+
+<p align="center">
+  <a href="https://icons.kubai.design/"><img src="assets/gallery.png" alt="The gallery: 66 icons in 11 columns, with the palette switcher and demo switch above them" /></a>
+</p>
+
+[icons.kubai.design](https://icons.kubai.design/) shows the whole library: search by name, shape or meaning, change colours, hover any icon to see it move, save a collection and download it as a ZIP. Icons you draw can be [submitted](https://icons.kubai.design/icons/submit/) there too.
+
+The website's source is in [`site/`](site), a static Next.js export; `npm run site:dev` runs it locally. The skill's own gallery, pictured above with its palette and demo switches, opens locally from `index.html`.
+
+## Use the icons
+
+| Package | For |
+| --- | --- |
+| [`kubai-icons-react`](packages/react) | React 18+ and Next.js, server rendering included |
+| [`kubai-icons-vue`](packages/vue) | Vue 3 and Nuxt |
+| [`kubai-icons`](packages/core) | Any page: a framework-free API and the `<kubai-icon>` web component |
+| [`kubai-icons-static`](packages/static) | Standalone SVG files for `<img>`, design tools, native apps and CDNs |
+
+```bash
+npm i kubai-icons-react
+```
+
+```tsx
+import { Folder, CalendarCheck } from "kubai-icons-react";
+
+<Folder />                                            {/* 24px, follows the text colour */}
+<CalendarCheck size={32} color="#22C55E" />           {/* any CSS colour */}
+<CalendarCheck variant="soft" badgeColor="semantic" /> {/* soft look, green badge */}
+
+<button data-kubai-trigger>
+  <Folder size={18} trigger="parent" /> Open          {/* plays when the button is hovered */}
+</button>
+```
+
+No build step? One script tag loads any icon on demand:
+
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/element.js"></script>
+<kubai-icon name="folder-plus" size="32" color="#6366F1"></kubai-icon>
+```
+
+- **Moves like the object.** Every icon has a rest pose and a hover pose, interpolated in 460ms. Hover, focus, a tap, a parent element or your own state can play it.
+- **One accent, every colour.** Gradients, outlines, marks and shadows derive from one colour through CSS, so icons follow `currentColor` and recolour without script. Badges stay black and white, or take semantic colours.
+- **Pay for what you use.** One side-effect-free ES module per icon, pre-rendered markup, server rendering, and a tiny runtime that only runs while an icon moves.
+- **Searchable.** Every icon has a name, a category and tags. Search them on the [website](https://icons.kubai.design/icons/), which also copies code and exports SVG or PNG in any colour.
+
+Guides for every package are in the [documentation](https://icons.kubai.design/docs/).
+
+### Working on the library
+
+Needs Node.js 20 or later; the contact sheets also need Chrome.
+
+```bash
+npm install
+npm run build        # every package, from icons/ and badges/
+npm run validate     # names, metadata and markup of every icon
+npm test
+node tools/check.mjs --only folder,mail --with download   # contact sheets in check-out/lib
+npm run site:dev     # the website
+```
+
+Each icon is one module in [`icons/`](icons); [`docs/authoring.md`](docs/authoring.md) explains the format.
+
 ## Contributing
 
 There are several ways in:
 
 - **Improve the skill.** Report a rule that left you guessing, run a blind test with a fresh session, or fix a script. Rule changes start from an issue.
 - **Add an icon to the library.** Draw it with the skill (or by hand) as a module in `icons/`, check it with `tools/check.mjs`, and open a pull request. Merged icons are credited to you on the website.
+- **Submit an icon without a pull request.** The [submission page](https://icons.kubai.design/icons/submit/) checks your files and prepares an issue.
 - **Request an icon.** Open an [icon request](https://github.com/kubai087/kubai-icons/issues/new?template=icon-request.yml) with the object and what it should do on hover.
 - **Add an example to the skill's gallery.** Design an icon with the skill and open a pull request. Once merged, it joins the gallery, credited to you when someone hovers it.
 

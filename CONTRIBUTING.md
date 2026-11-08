@@ -1,6 +1,6 @@
 # Contributing to Kubai Icons
 
-Thanks for helping with Kubai Icons. This repository is both an open-source icon library and the agent skill that draws it. You can add or fix library icons, improve the packages and the website, make the skill better, or add an example to the skill's gallery.
+Thanks for helping with Kubai Icons. This repository holds an agent skill, the open-source icon library drawn with it, and the website. You can make the skill better, add or fix library icons, improve the packages and the website, or add an example to the skill's gallery.
 
 Everyone taking part follows the [code of conduct](CODE_OF_CONDUCT.md). Security issues never go in a public issue; see [SECURITY.md](SECURITY.md).
 
