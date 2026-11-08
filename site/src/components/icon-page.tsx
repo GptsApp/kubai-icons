@@ -63,7 +63,7 @@ export function IconPageBody({ name, locale }: { name: string; locale: Locale })
           { name: label, path: localize(`/icons/${name}/`, locale) },
         ]}
       />
-      <IconPageView meta={meta} related={family} categories={categories} />
+      <IconPageView meta={meta} related={family} categories={categories} heading={pick(locale, `${label} icon`, `${label}图标`)} />
       <section className="max-w-3xl space-y-3 text-body text-muted-foreground">
         <p>
           {pick(

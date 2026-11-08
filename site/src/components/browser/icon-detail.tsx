@@ -37,6 +37,8 @@ type Props = {
   /** The element or component that renders the icon's name, and the line under it. */
   title: ElementType;
   description: ElementType;
+  /** The heading in place of the icon's code name, on the icon's own page. */
+  heading?: string;
   /** Shown in the preview until the live icon has loaded. */
   placeholder?: ReactNode;
 };
@@ -52,7 +54,7 @@ const AUTOPLAY_DELAY = 320;
 const Label = ({ children }: { children: React.ReactNode }) => <p className="text-caption font-medium text-muted-foreground">{children}</p>;
 
 /** One icon's preview, code and downloads, in the dialog or on the icon's own page. */
-export function IconDetail({ meta, related, categories, color, variant, badge, onBadge, onOpen, onCategory, onKeyword, title: Title, description: Description, placeholder }: Props) {
+export function IconDetail({ meta, related, categories, color, variant, badge, onBadge, onOpen, onCategory, onKeyword, title: Title, description: Description, heading, placeholder }: Props) {
   const bc = badge === "semantic" ? "semantic" : undefined;
   const mainBc = meta.badge ? bc : undefined;
   const icon = useIcon(meta);
@@ -123,7 +125,8 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
   const zh = useZhName(meta);
   const rootZh = useZhName(root);
   // Chinese pages lead with the Chinese name and keep the code name beside it.
-  const codeName = tr(null, zh ? meta.name : null);
+  const readable = heading ?? zh;
+  const codeName = tr(null, readable ? meta.name : null);
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] sm:grid-cols-[17rem_minmax(0,1fr)]">
@@ -173,7 +176,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
             {meta.by && <a href={`https://github.com/${meta.by}`} target="_blank" rel="noreferrer" className={cn("tap relative ml-2 shrink-0", quietLink)}>by @{meta.by}</a>}
           </Description>
           <div className="flex h-8 items-center gap-1">
-            <Title className={cn("min-w-0 truncate text-heading font-semibold", !zh && "font-mono", codeName && "shrink-0")}>{zh ?? meta.name}</Title>
+            <Title className={cn("min-w-0 truncate text-heading font-semibold", !readable && "font-mono", codeName && "shrink-0")}>{readable ?? meta.name}</Title>
             {codeName && <span className="ml-1 min-w-0 truncate font-mono text-control text-muted-foreground">{codeName}</span>}
             <Button variant="ghost" size="icon-sm" className="shrink-0 text-muted-foreground" onClick={actions.copyName} aria-label={tr("Copy name", "复制英文名")} title={tr("Copy name", "复制英文名")}>
               <RiFileCopyLine />

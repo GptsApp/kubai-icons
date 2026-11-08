@@ -36,7 +36,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           },
         ]}
       />
-      <section className="grid gap-12 py-section lg:min-h-[calc(100svh-var(--header))] lg:grid-cols-[1.05fr_1fr] lg:items-center">
+      <section className="grid gap-12 py-section lg:min-h-[calc(100svh-var(--header))] lg:grid-cols-[1.05fr_1fr] lg:items-center lg:pb-[calc(var(--section)+8svh)]">
         <div className="space-y-7">
           <div className="space-y-4">
             <div className="rise-in"><HeroBadge count={iconCount()} /></div>
