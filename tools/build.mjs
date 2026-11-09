@@ -86,8 +86,13 @@ if (targets.has('core') || targets.has('site')) {
   }
   write(path.join(dist, 'index.js'), `export*from'./api.js';\n${icons.map((ic) => `export{default as ${pascal(ic.name)}}from'./icons/${ic.name}.js';`).join('\n')}\n`);
   write(path.join(dist, 'dynamic.js'), `// Loads an icon by name; each icon stays its own chunk.\nconst l={\n${icons.map((ic) => `${JSON.stringify(ic.name)}:()=>import('./icons/${ic.name}.js'),`).join('\n')}\n};\nexport const names=Object.keys(l);\nexport function loadIcon(n){return Object.hasOwn(l,n)?l[n]().then((m)=>m.default):Promise.reject(new Error('Unknown icon: '+n));}\n`);
-  // A single-file browser build of the element for <script> tags without module support
-  // for imports is not needed: element.js already loads icons on demand.
+  // The element and icons again for a <script> tag on a CDN. A browser finds each import only
+  // after downloading the file before it, so the shared code is merged into one file and each
+  // icon into one more. Icon files import the shared code back from the element, already loaded.
+  const cdn = { bundle: true, format: 'esm', minify: true, target: 'es2020', legalComments: 'none', logLevel: 'warning' };
+  await build({ ...cdn, outfile: path.join(dist, 'cdn/element.js'), stdin: { resolveDir: src, contents: `export{KubaiIconElement}from'./element.js';export*from'./kit.js';export{withBadge,withSlash}from'./compose.js';export{icon}from'./icon.js';` } });
+  const shared = { name: 'shared-runtime', setup: (b) => b.onResolve({ filter: /^(\.\.\/)+(kit|compose|icon)\.js$/ }, () => ({ path: '../element.js', external: true })) };
+  await build({ ...cdn, outdir: path.join(dist, 'cdn/icons'), entryPoints: built.map(({ ic }) => path.join(dist, 'icons', `${ic.name}.js`)), plugins: [shared] });
   write(path.join(dist, 'icons.json'), JSON.stringify(meta));
   write(path.join(dist, 'categories.json'), JSON.stringify(publicCategories));
   const iconType = `import type { KubaiIconData } from './types.js';\n`;
