@@ -1,6 +1,6 @@
 {
   "name": "kubai-icons-react",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Kubai Icons as React components: tree-shakable, server-rendered, animated on hover.",
   "license": "MIT",
   "type": "module",
@@ -16,7 +16,7 @@
   },
   "files": ["dist", "LICENSE", "README.md"],
   "peerDependencies": { "react": ">=18" },
-  "dependencies": { "kubai-icons": "0.2.2" },
+  "dependencies": { "kubai-icons": "0.3.0" },
   "keywords": ["icons", "react", "svg", "animated-icons", "kubai"],
   "homepage": "https://icons.kubai.design/",
   "repository": { "type": "git", "url": "git+https://github.com/kubai087/kubai-icons.git", "directory": "packages/react" },

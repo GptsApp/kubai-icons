@@ -1,5 +1,16 @@
 # kubai-icons-react
 
+## 0.3.0
+
+### Minor Changes
+
+- [#38](https://github.com/kubai087/kubai-icons/pull/38) [`86ea985`](https://github.com/kubai087/kubai-icons/commit/86ea985d892333bd1c7936f3ab2e7765447bdab6) Thanks [@kubai087](https://github.com/kubai087)! - Add a merged build for `<script>` tags on a CDN at `dist/cdn/element.js`. The shared code is one file and each icon is one more, so the first icon on a page needs two sequential downloads instead of six or more.
+
+### Patch Changes
+
+- Updated dependencies [[`86ea985`](https://github.com/kubai087/kubai-icons/commit/86ea985d892333bd1c7936f3ab2e7765447bdab6)]:
+  - kubai-icons@0.3.0
+
 ## 0.2.2
 
 ### Patch Changes
