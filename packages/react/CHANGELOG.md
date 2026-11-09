@@ -1,5 +1,13 @@
 # kubai-icons-react
 
+## 0.2.2
+
+### Patch Changes
+
+- [#36](https://github.com/kubai087/kubai-icons/pull/36) [`73bf7d2`](https://github.com/kubai087/kubai-icons/commit/73bf7d2bde17eacbde0a8b7e5957e2912b8c05ad) Thanks [@kubai087](https://github.com/kubai087)! - Correct the lock icons so the keyhole stays upright once open, and draw the DNA helix with its strands crossing as a right-handed helix does.
+- Updated dependencies [[`73bf7d2`](https://github.com/kubai087/kubai-icons/commit/73bf7d2bde17eacbde0a8b7e5957e2912b8c05ad)]:
+  - kubai-icons@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

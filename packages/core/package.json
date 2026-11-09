@@ -1,6 +1,6 @@
 {
   "name": "kubai-icons",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Layered, colour-derived icons that move on hover. Framework-free core, web component and per-icon ES modules.",
   "license": "MIT",
   "type": "module",

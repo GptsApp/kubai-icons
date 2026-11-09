@@ -1,6 +1,6 @@
 {
   "name": "kubai-icons-vue",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Kubai Icons as Vue 3 components: tree-shakable, SSR-friendly, animated on hover.",
   "license": "MIT",
   "type": "module",
@@ -16,7 +16,7 @@
   },
   "files": ["dist", "LICENSE", "README.md"],
   "peerDependencies": { "vue": ">=3.3" },
-  "dependencies": { "kubai-icons": "0.2.1" },
+  "dependencies": { "kubai-icons": "0.2.2" },
   "keywords": ["icons", "vue", "svg", "animated-icons", "kubai"],
   "homepage": "https://icons.kubai.design/",
   "repository": { "type": "git", "url": "git+https://github.com/kubai087/kubai-icons.git", "directory": "packages/vue" },
