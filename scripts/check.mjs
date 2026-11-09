@@ -36,7 +36,10 @@ const chrome = process.env.CHROME || [
   '/Applications/Chromium.app/Contents/MacOS/Chromium',
   '/usr/bin/google-chrome',
   '/usr/bin/chromium',
-  '/usr/bin/chromium-browser'
+  '/usr/bin/chromium-browser',
+  // Windows installs Chrome per machine or per user.
+  ...['PROGRAMFILES', 'PROGRAMFILES(X86)', 'LOCALAPPDATA'].filter((v) => process.env[v])
+    .map((v) => path.join(process.env[v], 'Google', 'Chrome', 'Application', 'chrome.exe'))
 ].find((p) => fs.existsSync(p));
 if (!chrome) {
   console.error('Chrome not found. Set CHROME to the browser binary.');
