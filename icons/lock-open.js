@@ -16,7 +16,7 @@ export default defineIcon({
     </g>
     <g filter="${u.sh}"><g filter="${u.hi}"><path d="${rr(5.6, 11, 19.8, 12.6, KR)}" fill="${u.upS}"/></g></g>
     <path d="${rr(5.6, 11, 19.8, 12.6, KR)}" ${OL}/>
-    <g transform="rotate(-90 15.5 16.2)" data-t="fill:#2F6FE0"><circle cx="15.5" cy="16.2" r="2.5"/><path d="${rr(14.6, 16.6, 1.8, 4.6, 0.9)}"/></g>`,
+    <g data-t="fill:#2F6FE0"><circle cx="15.5" cy="16.2" r="2.5"/><path d="${rr(14.6, 16.6, 1.8, 4.6, 0.9)}"/></g>`,
   target: (h) => ({ o: h ? 1 : 0 }),
   draw(p, E) {
     // The shackle turns about its right leg: seen from the front it narrows, then
