@@ -138,28 +138,38 @@ if (targets.has('static')) {
 }
 
 // ---------- site data ----------
+/** Enough for the default grid's opening screens on a large display. */
+const FIRST_SCREEN_ICONS = 144;
 if (targets.has('site')) {
   const out = path.join(root, 'site/public/data');
   clean(out);
-  // One pre-bundled ES module per category, so the browser fetches a whole category in a
-  // single request the first time one of its icons scrolls into view.
+  // Pre-bundled ES modules the browser loads as icons come into view: each category's base
+  // icons, and separately its badged versions, which only the detail panel and collections
+  // need. _first holds the default grid's opening screens, which would otherwise touch
+  // nearly every category.
   clean(path.join(root, 'site/src/generated'));
-  const byCat = new Map();
-  for (const ic of icons) { if (!byCat.has(ic.category)) byCat.set(ic.category, []); byCat.get(ic.category).push(ic); }
+  const chunks = new Map();
+  for (const ic of icons) {
+    const chunk = ic.base ? `${ic.category}.badged` : ic.category;
+    if (!chunks.has(chunk)) chunks.set(chunk, []);
+    chunks.get(chunk).push(ic);
+  }
+  const firstScreens = icons.filter((ic) => !ic.base).slice(0, FIRST_SCREEN_ICONS);
+  chunks.set('_first', firstScreens);
   const tmp = path.join(core, '.gen', 'site');
   clean(tmp);
   const entries = [];
-  for (const [cat, list] of byCat) {
-    const file = path.join(tmp, `${cat}.js`);
+  for (const [chunk, list] of chunks) {
+    const file = path.join(tmp, `${chunk}.js`);
     write(file, `${list.map((ic, i) => `import i${i} from ${JSON.stringify(path.join(core, 'dist', 'icons', `${ic.name}.js`))};`).join('\n')}\nexport default [${list.map((_, i) => `i${i}`).join(',')}];\n`);
-    entries.push({ in: file, out: cat });
+    entries.push({ in: file, out: chunk });
   }
   await build({ entryPoints: entries, outdir: path.join(out, 'icons'), bundle: true, format: 'esm', minify: true, target: 'es2020', legalComments: 'none', logLevel: 'warning' });
   clean(path.join(core, '.gen'));
   // The index the site searches. It is revalidated on every visit and carries a hash of each
-  // category module, which lets the modules themselves be cached indefinitely.
-  const hashes = Object.fromEntries([...byCat.keys()].map((cat) => [cat, crypto.createHash('sha256').update(fs.readFileSync(path.join(out, 'icons', `${cat}.js`))).digest('hex').slice(0, 10)]));
-  write(path.join(out, 'index.json'), JSON.stringify({ version, count: icons.length, bases: icons.filter((i) => !i.base).length, categories, hashes, icons: meta }));
+  // module, which lets the modules themselves be cached indefinitely.
+  const hashes = Object.fromEntries([...chunks.keys()].map((chunk) => [chunk, crypto.createHash('sha256').update(fs.readFileSync(path.join(out, 'icons', `${chunk}.js`))).digest('hex').slice(0, 10)]));
+  write(path.join(out, 'index.json'), JSON.stringify({ version, count: icons.length, bases: icons.filter((i) => !i.base).length, categories, hashes, first: firstScreens.map((ic) => ic.name), icons: meta }));
   // The markup behind /api/icon/<name>.svg, in one file per first two letters, so a
   // request reads only a small part of the set.
   const shards = new Map();

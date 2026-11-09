@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { IconBrowser } from "@/components/browser/icon-browser";
 import { Container } from "@/components/kit/layout";
-import { allCategories } from "@/lib/catalog";
+import { allCategories, firstChunk } from "@/lib/catalog";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata: Metadata = pageMeta({
@@ -14,7 +14,7 @@ export default function IconsPage() {
   return (
     <Container className="pt-8 lg:pt-stick">
       <h1 className="sr-only">搜索动态 SVG 图标</h1>
-      <IconBrowser categories={allCategories()} />
+      <IconBrowser categories={allCategories()} firstChunk={firstChunk()} />
     </Container>
   );
 }

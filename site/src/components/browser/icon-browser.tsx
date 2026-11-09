@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useCallback, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { preload, preloadModule } from "react-dom";
 import { RiFileCopyLine, RiSearchLine } from "@remixicon/react";
 import { Search } from "kubai-icons-react";
 import { copyText } from "@/components/copy-button";
@@ -12,7 +13,7 @@ import { SizeControl } from "@/components/kit/size-control";
 import { Swatches } from "@/components/kit/swatches";
 import { Glide } from "@/components/kit/glide";
 import { chip, navItem, raised, tile as tileStyle } from "@/components/kit/styles";
-import { loadIndex, loadKeywords, matchedKeyword, prepare, searchObjects, type Category, type IconIndex, type IconMeta, type Searchable } from "@/lib/icons";
+import { loadIndex, loadKeywords, loadKeywordsLater, matchedKeyword, onKeywords, peekKeywords, prepare, searchObjects, type Category, type IconIndex, type IconMeta } from "@/lib/icons";
 import { track } from "@/lib/analytics";
 import { agentPrompt, asset, requestUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -35,12 +36,18 @@ const writeUrl = (s: { q: string; cat: string; icon: string }) => {
   window.history.replaceState(null, "", `${window.location.pathname}${qs ? `?${qs}` : ""}`);
 };
 
-export function IconBrowser({ categories: cats }: { categories: Category[] }) {
+const noKeywords = () => null;
+
+export function IconBrowser({ categories: cats, firstChunk }: { categories: Category[]; firstChunk?: string }) {
+  // Both start downloading with the page instead of waiting for the app to start.
+  preload(asset("/data/index.json"), { as: "fetch", crossOrigin: "anonymous" });
+  if (firstChunk) preloadModule(asset(firstChunk), { as: "script" });
   const tr = useTr();
   const loc = useLocalize();
   const locale = useLocale();
   const [index, setIndex] = useState<IconIndex | null>(null);
-  const [list, setList] = useState<Searchable[]>([]);
+  const keywords = useSyncExternalStore(onKeywords, peekKeywords, noKeywords);
+  const list = useMemo(() => (index ? prepare(index.icons, keywords ?? {}) : []), [index, keywords]);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("");
   const [open, setOpen] = useState<IconMeta | null>(null);
@@ -62,9 +69,9 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
     setFailed(false);
     loadIndex().then((ix) => {
       setIndex(ix);
-      setList(prepare(ix.icons));
-      loadKeywords().then((keywords) => setList(prepare(ix.icons, keywords))).catch(() => { /* names and tags still search */ });
       const u = readUrl();
+      if (u.q) loadKeywords().catch(() => { /* names and tags still search */ });
+      else loadKeywordsLater();
       setQ(u.q);
       setCat(u.cat);
       if (u.icon) setOpen(ix.icons.find((i) => i.name === u.icon) ?? null);
@@ -160,6 +167,7 @@ export function IconBrowser({ categories: cats }: { categories: Category[] }) {
               ref={input}
               value={q}
               onChange={(e) => { setRefiltered(true); setQ(e.target.value); }}
+              onFocus={() => { loadKeywords().catch(() => { /* names and tags still search */ }); }}
               placeholder={tr("Search by name, shape or meaning", "按名称、形状或含义搜索")}
               className="h-11 rounded-card pr-16 pl-10 text-field"
               aria-label={tr("Search icons", "搜索图标")}

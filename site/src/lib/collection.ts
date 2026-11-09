@@ -3,7 +3,7 @@
 // never the artwork, so a saved icon always downloads in its current drawing.
 import { useSyncExternalStore } from "react";
 import { download, resolvedSvg, svgToPng } from "./export";
-import { loadCategory, loadIndex, peekIcon } from "./icons";
+import { loadIcon, loadIndex, peekIcon } from "./icons";
 import { browserLocale, localize } from "./i18n";
 import { asset } from "./site";
 
@@ -118,7 +118,7 @@ export async function downloadCollection(list: SavedIcon[], format: CollectionFo
   const [{ zipSync }, index] = await Promise.all([import("fflate"), loadIndex()]);
   const known = new Map(index.icons.map((i) => [i.name, i]));
   const found = list.filter((i) => known.has(i.name));
-  await Promise.all([...new Set(found.map((i) => known.get(i.name)!.category))].map(loadCategory));
+  await Promise.all(found.map((i) => loadIcon(known.get(i.name)!)));
   if (found.some((i) => !peekIcon(i.name))) throw new Error("Some icons could not be loaded");
   const files: Record<string, Uint8Array> = {};
   const encoder = new TextEncoder();

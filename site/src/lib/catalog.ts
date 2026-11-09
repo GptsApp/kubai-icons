@@ -7,6 +7,9 @@ import { zhName, type Category, type IconIndex, type IconMeta, type KeywordIndex
 let cached: IconIndex | null = null;
 const index = () => (cached ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data/index.json"), "utf8")) as IconIndex);
 
+/** The path of the module holding the default grid's opening screens. */
+export const firstChunk = () => `/data/icons/_first.js?v=${index().hashes._first}`;
+
 /** Every icon, badged versions included. */
 export const iconCount = () => index().icons.length;
 

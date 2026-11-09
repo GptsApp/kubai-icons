@@ -1,5 +1,5 @@
-// Icon data for the site: the search index loads once; markup and motion load per
-// category, the first time an icon of that category scrolls into view.
+// Icon data for the site: the search index loads once; markup and motion load in chunks,
+// the first time an icon of that chunk scrolls into view.
 import type { KubaiIconData } from "kubai-icons";
 import { asset } from "./site";
 
@@ -13,7 +13,7 @@ export type IconMeta = {
   by?: string;
 };
 export type Category = { id: string; en: string; zh?: string };
-export type IconIndex = { version: string; count: number; bases: number; categories: Category[]; hashes: Record<string, string>; icons: IconMeta[] };
+export type IconIndex = { version: string; count: number; bases: number; categories: Category[]; hashes: Record<string, string>; first: string[]; icons: IconMeta[] };
 
 let indexPromise: Promise<IconIndex> | null = null;
 export function loadIndex(): Promise<IconIndex> {
@@ -30,26 +30,33 @@ export function loadIndex(): Promise<IconIndex> {
 const loaded = new Map<string, KubaiIconData>();
 const pending = new Map<string, Promise<void>>();
 export const peekIcon = (name: string) => loaded.get(name);
-export function loadCategory(category: string): Promise<void> {
-  if (!pending.has(category)) {
+function loadChunk(chunk: string, hash: string): Promise<void> {
+  if (!pending.has(chunk)) {
     // A pre-bundled module in public/, loaded as is rather than through the bundler. The hash
     // changes with the file's content, so the browser can keep each version indefinitely.
     pending.set(
-      category,
-      loadIndex().then(({ hashes }) => {
-        const url = asset(`/data/icons/${category}.js?v=${hashes[category]}`);
-        return import(/* webpackIgnore: true */ /* turbopackIgnore: true */ url);
-      }).then(
+      chunk,
+      import(/* webpackIgnore: true */ /* turbopackIgnore: true */ asset(`/data/icons/${chunk}.js?v=${hash}`)).then(
         (m: { default: KubaiIconData[] }) => {
           for (const ic of m.default) loaded.set(ic.name, ic);
         },
         () => {
-          pending.delete(category);
+          pending.delete(chunk);
         }
       )
     );
   }
-  return pending.get(category)!;
+  return pending.get(chunk)!;
+}
+
+let firstScreens: Set<string> | null = null;
+/** Loads the chunk holding an icon, whose data is then available from peekIcon. */
+export function loadIcon(meta: IconMeta): Promise<void> {
+  return loadIndex().then(({ first, hashes }) => {
+    firstScreens ??= new Set(first);
+    const chunk = firstScreens.has(meta.name) ? "_first" : meta.base ? `${meta.category}.badged` : meta.category;
+    return loadChunk(chunk, hashes[chunk]);
+  });
 }
 
 // ---------- Search ----------
@@ -58,19 +65,39 @@ export type KeywordIndex = Record<string, Keywords>;
 
 let keywordsPromise: Promise<KeywordIndex> | null = null;
 let keywordsLoaded: KeywordIndex | null = null;
+const keywordListeners = new Set<() => void>();
 export const peekKeywords = () => keywordsLoaded;
+/** Calls back once the keywords have loaded; returns the function that stops listening. */
+export const onKeywords = (listener: () => void) => {
+  keywordListeners.add(listener);
+  return () => { keywordListeners.delete(listener); };
+};
 export function loadKeywords(): Promise<KeywordIndex> {
   keywordsPromise ??= fetch(asset("/data/keywords.json"))
     .then((r) => {
       if (!r.ok) throw new Error(`keywords.json: ${r.status}`);
       return r.json();
     })
-    .then((all: KeywordIndex) => (keywordsLoaded = all))
+    .then((all: KeywordIndex) => {
+      keywordsLoaded = all;
+      keywordListeners.forEach((listener) => listener());
+      return all;
+    })
     .catch((e) => {
       keywordsPromise = null;
       throw e;
     });
   return keywordsPromise;
+}
+
+let keywordsQueued = false;
+/** Loads the keywords once the page has settled, so they never compete with the first icons. */
+export function loadKeywordsLater() {
+  if (keywordsQueued || keywordsPromise) return;
+  keywordsQueued = true;
+  const start = () => { loadKeywords().catch(() => { /* names and tags still search */ }); };
+  if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 3000 });
+  else setTimeout(start, 1500);
 }
 
 /** The keyword groups shown to readers. Chinese terms are searchable but not listed. */

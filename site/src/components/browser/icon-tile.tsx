@@ -1,37 +1,34 @@
 "use client";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState, useSyncExternalStore } from "react";
 import { RiBookmarkFill, RiBookmarkLine, RiCheckboxBlankCircleLine, RiCheckboxCircleFill } from "@remixicon/react";
 import { HoverIcon, prefetchIcon } from "@/components/kit/icon-image";
 import { PREVIEW_SIZE } from "./prefs";
 import { tile } from "@/components/kit/styles";
 import { toggleSaved, useSaved } from "@/lib/collection";
-import { loadCategory, loadKeywords, peekIcon, peekKeywords, zhName, type IconMeta } from "@/lib/icons";
+import { loadIcon, loadKeywordsLater, onKeywords, peekIcon, peekKeywords, zhName, type IconMeta } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 import { useLocale, useTr } from "@/lib/use-locale";
 
-/** The live icon for a name, loading its category chunk on first use. */
+/** The live icon for a name, loading its chunk on first use. */
 export function useIcon(meta: IconMeta | null) {
   const [, force] = useState(0);
   const icon = meta ? peekIcon(meta.name) : undefined;
   useEffect(() => {
     if (!meta || icon) return;
     let live = true;
-    loadCategory(meta.category).then(() => live && force((n) => n + 1));
+    loadIcon(meta).then(() => live && force((n) => n + 1));
     return () => { live = false; };
   }, [meta, icon]);
   return icon;
 }
 
+const noKeywords = () => null;
+
 /** An icon's Chinese name on Chinese pages, once the keywords have loaded. */
 export function useZhName(meta: IconMeta | undefined) {
   const zh = useLocale() === "zh";
-  const [keywords, setKeywords] = useState(peekKeywords);
-  useEffect(() => {
-    if (!zh || keywords) return;
-    let live = true;
-    loadKeywords().then((all) => { if (live) setKeywords(all); }).catch(() => { /* code names still show */ });
-    return () => { live = false; };
-  }, [zh, keywords]);
+  const keywords = useSyncExternalStore(onKeywords, peekKeywords, noKeywords);
+  useEffect(() => { if (zh) loadKeywordsLater(); }, [zh]);
   return zh && keywords && meta ? zhName(meta, keywords) : undefined;
 }
 

@@ -96,9 +96,12 @@ let pumping = false;
 function pump() {
   pumping = false;
   const h = window.innerHeight;
-  const near = (j: Job) => { const r = j.el.getBoundingClientRect(); return r.bottom > -h / 2 && r.top < h * 1.5; };
-  const all = [...jobs];
-  const order = [...all.filter(near), ...all.filter((j) => !near(j))];
+  // On-screen icons first, then the ones just outside the view.
+  const rank = (j: Job) => {
+    const r = j.el.getBoundingClientRect();
+    return r.bottom > 0 && r.top < h ? 0 : r.bottom > -h / 2 && r.top < h * 1.5 ? 1 : 2;
+  };
+  const order = [...jobs].map((j) => ({ j, at: rank(j) })).sort((a, b) => a.at - b.at).map(({ j }) => j);
   for (const j of order) {
     if (running >= PARALLEL) break;
     jobs.delete(j);
