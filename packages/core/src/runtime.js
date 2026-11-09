@@ -27,6 +27,12 @@ export function animate(svg, icon, { state = {} } = {}) {
     const shape = id && svg.querySelector(`mask[id="${id}"] path`);
     if (shape && shape.getAttribute('d') === el.getAttribute('d')) clips.push([el, shape]);
   }
+  // Under each outlined fill sits a stroke of the same shape; it moves with the fill.
+  const unders = [];
+  for (const under of svg.querySelectorAll('[data-under]')) {
+    const fill = svg.querySelector(`[data-over="${under.getAttribute('data-under')}"]`);
+    if (fill) unders.push([fill, under]);
+  }
   let on = false, s = { ...state }, frame = 0, stopped = false;
   let cur = icon.target(false, s);
   // While it moves, the icon gets its own compositing layer, so each frame repaints only
@@ -42,6 +48,13 @@ export function animate(svg, icon, { state = {} } = {}) {
     for (const [el, shape] of clips) {
       const d = el.getAttribute('d');
       if (d && shape.getAttribute('d') !== d) shape.setAttribute('d', d);
+    }
+    for (const [fill, under] of unders) {
+      for (const attr of ['d', 'transform']) {
+        const v = fill.getAttribute(attr);
+        if (v === under.getAttribute(attr)) continue;
+        if (v === null) under.removeAttribute(attr); else under.setAttribute(attr, v);
+      }
     }
   };
   const go = (instant) => {

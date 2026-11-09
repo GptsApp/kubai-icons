@@ -61,6 +61,17 @@ describe('kubai-icons', () => {
     expect(svg.querySelector(`mask[id="${id}"] path`).getAttribute('d')).toBe(back.getAttribute('d'));
   });
 
+  it('keeps the stroke under a fill in step with the fill', () => {
+    const svg = createIcon(folder);
+    const under = () => svg.querySelector('[data-under]').getAttribute('d');
+    const fill = () => svg.querySelector('[data-n="back"]').getAttribute('d');
+    expect(under()).toBe(fill());
+    const rest = under();
+    svg.kubai.hover(true, true);
+    expect(under()).not.toBe(rest);
+    expect(under()).toBe(fill());
+  });
+
   it('toggles tap icons on click', () => {
     const svg = createIcon(bookmark);
     const fill = () => svg.querySelector('[data-n="ribF"]').getAttribute('opacity');

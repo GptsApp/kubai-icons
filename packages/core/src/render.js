@@ -252,6 +252,49 @@ function innerOutlines(def, state) {
   return found;
 }
 
+// ---------- Closing the seam under an outline ----------
+/** Width of the stroke under a fill; half of it reaches out beneath the 1-unit outline. */
+const UNDERLAP = 1;
+const paintOf = (el) => el.getAttribute('fill') || /(?:^|;)fill:([^;]+)/.exec(el.getAttribute('style') || '')?.[1];
+const seeThrough = (el) => el.getAttribute('opacity') !== null || el.getAttribute('fill-opacity') !== null || /(?:^|;)(?:fill-)?opacity:/.test(el.getAttribute('style') || '');
+
+/**
+ * A fill and its outline shade their shared edge separately, so pixels on that edge let the
+ * page show through. Each outlined fill gets a stroke of its own paint beneath it, under its
+ * shadow and glow so neither changes, which gives the seam something solid to sit on.
+ * A fill that can be seen through has none, since its underlap would show.
+ */
+function closeSeams(tree, outlined, names) {
+  const parents = new Map(), order = [];
+  const visit = (node) => { for (const c of node.children) if (typeof c !== 'string') { parents.set(c, node); order.push(c); visit(c); } };
+  visit(tree);
+  const closed = new Set();
+  let index = 0;
+  for (const outline of outlined) {
+    const d = outline.getAttribute('d');
+    // A clipped fill is only part of the silhouette, so the search carries on to the whole one.
+    const fill = order.slice(0, order.indexOf(outline)).reverse().find((n) => n.getAttribute('d') === d && n.getAttribute('mask') === null && n.getAttribute('clip-path') === null && paintOf(n) && paintOf(n) !== 'none');
+    if (!fill || closed.has(fill) || seeThrough(fill)) continue;
+    closed.add(fill);
+    let top = fill;
+    while (parents.get(top).tag === 'g' && parents.get(top).getAttribute('filter') && !parents.get(top).getAttribute('clip-path')) top = parents.get(top);
+    const attrs = new Map([['d', d], ['fill', 'none'], ['stroke-width', String(UNDERLAP)]]);
+    // Joined the way the outline is, the narrower stroke stays inside it even at sharp points.
+    if (outline.getAttribute('stroke-linejoin')) attrs.set('stroke-linejoin', outline.getAttribute('stroke-linejoin'));
+    if (fill.getAttribute('transform')) attrs.set('transform', fill.getAttribute('transform'));
+    if (names) {
+      attrs.set('data-under', String(index));
+      fill.setAttribute('data-over', String(index++));
+    }
+    const under = new Node('path', attrs);
+    const paint = paintOf(fill);
+    if (fill.getAttribute('fill')) under.setAttribute('stroke', paint);
+    else under.setAttribute('style', `stroke:${paint}`);
+    const siblings = parents.get(top).children;
+    siblings.splice(siblings.indexOf(top), 0, under);
+  }
+}
+
 /**
  * Builds an icon's inner SVG markup (defs and layers; no <svg> wrapper).
  *
@@ -276,7 +319,7 @@ export function renderInner(def, { k = 'k', hover = false, progress, state = {},
 
   const skip = innerOutlines(def, state);
   let outlineIndex = 0;
-  const masks = [];
+  const masks = [], outlined = [];
   walkTone(tree, (el, tone) => {
     if (hasClass(el, 'ol') && skip.has(outlineIndex++)) {
       el.removeAttribute('class');
@@ -292,6 +335,7 @@ export function renderInner(def, { k = 'k', hover = false, progress, state = {},
         el.setAttribute('mask', `url(#${id})`);
         el.setAttribute('fill', 'none');
         el.setAttribute('stroke-width', '2');
+        outlined.push(el);
       } else if (list.includes('ln')) {
         el.setAttribute('fill', 'none');
         el.setAttribute('stroke-width', '1.6');
@@ -310,6 +354,7 @@ export function renderInner(def, { k = 'k', hover = false, progress, state = {},
     if (w) { paintAttr(el, w, P.white, P.css); el.removeAttribute('data-w'); }
     for (const a of [...el.attrs.keys()]) if (a.startsWith('data-') && !(names && a === 'data-n')) el.removeAttribute(a);
   });
+  closeSeams(tree, outlined, names);
   return `<defs>${defsMarkup(k, u.grads, P)}${masks.join('')}</defs>${tree.children.map(serialize).join('')}`;
 }
 
