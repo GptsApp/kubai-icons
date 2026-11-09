@@ -15,14 +15,8 @@ const COVERED = 190;
 const REFLOW_MS = 320;
 const REFLOW_EASE = "cubic-bezier(.22,1,.36,1)";
 
-/** How long tiles take to reach new places when the list changes. */
-const MOVE_MS = 280;
-/** The farthest a tile travels, in tiles. A longer trip would cross the grid, so it arrives instead. */
-const MOVE_FARTHEST = 3.5;
-/** How tiles that were not on screen arrive: quickly, and one shortly after another. */
-const ARRIVE_MS = 180;
-const ARRIVE_STEP = 12;
-const ARRIVE_LONGEST_WAIT = 96;
+/** How long tiles take to appear when the list changes. They never travel, so results stay put while typing. */
+const ARRIVE_MS = 140;
 
 /** How long the size has to hold still before icons are redrawn at it. */
 const RASTER_DELAY = 200;
@@ -80,12 +74,11 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
     const id = setTimeout(() => setReflow(false), REFLOW_MS);
     return () => clearTimeout(id);
   }, [reflow, cols]);
-  // When the list changes, tiles that stay on screen travel to their new places, and the
-  // rest arrive where they belong instead of crossing the page.
-  const shown = useRef({ icons, cols, step });
+  // When the list changes, tiles that keep their place stay still and the rest fade in where they belong.
+  const shown = useRef({ icons, cols });
   useLayoutEffect(() => {
     const was = shown.current;
-    shown.current = { icons, cols, step };
+    shown.current = { icons, cols };
     const grid = ref.current;
     if (was.icons === icons || !animateChanges || !grid || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (window.scrollY > restScroll()) {
@@ -93,31 +86,13 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
       return;
     }
     const before = new Map(was.icons.map((m, i) => [m.name, i]));
-    const top = grid.getBoundingClientRect().top;
-    const onScreen = (y: number) => top + y + cell > 0 && top + y < window.innerHeight;
-    let arrivals = 0;
     for (const el of grid.children as HTMLCollectionOf<HTMLElement>) {
-      const index = Number(el.dataset.index);
-      const from = before.get(el.dataset.name!);
-      if (from === index && was.cols === cols) continue;
-      const y = Math.floor(index / cols) * step;
-      const to = el.style.transform;
-      // A tile still moving from the last change continues from where it is.
+      if (before.get(el.dataset.name!) === Number(el.dataset.index) && was.cols === cols) continue;
+      // A tile still fading from the last change continues from where it is.
       const moving = el.getAnimations();
-      const now = moving.length ? getComputedStyle(el) : null;
-      const current = now ? { transform: now.transform, opacity: now.opacity } : null;
+      const opacity = moving.length ? getComputedStyle(el).opacity : "0";
       moving.forEach((a) => a.cancel());
-      if (!onScreen(y)) continue;
-      const fromY = from === undefined ? null : Math.floor(from / was.cols) * was.step;
-      const fromX = from === undefined ? 0 : (from % was.cols) * was.step;
-      const near = fromY !== null && Math.hypot((index % cols) * step - fromX, y - fromY) <= MOVE_FARTHEST * step;
-      if (fromY !== null && near && onScreen(fromY)) {
-        const start = current?.transform ?? `translate(${fromX}px, ${fromY}px)`;
-        el.animate([{ transform: start, opacity: current?.opacity ?? 1 }, { transform: to, opacity: 1 }], { duration: MOVE_MS, easing: REFLOW_EASE });
-      } else {
-        const delay = Math.min(arrivals++ * ARRIVE_STEP, ARRIVE_LONGEST_WAIT);
-        el.animate([{ transform: `${to} scale(.96)`, opacity: 0 }, { transform: to, opacity: 1 }], { duration: ARRIVE_MS, delay, easing: "ease-out", fill: "backwards" });
-      }
+      el.animate({ opacity: [opacity, "1"] }, { duration: ARRIVE_MS, easing: "ease-out" });
     }
   });
   // While the size is changing, the existing bitmaps are scaled; they are redrawn once it settles.
