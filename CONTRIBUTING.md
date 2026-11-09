@@ -82,8 +82,8 @@ Not every icon will be merged, even a good one. The gallery is meant to read as 
 ## Before opening a pull request
 
 ```bash
-npm run validate && npm test      # library changes
-node scripts/check.mjs            # skill changes; must print `No script errors.`
+npm run validate && npm run build && npm test   # library changes
+node scripts/check.mjs                          # skill changes; must print `No script errors.`
 ```
 
 CI runs both, builds every package and the website, and renders contact sheets. Fill in the checklist in the pull request template.
