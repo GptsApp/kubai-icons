@@ -74,12 +74,25 @@ const recoloured = (a: string | null, b: string) => {
 };
 const canvas2d = (c: HTMLCanvasElement) => c.getContext("2d", { willReadFrequently: true })!;
 
+// Below 2x an outline is about one pixel wide and comes out uneven along curves, so the icon
+// is drawn larger and halved down to size. At 2x and above the pixels are small enough.
+const OVERSAMPLE = 4;
+
 async function makeBitmap(icon: KubaiIconData, look: IconLook, pose: Pose, px: number): Promise<Bitmap | null> {
   try {
-    const img = await loadSvgImage(iconUrl(icon, look, pose, px));
-    const c = document.createElement("canvas");
-    c.width = c.height = px;
-    canvas2d(c).drawImage(img, 0, 0, px, px);
+    const drawn = dpr() < 2 ? px * OVERSAMPLE : px;
+    const img = await loadSvgImage(iconUrl(icon, look, pose, drawn));
+    let c = document.createElement("canvas");
+    c.width = c.height = drawn;
+    canvas2d(c).drawImage(img, 0, 0, drawn, drawn);
+    while (c.width > px) {
+      const half = document.createElement("canvas");
+      half.width = half.height = c.width / 2;
+      const g = canvas2d(half);
+      g.imageSmoothingQuality = "high";
+      g.drawImage(c, 0, 0, half.width, half.height);
+      c = half;
+    }
     return c;
   } catch {
     return null;

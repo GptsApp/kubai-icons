@@ -23,6 +23,12 @@ const ARRIVE_MS = 140;
 /** How long the size has to hold still before icons are redrawn at it. */
 const RASTER_DELAY = 200;
 
+/** A distance in whole device pixels. An icon's bitmap blurs under a transform that lands between them. */
+const snap = (px: number) => {
+  const ratio = window.devicePixelRatio || 1;
+  return Math.round(px * ratio) / ratio;
+};
+
 /** A windowed grid: only the rows near the viewport are in the DOM. */
 export function IconGrid({ icons, tile, size, color, variant, selecting, hits, animateChanges, restScroll, onOpen }: {
   icons: IconMeta[]; tile: number; size: number; color: string; variant: "color" | "soft"; selecting: boolean; hits?: Map<string, string | null>;
@@ -138,7 +144,7 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
               style={{
                 width: cell,
                 height: cell,
-                transform: `translate(${(rtl ? cols - 1 - i : i) * step}px, ${row.index * step}px)`,
+                transform: `translate(${snap((rtl ? cols - 1 - i : i) * step)}px, ${snap(row.index * step)}px)`,
                 transition: reflow ? `transform ${REFLOW_MS}ms ${REFLOW_EASE}, width ${REFLOW_MS}ms ${REFLOW_EASE}, height ${REFLOW_MS}ms ${REFLOW_EASE}` : undefined,
               }}
             >
