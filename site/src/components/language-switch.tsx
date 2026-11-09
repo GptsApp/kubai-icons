@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { languageOf, LANGUAGES, localeOf, localize } from "@/lib/i18n";
 import { asset } from "@/lib/site";
 import { useTr } from "@/lib/use-locale";
+import { cn } from "@/lib/utils";
 
 type LanguageLink = { code: string; name: string; tag: string; current: boolean; href: string; onClick: (e: React.MouseEvent) => void };
 
@@ -48,7 +49,7 @@ export function DocumentLanguage() {
 /** One row per language, each a real link so it can open in a new tab. */
 export function LanguageItems({ links }: { links: LanguageLink[] }) {
   return links.map((l) => (
-    <DropdownMenuItem key={l.code} render={<a href={l.href} hrefLang={l.tag} lang={l.tag} aria-current={l.current ? "page" : undefined} onClick={l.onClick} />} className={l.current ? "font-medium" : undefined}>
+    <DropdownMenuItem key={l.code} render={<a href={l.href} hrefLang={l.tag} lang={l.tag} aria-current={l.current ? "page" : undefined} onClick={l.onClick} />} className={cn("pointer-coarse:min-h-11", l.current && "font-medium")}>
       {l.name}
     </DropdownMenuItem>
   ));
@@ -64,7 +65,7 @@ export function LanguageSwitch({ className, iconOnly }: { className?: string; ic
       <DropdownMenuTrigger aria-label={label} title={label} className={className}>
         {iconOnly ? <RiTranslate2 className="size-4" /> : current}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" sideOffset={8} className="max-h-[min(26rem,70svh)] w-44 overflow-y-auto p-1.5">
+      <DropdownMenuContent align="end" sideOffset={8} className="max-h-[min(26rem,70svh)] w-44 overflow-y-auto p-1.5 max-lg:grid max-lg:max-h-none max-lg:w-72 max-lg:grid-cols-2">
         <LanguageItems links={links} />
       </DropdownMenuContent>
     </DropdownMenu>

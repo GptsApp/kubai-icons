@@ -2,6 +2,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import type { IconMeta } from "@/lib/icons";
+import { languageOf } from "@/lib/i18n";
+import { useLocale } from "@/lib/use-locale";
 import { IconTile } from "./icon-tile";
 import { MIXED, mixedColors } from "./prefs";
 
@@ -30,6 +32,7 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
   restScroll: () => number;
   onOpen: (m: IconMeta, color: string) => void;
 }) {
+  const rtl = languageOf(useLocale()).dir === "rtl";
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -131,11 +134,11 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
               key={m.name}
               data-name={m.name}
               data-index={row.index * cols + i}
-              className="absolute top-0 start-0 motion-reduce:transition-none"
+              className="absolute top-0 left-0 motion-reduce:transition-none"
               style={{
                 width: cell,
                 height: cell,
-                transform: `translate(${i * step}px, ${row.index * step}px)`,
+                transform: `translate(${(rtl ? cols - 1 - i : i) * step}px, ${row.index * step}px)`,
                 transition: reflow ? `transform ${REFLOW_MS}ms ${REFLOW_EASE}, width ${REFLOW_MS}ms ${REFLOW_EASE}, height ${REFLOW_MS}ms ${REFLOW_EASE}` : undefined,
               }}
             >

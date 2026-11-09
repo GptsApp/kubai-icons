@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { RiFeedbackLine, RiGithubLine, RiHeart3Line, RiMoreFill, RiTranslate2, RiTwitterXLine, RiUploadLine } from "@remixicon/react";
+import { RiFeedbackLine, RiGithubLine, RiHeart3Line, RiMoreFill, RiTwitterXLine, RiUploadLine } from "@remixicon/react";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { track } from "@/lib/analytics";
 import { absolute } from "@/lib/seo";
 import { AUTHOR, feedbackUrl, REPO } from "@/lib/site";
-import { LanguageItems, useLanguages } from "./language-switch";
+import { ThemeMenuItem } from "./theme-toggle";
 import { useLocalize, useTr } from "@/lib/use-locale";
 
 /** Each row is a full-size touch target. */
@@ -18,7 +18,6 @@ export function HeaderMenu({ className }: { className?: string }) {
   const path = usePathname() ?? "/";
   const tr = useTr();
   const loc = useLocalize();
-  const languages = useLanguages();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="outline" size="icon" aria-label={tr("More links", "更多链接")} className={className} />}>
@@ -42,14 +41,7 @@ export function HeaderMenu({ className }: { className?: string }) {
           <RiTwitterXLine />{tr("{name} on X", "{name} 的 X 主页", { name: AUTHOR.name })}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger className={ITEM}>
-            <RiTranslate2 />{languages.current}
-          </DropdownMenuSubTrigger>
-          <DropdownMenuSubContent className="max-h-[min(24rem,70svh)] overflow-y-auto">
-            <LanguageItems links={languages.links} />
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        <ThemeMenuItem className={ITEM} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
