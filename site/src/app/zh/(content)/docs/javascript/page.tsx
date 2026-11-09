@@ -35,10 +35,14 @@ document.querySelector("#toolbar").append(
       <p>
         添加一个 script 标签，即可从 CDN 加载该组件。某个图标首次使用时，组件才会下载对应的图标文件。
       </p>
-      <Code lang="html" code={`<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/element.js"></script>
+      <Code lang="html" code={`<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/cdn/element.js"></script>
 
 <kubai-icon name="folder"></kubai-icon>
 <kubai-icon name="bell-off" size="32" color="#F97316" variant="soft" label="Muted"></kubai-icon>`} />
+      <p>
+        在中国大陆访问 jsDelivr 可能不稳定。生产环境建议用 npm 安装后随项目打包。如果需要使用 CDN，可以改用南方科技大学的镜像，这个地址必须写确切的版本号：
+      </p>
+      <Code lang="html" code={`<script type="module" src="https://mirrors.sustech.edu.cn/unpkg/kubai-icons@0.3.0/dist/cdn/element.js"></script>`} />
       <h2 id="server-rendering">在服务端渲染</h2>
       <p><code>toSvg</code> 以 HTML 字符串的形式返回图标，不带动效：</p>
       <Code lang="js" code={`import { toSvg, Folder } from "kubai-icons";

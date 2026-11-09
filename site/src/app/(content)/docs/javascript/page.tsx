@@ -35,7 +35,7 @@ document.querySelector("#toolbar").append(
       <p>
         Add one script tag to load the component from a CDN. It downloads each icon file the first time that icon is used.
       </p>
-      <Code lang="html" code={`<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/element.js"></script>
+      <Code lang="html" code={`<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/cdn/element.js"></script>
 
 <kubai-icon name="folder"></kubai-icon>
 <kubai-icon name="bell-off" size="32" color="#F97316" variant="soft" label="Muted"></kubai-icon>`} />

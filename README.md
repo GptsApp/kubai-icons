@@ -122,7 +122,7 @@ import { Folder, CalendarCheck } from "kubai-icons-react";
 No build step? One script tag loads any icon on demand:
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/element.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/cdn/element.js"></script>
 <kubai-icon name="folder-plus" size="32" color="#6366F1"></kubai-icon>
 ```
 

@@ -108,7 +108,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
     return {
       react: `import { ${P} } from "kubai-icons-react";\n\n<${P} size={24} color="${color}"${soft} />`,
       vue: `<script setup>\nimport { ${P} } from "kubai-icons-vue";\n</script>\n\n<template>\n  <${P} :size="24" color="${color}"${soft} />\n</template>`,
-      html: `<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/element.js"></script>\n\n<kubai-icon name="${meta.name}" size="24" color="${color}"${variant === "soft" ? ' variant="soft"' : ""}${mainBc ? ' badge-color="semantic"' : ""}></kubai-icon>`,
+      html: `<script type="module" src="https://cdn.jsdelivr.net/npm/kubai-icons@0/dist/cdn/element.js"></script>\n\n<kubai-icon name="${meta.name}" size="24" color="${color}"${variant === "soft" ? ' variant="soft"' : ""}${mainBc ? ' badge-color="semantic"' : ""}></kubai-icon>`,
       js: `import { createIcon, ${P} } from "kubai-icons";\n\ndocument.body.append(createIcon(${P}, { size: 24, color: "${color}"${variant === "soft" ? ', variant: "soft"' : ""}${mainBc ? ', badgeColor: "semantic"' : ""} }));`,
     };
   }, [meta, P, color, variant, mainBc]);
