@@ -44,6 +44,7 @@ export function SiteHeader() {
         <Link href={loc("/")} className="tap relative flex shrink-0 items-center gap-2 text-subheading font-semibold whitespace-nowrap" aria-label="Kubai Icons">
           <Logo size={24} />
           <span className="hidden sm:inline">Kubai Icons</span>
+          <span className="hidden rounded-pill bg-muted px-1.5 text-caption font-medium text-muted-foreground sm:inline">beta</span>
         </Link>
         <nav className="relative isolate flex min-w-0 items-center gap-0.5 overflow-x-auto text-control pointer-coarse:py-1.5 sm:gap-1">
           <Glide selector="[aria-current=page]" className="rounded-control bg-muted" />
