@@ -1,5 +1,11 @@
 # kubai-icons
 
+## 0.3.1
+
+### Patch Changes
+
+- [#42](https://github.com/kubai087/kubai-icons/pull/42) [`734feff`](https://github.com/kubai087/kubai-icons/commit/734feffd7715ed1445b6787f2d3f97e971e67fa8) Thanks [@kubai087](https://github.com/kubai087)! - Close the faint gap between an icon's fill and its outline at small sizes on low-density screens.
+
 ## 0.3.0
 
 ### Minor Changes
