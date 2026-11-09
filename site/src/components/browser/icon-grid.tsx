@@ -13,10 +13,6 @@ const GAP = 10;
 /** Rough height of what covers the top of the page, for choosing the icon to keep in view. */
 const COVERED = 190;
 
-/** How long tiles take to reach new places when the column count changes. */
-const REFLOW_MS = 320;
-const REFLOW_EASE = "cubic-bezier(.22,1,.36,1)";
-
 /** How long tiles take to appear when the list changes. They never travel, so results stay put while typing. */
 const ARRIVE_MS = 140;
 
@@ -71,18 +67,6 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
   const step = cell + GAP;
   const v = useWindowVirtualizer({ count: rows, estimateSize: () => step, overscan: 6, scrollMargin: offset });
   useEffect(() => { v.measure(); }, [cell, v]);
-  // Tiles glide only for the moment after the column count changes, never during a scroll.
-  const [placed, setPlaced] = useState({ cols, icons });
-  const [reflow, setReflow] = useState(false);
-  if (cols !== placed.cols || icons !== placed.icons) {
-    setPlaced({ cols, icons });
-    setReflow(icons === placed.icons && icons.length > 0);
-  }
-  useEffect(() => {
-    if (!reflow) return;
-    const id = setTimeout(() => setReflow(false), REFLOW_MS);
-    return () => clearTimeout(id);
-  }, [reflow, cols]);
   // When the list changes, tiles that keep their place stay still and the rest fade in where they belong.
   const shown = useRef({ icons, cols });
   useLayoutEffect(() => {
@@ -120,16 +104,7 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
     if (at <= 0) return;
     const row = Math.floor(at);
     const next = Math.floor((row * was.cols) / cols) + (at - row);
-    const before = window.scrollY;
     window.scrollTo({ top: offset + next * (cell + GAP) - COVERED, behavior: "instant" });
-    // The scroll is instant but the tiles glide, so the grid starts offset by the same amount.
-    const moved = window.scrollY - before;
-    if (moved && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      ref.current?.animate(
-        [{ transform: `translateY(${moved}px)` }, { transform: "translateY(0)" }],
-        { duration: REFLOW_MS, easing: REFLOW_EASE, composite: "add" },
-      );
-    }
   }, [cols, cell, width, offset]);
   return (
     <div ref={ref} className="relative w-full" style={{ height: rows * step }}>
@@ -140,12 +115,11 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
               key={m.name}
               data-name={m.name}
               data-index={row.index * cols + i}
-              className="absolute top-0 left-0 motion-reduce:transition-none"
+              className="absolute top-0 left-0"
               style={{
                 width: cell,
                 height: cell,
                 transform: `translate(${snap((rtl ? cols - 1 - i : i) * step)}px, ${snap(row.index * step)}px)`,
-                transition: reflow ? `transform ${REFLOW_MS}ms ${REFLOW_EASE}, width ${REFLOW_MS}ms ${REFLOW_EASE}, height ${REFLOW_MS}ms ${REFLOW_EASE}` : undefined,
               }}
             >
               <IconTile meta={m} size={size} raster={raster} color={mixed ? mixed[row.index * cols + i] : color} variant={variant} selecting={selecting} hit={hits?.get(m.name)} onOpen={onOpen} />

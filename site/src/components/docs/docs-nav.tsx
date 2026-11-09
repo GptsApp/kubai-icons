@@ -54,7 +54,7 @@ export function DocsNav() {
           ))}
         </div>
       ))}
-      <Glide selector="[aria-current=page]" className="rounded-control bg-muted" />
+      <Glide still selector="[aria-current=page]" className="rounded-control bg-muted" />
     </nav>
   );
 }

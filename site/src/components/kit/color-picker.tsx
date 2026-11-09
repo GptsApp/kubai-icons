@@ -105,9 +105,9 @@ export function ColorPicker({ value, active, onChange, label, hexLabel }: {
       <PopoverTrigger
         aria-label={label}
         title={label}
-        className={cn("focus-inset grid size-8 shrink-0 place-items-center rounded-pill text-muted-foreground ring-inset transition-shadow hover:ring-2 hover:ring-foreground/20 pointer-coarse:size-10", active && "ring-2 ring-foreground/60 hover:ring-foreground/60")}
+        className={cn("focus-inset grid size-8 shrink-0 place-items-center rounded-pill text-muted-foreground ring-inset transition-shadow hover:ring-2 hover:ring-foreground/20 pointer-coarse:size-9", active && "ring-2 ring-foreground/60 hover:ring-foreground/60")}
       >
-        <span className={cn("grid size-6 place-items-center rounded-pill pointer-coarse:size-8", !active && "border")} style={active ? { background: value } : undefined}>
+        <span className={cn("grid size-6 place-items-center rounded-pill pointer-coarse:size-7", !active && "border")} style={active ? { background: value } : undefined}>
           {!active && <RiAddLine className="size-3.5" />}
         </span>
       </PopoverTrigger>

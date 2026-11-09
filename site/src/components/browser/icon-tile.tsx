@@ -58,7 +58,7 @@ export const IconTile = memo(function IconTile({ meta, size, raster, color, vari
         ) : (
           <span className="block rounded-control bg-muted-foreground/10" style={{ width: size * 0.8, height: size * 0.8 }} />
         )}
-        <span className="absolute inset-x-2 bottom-2 truncate text-center text-caption text-muted-foreground opacity-0 blur-[3px] transition-[opacity,filter] duration-200 group-hover:opacity-100 group-hover:blur-none group-focus-visible:opacity-100 group-focus-visible:blur-none">
+        <span className="absolute inset-x-2 bottom-2 truncate text-center text-caption text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
           {local ?? meta.name}
         </span>
         {hit && <span className="absolute inset-x-2 bottom-2 truncate text-center text-caption text-muted-foreground transition-opacity group-hover:opacity-0">{hit}</span>}

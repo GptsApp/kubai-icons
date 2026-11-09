@@ -62,7 +62,7 @@ export function SizeControl({ value, onChange, min, max, presets, label, commonL
           );
         })}
       </div>
-      <div className="min-w-16 flex-1 sm:w-28 sm:flex-none">
+      <div className="min-w-16 flex-1 lg:w-28 lg:flex-none">
         <Slider aria-label={label} value={[value]} min={min} max={max} step={1} onValueChange={(v) => { setDraft(null); onChange(Array.isArray(v) ? v[0] : (v as number)); }} />
       </div>
       <Input

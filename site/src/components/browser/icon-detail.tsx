@@ -217,7 +217,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
               />
             </div>
             <div className="relative isolate flex flex-wrap gap-2">
-              <Glide selector="[aria-current=true]" className="rounded-card bg-surface-hover ring-1 ring-foreground/20" />
+              <Glide still selector="[aria-current=true]" className="rounded-card bg-surface-hover ring-1 ring-foreground/20" />
               {root && <VariantChip meta={root} active={root.name === meta.name} color={color} variant={variant} onOpen={onOpen} />}
               {variants.map((r) => (
                 <VariantChip key={r.name} meta={r} active={r.name === meta.name} color={color} variant={variant} badge={bc} onOpen={onOpen} />

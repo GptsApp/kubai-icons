@@ -47,7 +47,7 @@ export function SiteHeader() {
           <span className="hidden rounded-pill bg-muted px-1.5 text-caption font-medium text-muted-foreground sm:inline">beta</span>
         </Link>
         <nav className="relative isolate flex min-w-0 items-center gap-0.5 overflow-x-auto text-control pointer-coarse:py-1.5 sm:gap-1">
-          <Glide selector="[aria-current=page]" className="rounded-control bg-muted" />
+          <Glide still selector="[aria-current=page]" className="rounded-control bg-muted" />
           {NAV.map((n) => {
             const active = n.href === current;
             return (

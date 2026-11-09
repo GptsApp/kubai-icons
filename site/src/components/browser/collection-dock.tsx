@@ -81,8 +81,8 @@ export function CollectionDock() {
         <div
           inert={!count}
           className={cn(
-            "flex items-center gap-1 rounded-pill border bg-popover p-1 shadow-lg transition-[opacity,translate,filter] duration-200 ease-out motion-reduce:transition-none",
-            count ? "pointer-events-auto" : "translate-y-3 opacity-0 blur-sm",
+            "flex items-center gap-1 rounded-pill border bg-popover p-1 shadow-lg transition-[opacity,translate] duration-200 ease-out motion-reduce:transition-none",
+            count ? "pointer-events-auto" : "translate-y-3 opacity-0",
           )}
         >
           <Button variant="ghost" className="rounded-pill" onClick={() => setOpen(true)}>

@@ -37,9 +37,9 @@ export function CopyButton({ text, className, onCopy }: { text: string; classNam
         }
       }}
     >
-      <span className="grid *:[grid-area:1/1] *:transition-[opacity,scale,filter] *:duration-200 *:ease-out motion-reduce:*:transition-none">
-        <RiFileCopyLine className={cn("size-4", done && "scale-50 opacity-0 blur-[2px]")} />
-        <RiCheckLine className={cn("size-4 text-positive", !done && "scale-50 opacity-0 blur-[2px]")} />
+      <span className="grid *:[grid-area:1/1] *:transition-[opacity,scale] *:duration-200 *:ease-out motion-reduce:*:transition-none">
+        <RiFileCopyLine className={cn("size-4", done && "scale-50 opacity-0")} />
+        <RiCheckLine className={cn("size-4 text-positive", !done && "scale-50 opacity-0")} />
       </span>
     </Button>
   );

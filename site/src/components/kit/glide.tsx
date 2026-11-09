@@ -19,8 +19,10 @@ function reveal(box: HTMLElement, item: HTMLElement, smooth: boolean) {
  * Server-rendered items carry their own active style. Once the highlight has measured, the
  * parent gets `data-glide`, and items hide that style with `in-[[data-glide]]:`.
  * `line` follows the item's left edge and width only, for underlines.
+ * `still` fades the highlight in at the new item instead of travelling there, for lists and
+ * navigation, where the distance is long or the items are far from a single row.
  */
-export function Glide({ selector, line, className }: { selector: string; line?: boolean; className?: string }) {
+export function Glide({ selector, line, still, className }: { selector: string; line?: boolean; still?: boolean; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
 
   useLayoutEffect(() => {
@@ -37,17 +39,22 @@ export function Glide({ selector, line, className }: { selector: string; line?: 
         return;
       }
       const first = !placed;
+      const moved = item !== shown;
       // The first placement, and a return from having no match, must not travel.
-      if (!placed) el.style.transition = "none";
+      const jump = !placed || still;
+      if (jump) el.style.transition = "none";
       el.style.opacity = "";
       el.style.width = `${item.offsetWidth}px`;
       if (!line) el.style.height = `${item.offsetHeight}px`;
       el.style.transform = `translate(${item.offsetLeft}px, ${line ? 0 : item.offsetTop}px)`;
-      if (!placed) {
+      if (jump) {
         el.getBoundingClientRect();
         el.style.transition = "";
-        placed = true;
       }
+      if (still && moved && !first && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        el.animate({ opacity: [0, 1] }, { duration: 120, easing: "ease-out" });
+      }
+      placed = true;
       box.setAttribute("data-glide", "");
       if (item !== shown) {
         shown = item;
@@ -64,7 +71,7 @@ export function Glide({ selector, line, className }: { selector: string; line?: 
       onResize.disconnect();
       box.removeAttribute("data-glide");
     };
-  }, [selector, line]);
+  }, [selector, line, still]);
 
   return (
     <span

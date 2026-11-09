@@ -143,7 +143,7 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
     <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
       <aside className="hidden lg:block">
         <nav className="isolate sticky top-[calc(var(--header)+var(--stick))] -me-2 max-h-[calc(100dvh-var(--header)-2*var(--stick))] space-y-0.5 overflow-y-auto pe-2 pb-6 [mask-image:linear-gradient(to_bottom,black_calc(100%-1.5rem),transparent)]">
-          <Glide selector="[aria-current=true]" className="rounded-control bg-muted" />
+          <Glide still selector="[aria-current=true]" className="rounded-control bg-muted" />
           <button type="button" aria-current={!cat} onClick={() => pickCat("")} className={navItem({ active: !cat })}>
             <span className="truncate">{tr("All", "全部")}</span>
           </button>
@@ -175,9 +175,9 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
             <Kbd className="absolute top-1/2 end-3.5 -translate-y-1/2 pointer-coarse:hidden">/</Kbd>
           </div>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 max-lg:my-3">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-3 max-lg:mt-2 max-lg:mb-3 max-lg:rounded-card max-lg:border max-lg:p-3">
             <Swatches
-              className="-mx-gutter w-[calc(100%+2*var(--gutter))] flex-nowrap overflow-x-auto px-gutter sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible sm:px-0"
+              className="w-full flex-nowrap justify-between overflow-x-auto sm:w-auto sm:flex-wrap sm:justify-start sm:overflow-visible"
               value={prefs.color}
               options={[
                 { value: MIXED, name: tr("Mixed", "多色"), fill: MIXED_FILL },
@@ -194,11 +194,11 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
               label={tr("Variant", "样式")}
               options={[{ value: "color", label: tr("Color", "彩色") }, { value: "soft", label: tr("Soft", "柔和") }]}
             />
-            <Button variant={selecting ? "default" : "outline"} size="sm" aria-pressed={selecting} onClick={() => setSelecting((v) => !v)}>
+            <Button className="max-lg:ms-auto" variant={selecting ? "default" : "outline"} size="sm" aria-pressed={selecting} onClick={() => setSelecting((v) => !v)}>
               {selecting ? tr("Done", "完成") : tr("Select", "多选")}
             </Button>
             <SizeControl
-              className="w-full sm:ms-auto sm:w-auto"
+              className="w-full lg:ms-auto lg:w-auto"
               label={tr("Icon size", "尺寸")}
               commonLabel={tr("Common icon sizes", "常用尺寸")}
               pixelsLabel={tr("Icon size in pixels", "尺寸（像素）")}
@@ -209,8 +209,8 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
               onChange={(size) => { setSizing(true); setPrefs({ size }); }}
             />
           </div>
-          <div className="relative isolate -mx-gutter mb-4 flex gap-1.5 overflow-x-auto px-gutter pb-0.5 lg:hidden">
-            <Glide selector="[aria-current=true]" className={cn("rounded-pill", raised)} />
+          <div className="relative isolate -mx-gutter mb-3 flex gap-1.5 overflow-x-auto px-gutter pb-0.5 lg:hidden">
+            <Glide still selector="[aria-current=true]" className={cn("rounded-pill", raised)} />
             <button type="button" aria-current={!cat} className={chip({ active: !cat })} onClick={() => pickCat("")}>{tr("All", "全部")}</button>
             {cats.map((c) => (
               <a key={c.id} href={asset(loc(`/icons/category/${c.id}/`))} aria-current={cat === c.id} className={chip({ active: cat === c.id })} onClick={(e) => filterTo(e, c.id)}>{tr(c.en, c.zh ?? c.en)}</a>
