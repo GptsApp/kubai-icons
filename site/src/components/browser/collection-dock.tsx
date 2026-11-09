@@ -18,7 +18,7 @@ import { loadIndex, type IconMeta } from "@/lib/icons";
 import { nudgeSponsor } from "@/lib/sponsor-nudge";
 import { cn } from "@/lib/utils";
 import { useTr } from "@/lib/use-locale";
-import { useIcon, useZhName } from "./icon-tile";
+import { useIcon, useLocalName } from "./icon-tile";
 import { MIXED, MIXED_FILL, SWATCHES, mixedColor } from "./prefs";
 
 
@@ -26,7 +26,7 @@ import { MIXED, MIXED_FILL, SWATCHES, mixedColor } from "./prefs";
 export function CollectionDock() {
   const items = useCollection();
   const tr = useTr();
-  const plural = (n: number) => tr(`${n} icon${n === 1 ? "" : "s"}`, `${n} 个图标`);
+  const plural = (n: number) => tr(n === 1 ? "{n} icon" : "{n} icons", "{n} 个图标", { n });
   const [open, setOpen] = useState(false);
   const [format, setFormat] = useState<CollectionFormat>("svg");
   const [busy, setBusy] = useState(false);
@@ -39,7 +39,7 @@ export function CollectionDock() {
       const names = new Set((await loadIndex()).icons.map((i) => i.name));
       const before = savedIcons();
       const added = addSaved(shared.filter((i) => names.has(i.name)));
-      if (added) toast.success(tr(`Added ${plural(added)} to your collection`, `已将 ${added} 个图标加入收藏夹`), { action: { label: tr("Undo", "撤销"), onClick: () => replaceSaved(before) } });
+      if (added) toast.success(tr("Added {items} to your collection", "已将 {items} 加入收藏夹", { items: plural(added) }), { action: { label: tr("Undo", "撤销"), onClick: () => replaceSaved(before) } });
       else toast(tr("These icons are already in your collection", "图标已在收藏夹中"));
     };
     const receiveSafely = () => receive().catch(() => toast.error(tr("The shared icons could not be added", "添加图标失败")));
@@ -73,7 +73,7 @@ export function CollectionDock() {
   };
   const colors = new Set(items.map((i) => i.color.toLowerCase()));
   const variants = new Set(items.map((i) => i.variant));
-  const label = tr(`Download ${format.toUpperCase()}`, `下载 ${format.toUpperCase()}`);
+  const label = tr("Download {format}", "下载 {format}", { format: format.toUpperCase() });
 
   return (
     <>
@@ -87,7 +87,7 @@ export function CollectionDock() {
         >
           <Button variant="ghost" className="rounded-pill" onClick={() => setOpen(true)}>
             <RiBookmarkFill data-icon="inline-start" />
-            <span key={count} className="swap-in tabular-nums">{tr(`${count} saved`, `已收藏 ${count} 个`)}</span>
+            <span key={count} className="swap-in tabular-nums">{tr("{count} saved", "已收藏 {count} 个", { count })}</span>
           </Button>
           <Button className="rounded-pill" disabled={busy} onClick={save}>
             <RiDownloadLine data-icon="inline-start" />
@@ -100,7 +100,7 @@ export function CollectionDock() {
         <SheetContent className="gap-0 data-[side=right]:w-11/12">
           <SheetHeader className="space-y-1 p-panel pb-4">
             <SheetTitle>{tr("Collection", "收藏夹")}</SheetTitle>
-            <SheetDescription>{count ? tr(`${plural(count)}, kept in this browser.`, `${count} 个图标，保存在此浏览器中`) : tr("Nothing saved yet.", "暂无收藏")}</SheetDescription>
+            <SheetDescription>{count ? tr("{items}, kept in this browser.", "{items}，保存在此浏览器中", { items: plural(count) }) : tr("Nothing saved yet.", "暂无收藏")}</SheetDescription>
           </SheetHeader>
           {count > 0 && (
             <>
@@ -155,15 +155,15 @@ export function CollectionDock() {
 function SavedTile({ item, meta }: { item: SavedIcon; meta: IconMeta }) {
   const tr = useTr();
   const icon = useIcon(meta);
-  const zh = useZhName(meta);
+  const local = useLocalName(meta);
   return (
-    <div title={zh ? `${zh} ${item.name}` : item.name} className={cn(tile({ interactive: false }), "group relative aspect-square")}>
+    <div title={local ? `${local} ${item.name}` : item.name} className={cn(tile({ interactive: false }), "group relative aspect-square")}>
       {icon ? <IconImage icon={icon} size={28} color={item.color} variant={item.variant} badgeColor={item.badge} /> : null}
       <button
         type="button"
         onClick={() => removeSaved(item.name)}
-        aria-label={tr(`Remove ${item.name}`, `移除 ${zh ?? item.name}`)}
-        className="tap absolute top-0.5 right-0.5 grid size-5 place-items-center rounded-control text-muted-foreground transition-opacity hover:text-foreground focus-visible:opacity-100 pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100"
+        aria-label={tr("Remove {name}", "移除 {name}", { name: local ?? item.name })}
+        className="tap absolute top-0.5 end-0.5 grid size-5 place-items-center rounded-control text-muted-foreground transition-opacity hover:text-foreground focus-visible:opacity-100 pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100"
       >
         <RiCloseLine className="size-3.5" />
       </button>

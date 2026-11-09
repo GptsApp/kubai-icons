@@ -42,7 +42,7 @@ export function DocsFooter() {
           <span className="font-medium">{tr(previous.label, previous.zh)}</span>
         </Link>
         {next ? (
-          <Link href={loc(next.href)} className={cn(pagerLink, "col-start-2 text-right")}>
+          <Link href={loc(next.href)} className={cn(pagerLink, "col-start-2 text-end")}>
             <span className="text-caption text-muted-foreground">{tr("Next", "下一页")}</span>
             <span className="font-medium">{tr(next.label, next.zh)}</span>
           </Link>

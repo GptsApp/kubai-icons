@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/kit/layout";
 import { IconLinks } from "@/components/browser/icon-links";
 import { IconPageView } from "@/components/browser/icon-page-view";
-import { allCategories, familyOf, iconByName, relatedTo, zhNameOf, zhWords } from "@/lib/catalog";
+import { allCategories, familyOf, iconByName, relatedTo, localNameOf, zhWords } from "@/lib/catalog";
 import { localize, pick, type Locale } from "@/lib/i18n";
 import { absolute, iconLabel, pageMeta, SITE_NAME } from "@/lib/seo";
 import { REPO, reportIconUrl } from "@/lib/site";
@@ -38,7 +38,7 @@ export function IconPageBody({ name, locale }: { name: string; locale: Locale })
   const category = categories.find((c) => c.id === meta.category);
   const categoryName = category ? pick(locale, category.en, category.zh ?? category.en) : undefined;
   const family = familyOf(name);
-  const badged = family.filter((i) => i.base).map((i) => pick(locale, i.name, zhNameOf(i) ?? i.name));
+  const badged = family.filter((i) => i.base).map((i) => pick(locale, i.name, localNameOf(i, locale) ?? i.name));
   const related = relatedTo(meta);
   const terms = pick(locale, meta.tags, zhWords(name));
   return (
@@ -47,7 +47,7 @@ export function IconPageBody({ name, locale }: { name: string; locale: Locale })
         data={{
           "@context": "https://schema.org",
           "@type": "ImageObject",
-          name: pick(locale, `${label} icon`, `${label}图标`),
+          name: pick(locale, "{label} icon", "{label}图标", { label }),
           contentUrl: absolute(`/icons/${name}/preview.svg`),
           encodingFormat: "image/svg+xml",
           creditText: SITE_NAME,
@@ -63,7 +63,7 @@ export function IconPageBody({ name, locale }: { name: string; locale: Locale })
           { name: label, path: localize(`/icons/${name}/`, locale) },
         ]}
       />
-      <IconPageView meta={meta} related={family} categories={categories} heading={pick(locale, `${label} icon`, `${label}图标`)} />
+      <IconPageView meta={meta} related={family} categories={categories} heading={pick(locale, "{label} icon", "{label}图标", { label })} />
       <section className="max-w-3xl space-y-3 text-body text-muted-foreground">
         <p>
           {pick(
@@ -72,8 +72,8 @@ export function IconPageBody({ name, locale }: { name: string; locale: Locale })
             `“${label}”是一款开源的动态图标${categoryName ? `，属于“${categoryName}”分类` : ""}。它可以作为 React、Vue 组件或 Web Component 播放悬停动效，也提供静态 SVG。`,
           )}
         </p>
-        {terms.length > 0 && <p>{pick(locale, `Related terms: ${terms.join(", ")}.`, `相关词：${terms.join("、")}`)}</p>}
-        {badged.length > 0 && <p>{pick(locale, `Badged versions: ${badged.join(", ")}.`, `带角标的版本：${badged.join("、")}`)}</p>}
+        {terms.length > 0 && <p>{pick(locale, "Related terms: {terms}.", "相关词：{terms}", { terms: terms.join(locale === "zh" ? "、" : ", ") })}</p>}
+        {badged.length > 0 && <p>{pick(locale, "Badged versions: {names}.", "带角标的版本：{names}", { names: badged.join(locale === "zh" ? "、" : ", ") })}</p>}
         <p><a href={reportIconUrl(name)} target="_blank" rel="noreferrer" className="underline underline-offset-4 transition-colors hover:text-foreground">{pick(locale, "Report a problem with this icon", "报告此图标的问题")}</a></p>
       </section>
       {related.length > 0 && (

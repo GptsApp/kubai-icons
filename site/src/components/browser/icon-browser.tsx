@@ -46,8 +46,8 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
   const loc = useLocalize();
   const locale = useLocale();
   const [index, setIndex] = useState<IconIndex | null>(null);
-  const keywords = useSyncExternalStore(onKeywords, peekKeywords, noKeywords);
-  const list = useMemo(() => (index ? prepare(index.icons, keywords ?? {}) : []), [index, keywords]);
+  const keywords = useSyncExternalStore(onKeywords, () => peekKeywords(locale), noKeywords);
+  const list = useMemo(() => (index ? prepare(index.icons, keywords ?? {}, locale) : []), [index, keywords, locale]);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("");
   const [open, setOpen] = useState<IconMeta | null>(null);
@@ -70,8 +70,8 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
     loadIndex().then((ix) => {
       setIndex(ix);
       const u = readUrl();
-      if (u.q) loadKeywords().catch(() => { /* names and tags still search */ });
-      else loadKeywordsLater();
+      if (u.q) loadKeywords(locale).catch(() => { /* names and tags still search */ });
+      else loadKeywordsLater(locale);
       setQ(u.q);
       setCat(u.cat);
       if (u.icon) setOpen(ix.icons.find((i) => i.name === u.icon) ?? null);
@@ -142,7 +142,7 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
   return (
     <div className="grid gap-8 lg:grid-cols-[220px_1fr]">
       <aside className="hidden lg:block">
-        <nav className="isolate sticky top-[calc(var(--header)+var(--stick))] -mr-2 max-h-[calc(100dvh-var(--header)-2*var(--stick))] space-y-0.5 overflow-y-auto pr-2 pb-6 [mask-image:linear-gradient(to_bottom,black_calc(100%-1.5rem),transparent)]">
+        <nav className="isolate sticky top-[calc(var(--header)+var(--stick))] -me-2 max-h-[calc(100dvh-var(--header)-2*var(--stick))] space-y-0.5 overflow-y-auto pe-2 pb-6 [mask-image:linear-gradient(to_bottom,black_calc(100%-1.5rem),transparent)]">
           <Glide selector="[aria-current=true]" className="rounded-control bg-muted" />
           <button type="button" aria-current={!cat} onClick={() => pickCat("")} className={navItem({ active: !cat })}>
             <span className="truncate">{tr("All", "全部")}</span>
@@ -162,17 +162,17 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
           {/* Below the desktop layout only the search box stays in view. */}
           <div className="max-lg:sticky max-lg:top-header max-lg:z-30 max-lg:-mx-gutter max-lg:bg-background/80 max-lg:px-gutter max-lg:py-2 max-lg:backdrop-blur-xl">
           <div className="relative">
-            <RiSearchLine className="pointer-events-none absolute top-1/2 left-3.5 size-[18px] -translate-y-1/2 text-muted-foreground" />
+            <RiSearchLine className="pointer-events-none absolute top-1/2 start-3.5 size-[18px] -translate-y-1/2 text-muted-foreground" />
             <Input
               ref={input}
               value={q}
               onChange={(e) => { setRefiltered(true); setQ(e.target.value); }}
-              onFocus={() => { loadKeywords().catch(() => { /* names and tags still search */ }); }}
+              onFocus={() => { loadKeywords(locale).catch(() => { /* names and tags still search */ }); }}
               placeholder={tr("Search by name, shape or meaning", "按名称、形状或含义搜索")}
-              className="h-11 rounded-card pr-16 pl-10 text-field"
+              className="h-11 rounded-card pe-16 ps-10 text-field"
               aria-label={tr("Search icons", "搜索图标")}
             />
-            <Kbd className="absolute top-1/2 right-3.5 -translate-y-1/2 pointer-coarse:hidden">/</Kbd>
+            <Kbd className="absolute top-1/2 end-3.5 -translate-y-1/2 pointer-coarse:hidden">/</Kbd>
           </div>
           </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-3 max-lg:my-3">
@@ -198,7 +198,7 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
               {selecting ? tr("Done", "完成") : tr("Select", "多选")}
             </Button>
             <SizeControl
-              className="w-full sm:ml-auto sm:w-auto"
+              className="w-full sm:ms-auto sm:w-auto"
               label={tr("Icon size", "尺寸")}
               commonLabel={tr("Common icon sizes", "常用尺寸")}
               pixelsLabel={tr("Icon size in pixels", "尺寸（像素）")}
@@ -230,7 +230,7 @@ export function IconBrowser({ categories: cats, firstChunk }: { categories: Cate
                 <Search size={40} color="#5393FF" trigger="parent" />
               </div>
               <h2 className="mt-5 max-w-full truncate text-subheading font-semibold">
-                {query.trim() ? tr(`No icons for “${query.trim()}”`, `未找到与“${query.trim()}”相关的图标`) : tr("No icons here yet", "暂无图标")}
+                {query.trim() ? tr("No icons for “{query}”", "未找到与“{query}”相关的图标", { query: query.trim() }) : tr("No icons here yet", "暂无图标")}
               </h2>
               <div className="mt-5 flex flex-wrap justify-center gap-2">
                 <Button render={<a href={requestUrl(query)} target="_blank" rel="noreferrer" onClick={() => track("request_icon", { q: query })} />}>

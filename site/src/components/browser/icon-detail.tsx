@@ -11,15 +11,16 @@ import { Segmented } from "@/components/kit/segmented";
 import { Glide } from "@/components/kit/glide";
 import { quietLink, tile } from "@/components/kit/styles";
 import { toggleSaved, useSaved } from "@/lib/collection";
-import { FACETS, loadKeywords, pascal, zhBadgeName, type IconMeta, type Category, type Keywords } from "@/lib/icons";
+import { FACETS, loadKeywords, localBadgeName, pascal, type IconMeta, type Category, type Keywords } from "@/lib/icons";
 import { download, resolvedSvg, svgToPng } from "@/lib/export";
 import { track } from "@/lib/analytics";
 import { REPO, asset } from "@/lib/site";
-import { useLocalize, useTr } from "@/lib/use-locale";
+import { languageOf } from "@/lib/i18n";
+import { useLocale, useLocalize, useTr } from "@/lib/use-locale";
 import { nudgeSponsor } from "@/lib/sponsor-nudge";
 import { cn } from "@/lib/utils";
 import { PREVIEW_SIZE, type Badge as BadgeMode } from "./prefs";
-import { useIcon, useZhName } from "./icon-tile";
+import { useIcon, useLocalName } from "./icon-tile";
 
 type Props = {
   meta: IconMeta;
@@ -60,15 +61,16 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
   const icon = useIcon(meta);
   const saved = useSaved(meta.name);
   const tr = useTr();
+  const locale = useLocale();
   const loc = useLocalize();
   const [keywords, setKeywords] = useState<Keywords | null>(null);
   const [showKeywords, setShowKeywords] = useState(false);
   const owner = meta.base ?? meta.name;
   useEffect(() => {
     let live = true;
-    loadKeywords().then((all) => { if (live) setKeywords(all[owner] ?? null); }).catch(() => { /* the panel works without them */ });
+    loadKeywords(locale).then((all) => { if (live) setKeywords(all[owner] ?? null); }).catch(() => { /* the panel works without them */ });
     return () => { live = false; };
-  }, [owner]);
+  }, [owner, locale]);
   const [pinned, setPinned] = useState(false);
   const playing = useRef(0);
   const play = useCallback(() => {
@@ -100,7 +102,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
   const P = pascal(meta.name);
   const cat = categories.find((c) => c.id === meta.category);
   const catName = cat ? tr(cat.en, cat.zh ?? cat.en) : undefined;
-  const facets = tr<readonly { key: keyof Keywords; label: string; zh: string }[]>(FACETS, [{ key: "zh", label: "Chinese", zh: "中文" }, ...FACETS]);
+  const facets = locale === "en" ? FACETS : [{ key: "local" as const, label: languageOf(locale).name, zh: languageOf(locale).name }, ...FACETS];
   const snippets = useMemo(() => {
     const soft = (variant === "soft" ? ' variant="soft"' : "") + (mainBc ? ' badgeColor="semantic"' : "");
     return {
@@ -122,11 +124,11 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
   };
   const variants = related.filter((r) => r.base);
   const root = related.find((r) => !r.base);
-  const zh = useZhName(meta);
-  const rootZh = useZhName(root);
-  // Chinese pages lead with the Chinese name and keep the code name beside it.
-  const readable = heading ?? zh;
-  const codeName = tr(null, readable ? meta.name : null);
+  const local = useLocalName(meta);
+  const rootLocal = useLocalName(root);
+  // Pages in other languages lead with the local name and keep the code name beside it.
+  const readable = heading ?? local;
+  const codeName = locale !== "en" && readable ? meta.name : null;
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] sm:grid-cols-[17rem_minmax(0,1fr)]">
@@ -145,7 +147,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
             <RiPlayFill className="size-3" />{tr("Tap to play", "点击播放")}
           </small>
         </button>
-        <div className="flex flex-1 items-end justify-center gap-3 pr-12 pb-7 pl-3 max-[389px]:[&>:last-child]:hidden sm:flex-none sm:gap-4 sm:p-panel">
+        <div className="flex flex-1 items-end justify-center gap-3 pe-12 pb-7 ps-3 max-[389px]:[&>:last-child]:hidden sm:flex-none sm:gap-4 sm:p-panel">
           {[16, 24, 32, 48].map((s) => (
             <div key={s} className="flex flex-col items-center gap-1.5">
               {icon ? <IconImage icon={icon} size={s} color={color} variant={variant} badgeColor={mainBc} /> : <span style={{ width: s, height: s }} />}
@@ -159,29 +161,29 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
         {/* Every line here keeps one line's height, so switching versions never moves
             the controls below. */}
         <header key={meta.name} className="swap-in relative">
-          <Description className="flex h-5 items-center gap-0.5 pr-24 text-control whitespace-nowrap sm:pr-8 text-muted-foreground *:[a]:no-underline">
+          <Description className="flex h-5 items-center gap-0.5 pe-24 text-control whitespace-nowrap sm:pe-8 text-muted-foreground *:[a]:no-underline">
             {onCategory ? (
               <>
                 <a href={asset(loc(`/icons/category/${meta.category}/`))} onClick={(e) => { if (!e.metaKey && !e.ctrlKey && !e.shiftKey) { e.preventDefault(); onCategory(meta.category); } }} className={cn("tap relative", quietLink, root && meta.base && "max-sm:hidden")}>{catName}</a>
                 {root && meta.base && (
                   <>
-                    <RiArrowRightSLine aria-hidden className="size-4 shrink-0 max-sm:hidden" />
-                    <button type="button" onClick={() => onOpen(root)} className={cn("tap relative", quietLink)}>{rootZh ?? root.name}</button>
+                    <RiArrowRightSLine aria-hidden className="size-4 shrink-0 max-sm:hidden rtl:rotate-180" />
+                    <button type="button" onClick={() => onOpen(root)} className={cn("tap relative", quietLink)}>{rootLocal ?? root.name}</button>
                   </>
                 )}
-                <RiArrowRightSLine aria-hidden className="size-4 shrink-0" />
-                <span className="min-w-0 truncate text-foreground">{zh && meta.base ? zhBadgeName(meta) : zh ?? meta.name}</span>
+                <RiArrowRightSLine aria-hidden className="size-4 shrink-0 rtl:rotate-180" />
+                <span className="min-w-0 truncate text-foreground">{local && meta.base ? localBadgeName(meta, locale) : local ?? meta.name}</span>
               </>
             ) : catName}
-            {meta.by && <a href={`https://github.com/${meta.by}`} target="_blank" rel="noreferrer" className={cn("tap relative ml-2 shrink-0", quietLink)}>by @{meta.by}</a>}
+            {meta.by && <a href={`https://github.com/${meta.by}`} target="_blank" rel="noreferrer" className={cn("tap relative ms-2 shrink-0", quietLink)}>by @{meta.by}</a>}
           </Description>
           <div className="flex h-8 items-center gap-1">
             <Title className={cn("min-w-0 truncate text-heading font-semibold", !readable && "font-mono", codeName && "shrink-0")}>{readable ?? meta.name}</Title>
-            {codeName && <span className="ml-1 min-w-0 truncate font-mono text-control text-muted-foreground">{codeName}</span>}
+            {codeName && <span className="ms-1 min-w-0 truncate font-mono text-control text-muted-foreground">{codeName}</span>}
             <Button variant="ghost" size="icon-sm" className="shrink-0 text-muted-foreground" onClick={actions.copyName} aria-label={tr("Copy name", "复制英文名")} title={tr("Copy name", "复制英文名")}>
               <RiFileCopyLine />
             </Button>
-            <button type="button" onClick={actions.copyColor} aria-label={tr(`Copy color ${hex}`, `复制色值 ${hex}`)} title={tr("Copy color", "复制色值")} className={cn("tap absolute -top-1 right-0 flex h-7 shrink-0 items-center gap-1.5 rounded-control border px-2 font-mono text-caption sm:relative sm:top-0 sm:ml-auto", quietLink)}>
+            <button type="button" onClick={actions.copyColor} aria-label={tr("Copy color {hex}", "复制色值 {hex}", { hex })} title={tr("Copy color", "复制色值")} className={cn("tap absolute -top-1 end-0 flex h-7 shrink-0 items-center gap-1.5 rounded-control border px-2 font-mono text-caption sm:relative sm:top-0 sm:ms-auto", quietLink)}>
               <span aria-hidden className="size-3 rounded-pill" style={{ background: color }} />
               {hex}
             </button>
@@ -189,7 +191,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
         </header>
 
         <div className="grid grid-cols-[1fr_1fr_auto_auto] gap-2 max-[359px]:grid-cols-2 max-[359px]:[&>*]:w-full sm:grid-cols-[1fr_auto_auto_auto_auto]">
-          <Button size="xl" className="col-span-4 has-data-[icon=inline-start]:pl-5 max-[359px]:col-span-2 sm:col-span-1" onClick={actions.copySvg}><RiFileCopyLine data-icon="inline-start" />{tr("Copy SVG", "复制 SVG")}</Button>
+          <Button size="xl" className="col-span-4 has-data-[icon=inline-start]:ps-5 max-[359px]:col-span-2 sm:col-span-1" onClick={actions.copySvg}><RiFileCopyLine data-icon="inline-start" />{tr("Copy SVG", "复制 SVG")}</Button>
           <Button size="xl" variant="outline" onClick={actions.svg}><RiDownloadLine data-icon="inline-start" />SVG</Button>
           <Button size="xl" variant="outline" onClick={actions.png}><RiDownloadLine data-icon="inline-start" />PNG</Button>
           <Button size="icon-xl" variant="outline" onClick={() => toggleSaved({ name: meta.name, color, variant, badge: mainBc })} aria-pressed={saved} aria-label={tr("Save to collection", "加入收藏夹")} title={saved ? tr("Remove from collection", "移出收藏夹") : tr("Save to collection", "加入收藏夹")}>
@@ -250,7 +252,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
           <section>
             <button type="button" aria-expanded={showKeywords} onClick={() => setShowKeywords((v) => !v)} className={cn("tap relative flex items-center gap-0.5 text-caption font-medium", quietLink)}>
               {tr("Keywords", "关键词")}
-              <RiArrowRightSLine aria-hidden className={cn("size-4 transition-transform duration-200 motion-reduce:transition-none", showKeywords && "rotate-90")} />
+              <RiArrowRightSLine aria-hidden className={cn("size-4 transition-transform duration-200 motion-reduce:transition-none", showKeywords ? "rotate-90" : "rtl:rotate-180")} />
             </button>
             <div className={cn("grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none", showKeywords ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
               <div className="min-h-0 overflow-hidden" inert={!showKeywords}>
@@ -273,7 +275,7 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
                         >
                           {word}
                         </TooltipTrigger>
-                        <TooltipContent>{tr(`Search for “${word}”`, `搜索“${word}”`)}</TooltipContent>
+                        <TooltipContent>{tr("Search for “{word}”", "搜索“{word}”", { word })}</TooltipContent>
                       </Tooltip>
                     ))}
                   </dd>
@@ -291,11 +293,11 @@ export function IconDetail({ meta, related, categories, color, variant, badge, o
 
 function VariantChip({ meta, active, color, variant, badge, onOpen }: { meta: IconMeta; active: boolean; color: string; variant: "color" | "soft"; badge?: string; onOpen: (m: IconMeta) => void }) {
   const icon = useIcon(meta);
-  const zh = useZhName(meta);
+  const local = useLocalName(meta);
   return (
     <button
       type="button"
-      title={zh ?? meta.name}
+      title={local ?? meta.name}
       aria-current={active}
       data-kubai-trigger
       onClick={() => onOpen(meta)}

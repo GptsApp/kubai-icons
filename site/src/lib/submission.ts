@@ -17,7 +17,7 @@ export function svgProblems(text: string, locale: Locale = "en"): string[] {
   if (!root.hasAttribute("viewBox") && !(root.hasAttribute("width") && root.hasAttribute("height"))) problems.add(pick(locale, "Add a viewBox to the SVG.", "请为 SVG 添加 viewBox"));
   for (const el of [root, ...root.querySelectorAll("*")]) {
     const tag = el.localName.toLowerCase();
-    if (BLOCKED.has(tag)) problems.add(pick(locale, `Remove the <${el.localName}> element. Icons are vector shapes only.`, `请移除 <${el.localName}> 元素，图标只能使用矢量图形`));
+    if (BLOCKED.has(tag)) problems.add(pick(locale, "Remove the <{element}> element. Icons are vector shapes only.", "请移除 <{element}> 元素，图标只能使用矢量图形", { element: el.localName }));
     if (tag === "style" && (/@import/i.test(el.textContent ?? "") || OUTSIDE_URL.test(el.textContent ?? ""))) problems.add(pick(locale, "Remove references to files outside the SVG.", "请移除对 SVG 外部文件的引用"));
     for (const attr of el.attributes) {
       const name = attr.name.toLowerCase();

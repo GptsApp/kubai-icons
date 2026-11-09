@@ -20,7 +20,7 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
         <ol className="flex flex-wrap items-center gap-1 text-control text-muted-foreground">
           {trail.map((c, i) => (
             <li key={c.path} className="flex items-center gap-1">
-              {i > 0 && <RiArrowRightSLine aria-hidden className="size-4" />}
+              {i > 0 && <RiArrowRightSLine aria-hidden className="size-4 rtl:rotate-180" />}
               {i < trail.length - 1 ? <Link href={c.path} className="tap relative transition-colors hover:text-foreground">{c.name}</Link> : <span aria-current="page" className="text-foreground">{c.name}</span>}
             </li>
           ))}

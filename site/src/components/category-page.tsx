@@ -15,16 +15,18 @@ const nameIn = (c: { en: string; zh?: string }, locale: Locale) => pick(locale, 
 const leadFor = (count: number, name: string, locale: Locale) =>
   pick(
     locale,
-    `${count} open-source animated ${name.toLowerCase()} icons for React, Vue and the web, each with its own hover motion and available as static SVG.`,
-    `“${name}”分类共有 ${count} 个开源图标，提供 React、Vue 组件、Web Component 和静态 SVG，每个图标都有各自的悬停动效。`,
+    "{count} open-source animated {lower} icons for React, Vue and the web, each with its own hover motion and available as static SVG.",
+    "“{name}”分类共有 {count} 个开源图标，提供 React、Vue 组件、Web Component 和静态 SVG，每个图标都有各自的悬停动效。",
+    { count, name, lower: name.toLowerCase() },
   );
-const titleFor = (name: string, locale: Locale) => pick(locale, `${name} icons`, `${name}图标`);
+const titleFor = (name: string, locale: Locale) => pick(locale, "{name} icons", "{name}图标", { name });
 // Shown under the title, so unlike the search description it leaves out the category name.
 const visibleLead = (count: number, locale: Locale) =>
   pick(
     locale,
-    `${count} open-source animated icons for React, Vue and the web, each with its own hover motion and available as static SVG.`,
-    `共 ${count} 个开源图标，提供 React、Vue 组件、Web Component 和静态 SVG，每个图标都有各自的悬停动效`,
+    "{count} open-source animated icons for React, Vue and the web, each with its own hover motion and available as static SVG.",
+    "共 {count} 个开源图标，提供 React、Vue 组件、Web Component 和静态 SVG，每个图标都有各自的悬停动效",
+    { count },
   );
 
 export function categoryMeta(id: string, locale: Locale): Metadata {
@@ -34,7 +36,7 @@ export function categoryMeta(id: string, locale: Locale): Metadata {
   return pageMeta({ title: titleFor(name, locale), path: localize(`/icons/category/${id}/`, locale), description: leadFor(iconsIn(id).length, name, locale) });
 }
 
-/** One category's page, in either language. */
+/** One category's page, in any language. */
 export function CategoryPageBody({ id, locale }: { id: string; locale: Locale }) {
   const category = categoryById(id);
   if (!category) notFound();

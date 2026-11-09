@@ -182,6 +182,9 @@ if (targets.has('site')) {
   // Search keywords load separately, so the grid does not wait for them.
   const allKeywords = JSON.parse(fs.readFileSync(path.join(root, 'icons', 'keywords.json'), 'utf8'));
   write(path.join(out, 'keywords.json'), JSON.stringify(Object.fromEntries(icons.filter((i) => !i.base && allKeywords[i.name]).map((i) => [i.name, allKeywords[i.name]]))));
+  // Each translated language's words for the icons, loaded only on that language's pages.
+  const i18n = path.join(root, 'site/src/i18n');
+  for (const { name: language } of fs.readdirSync(i18n, { withFileTypes: true }).filter((e) => e.isDirectory())) write(path.join(out, 'keywords', `${language}.json`), fs.readFileSync(path.join(i18n, language, 'icons.json'), 'utf8'));
   // The social card rides along as a static file.
   const pub = path.join(root, 'site/public');
   fs.mkdirSync(path.join(pub, 'assets'), { recursive: true });

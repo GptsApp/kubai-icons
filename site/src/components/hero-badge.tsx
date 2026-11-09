@@ -11,14 +11,15 @@ export function HeroBadge({ count }: { count: number }) {
   const tr = useTr();
   const loc = useLocalize();
   return (
-    <Link href={loc("/skill/")} className={cn("group tap relative inline-flex h-8 items-center gap-2 rounded-pill pr-1.5 pl-2.5 text-caption font-medium whitespace-nowrap transition-[filter] hover:brightness-[.98] dark:hover:brightness-[1.2]", raised)}>
+    <Link href={loc("/skill/")} className={cn("group tap relative inline-flex h-8 items-center gap-2 rounded-pill pe-1.5 ps-2.5 text-caption font-medium whitespace-nowrap transition-[filter] hover:brightness-[.98] dark:hover:brightness-[1.2]", raised)}>
       <Sparkles size={16} color="#8B5CF6" trigger="parent" />
-      <span className="tabular-nums">{tr(`${count.toLocaleString("en")} icons`, `${count.toLocaleString("en")} 个图标`)}</span>
+      <span className="tabular-nums">{tr("{count} icons", "{count} 个图标", { count: count.toLocaleString("en") })}</span>
       <span aria-hidden className="h-3 w-px bg-border" />
       <span className="text-muted-foreground transition-colors group-hover:text-foreground">
-        <span className="max-[399px]:hidden">{tr("Now with an ", "现已提供 ")}</span>{tr("agent skill", "Agent Skill")}
+        <span className="max-[399px]:hidden">{tr("Now with an agent skill", "现已提供 Agent Skill")}</span>
+        <span className="min-[400px]:hidden">{tr("agent skill", "Agent Skill")}</span>
       </span>
-      <RiArrowRightSLine className="-ml-1 size-4 text-muted-foreground transition-[translate] duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" />
+      <RiArrowRightSLine className="rtl:rotate-180 -ms-1 size-4 text-muted-foreground transition-[translate] duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" />
     </Link>
   );
 }

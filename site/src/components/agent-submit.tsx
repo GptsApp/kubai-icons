@@ -16,7 +16,7 @@ export function AgentSubmit() {
     <aside className="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 rounded-card border px-5 py-4">
       <p className="text-body">
         {tr("Hand it to an AI agent", "交给 AI / Agent")}
-        <Link href={`${loc("/docs/contributing/")}#submit-an-icon`} target="_blank" rel="noreferrer" className="tap relative ml-3 text-control text-muted-foreground underline underline-offset-4 hover:text-foreground">{tr("Guide", "说明")}</Link>
+        <Link href={`${loc("/docs/contributing/")}#submit-an-icon`} target="_blank" rel="noreferrer" className="tap relative ms-3 text-control text-muted-foreground underline underline-offset-4 hover:text-foreground">{tr("Guide", "说明")}</Link>
       </p>
       <div className="flex flex-wrap gap-2">
         <Button variant="outline" render={<Link href={loc("/skill/")} />}>{tr("Install the skill", "安装 Skill")}</Button>

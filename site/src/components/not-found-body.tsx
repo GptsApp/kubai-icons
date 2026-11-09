@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { browserLocale, localize, pick, type Locale } from "@/lib/i18n";
+import { browserLocale, loadMessages, localize, pick, type Locale } from "@/lib/i18n";
 
 /** The 404 message. A static host serves one file for every missing page, so the language is read from the address after loading. */
 export function NotFoundBody() {
   const [locale, setLocale] = useState<Locale>("en");
-  useEffect(() => setLocale(browserLocale()), []);
+  useEffect(() => {
+    const locale = browserLocale();
+    loadMessages(locale).then(() => setLocale(locale)).catch(() => { /* English still reads */ });
+  }, []);
   return (
     <div className="mx-auto grid max-w-xl place-items-center gap-4 px-gutter py-32 text-center">
       <p className="text-display font-semibold">404</p>

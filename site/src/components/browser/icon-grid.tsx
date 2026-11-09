@@ -131,7 +131,7 @@ export function IconGrid({ icons, tile, size, color, variant, selecting, hits, a
               key={m.name}
               data-name={m.name}
               data-index={row.index * cols + i}
-              className="absolute top-0 left-0 motion-reduce:transition-none"
+              className="absolute top-0 start-0 motion-reduce:transition-none"
               style={{
                 width: cell,
                 height: cell,

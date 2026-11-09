@@ -2,10 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { STORY, useHeroBeat } from "@/components/hero-wall";
 import { cn } from "@/lib/utils";
+import { msg } from "@/lib/i18n";
 import { useTr } from "@/lib/use-locale";
 import { HERO_TITLE_ZH } from "@/components/hero-title-zh";
 
-const LINES = ["Folders open.", "Bells ring.", "Locks unlock."];
+const LINES = [msg("Folders open."), msg("Bells ring."), msg("Locks unlock.")];
 /** A Chinese phrase drawn as outlines. Its text stays for search engines and screen readers. */
 function OutlinedPhrase({ text }: { text: string }) {
   const outline = HERO_TITLE_ZH[text];
@@ -34,7 +35,8 @@ export function HeroHeadline({ className }: { className?: string }) {
     return () => observer.disconnect();
   }, []);
   const beat = useHeroBeat(visible);
-  const lines = useTr()(LINES, null);
+  const tr = useTr();
+  const lines = tr<string[] | null>(LINES, null)?.map((line) => tr(line, line));
 
   if (!lines) {
     return (
@@ -51,8 +53,10 @@ export function HeroHeadline({ className }: { className?: string }) {
     );
   }
 
+  // Longer lines in other languages shrink to fit, so each stays on one line beside its icon.
+  const longest = Math.max(...lines.map((line) => line.length));
   return (
-    <h1 ref={ref} className={className}>
+    <h1 ref={ref} className={cn(className, "[&>span]:[font-size:min(1em,calc(16em/var(--longest)))] lg:[&>span]:[font-size:min(1em,calc(19em/var(--longest)))]")} style={{ "--longest": longest } as React.CSSProperties}>
       {lines.map((line, i) => {
         const { Icon, color } = STORY[i];
         return (

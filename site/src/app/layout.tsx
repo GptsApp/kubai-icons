@@ -10,8 +10,8 @@ import { HOME_DESCRIPTION } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const sans = Geist({ variable: "--font-face-sans", subsets: ["latin"] });
-const mono = Geist_Mono({ variable: "--font-face-mono", subsets: ["latin"] });
+const sans = Geist({ variable: "--font-face-sans", subsets: ["latin", "latin-ext", "cyrillic"] });
+const mono = Geist_Mono({ variable: "--font-face-mono", subsets: ["latin", "latin-ext", "cyrillic"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL + "/"),

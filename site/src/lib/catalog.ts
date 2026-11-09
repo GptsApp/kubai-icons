@@ -2,7 +2,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { gzipSync } from "node:zlib";
-import { zhName, type Category, type IconIndex, type IconMeta, type KeywordIndex } from "./icons";
+import type { Locale } from "./i18n";
+import { localName, withLocalWords, type Category, type IconIndex, type IconMeta, type KeywordIndex, type RawKeywords } from "./icons";
 
 let cached: IconIndex | null = null;
 const index = () => (cached ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data/index.json"), "utf8")) as IconIndex);
@@ -23,12 +24,20 @@ export const moduleBytes = (names: string[]) =>
     }
   });
 
-let keywordsCache: KeywordIndex | null = null;
-const keywords = () => (keywordsCache ??= JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data/keywords.json"), "utf8")) as KeywordIndex);
+const readData = <T,>(file: string) => JSON.parse(fs.readFileSync(path.join(process.cwd(), "public/data", file), "utf8")) as T;
+const keywordsCache = new Map<Locale, KeywordIndex>();
+function keywords(locale: Locale) {
+  let all = keywordsCache.get(locale);
+  if (!all) {
+    all = withLocalWords(readData<RawKeywords>("keywords.json"), locale === "en" || locale === "zh" ? undefined : readData(`keywords/${locale}.json`));
+    keywordsCache.set(locale, all);
+  }
+  return all;
+}
 /** An icon's Chinese search words; the first is its name in Chinese. */
-export const zhWords = (name: string) => keywords()[name]?.zh ?? [];
-/** An icon's name in Chinese, with its badge if it has one. */
-export const zhNameOf = (meta: IconMeta) => zhName(meta, keywords());
+export const zhWords = (name: string) => keywords("zh")[name]?.local ?? [];
+/** An icon's name in a language, with its badge if it has one. */
+export const localNameOf = (meta: IconMeta, locale: Locale) => localName(meta, keywords(locale), locale);
 
 /** Base icons only: a badged version is shown on its base icon's page. */
 export const baseIcons = () => index().icons.filter((i) => !i.base);

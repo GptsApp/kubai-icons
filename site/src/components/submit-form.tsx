@@ -124,7 +124,7 @@ export function SubmitForm() {
             <div className="flex h-10 items-center gap-2 text-control">
               <RiFileCodeLine className="size-4 shrink-0 text-muted-foreground" />
               <span className="min-w-0 truncate">{source.file}</span>
-              <Button variant="ghost" size="icon-sm" className="ml-auto text-muted-foreground" onClick={() => setSource(null)} aria-label={tr("Remove motion source", "移除动效源码")}><RiCloseLine /></Button>
+              <Button variant="ghost" size="icon-sm" className="ms-auto text-muted-foreground" onClick={() => setSource(null)} aria-label={tr("Remove motion source", "移除动效源码")}><RiCloseLine /></Button>
             </div>
           ) : (
             <label className={cn(buttonVariants({ variant: "outline" }), "w-fit cursor-pointer has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-(--focus)")}>
@@ -136,7 +136,7 @@ export function SubmitForm() {
 
         {(error || problems.length > 0 || tooLarge) && (
           <ul className="space-y-1 text-control text-destructive">
-            {[...(error ? [error] : []), ...problems, ...(tooLarge ? [tr(`The files are larger than ${MAX_BYTES / 1000} KB in total.`, `文件总大小超过 ${MAX_BYTES / 1000} KB`)] : [])].map((p) => (
+            {[...(error ? [error] : []), ...problems, ...(tooLarge ? [tr("The files are larger than {size} KB in total.", `文件总大小超过 {size} KB`, { size: MAX_BYTES / 1000 })] : [])].map((p) => (
               <li key={p} className="flex gap-1.5"><RiErrorWarningLine className="mt-0.5 size-4 shrink-0" />{p}</li>
             ))}
           </ul>

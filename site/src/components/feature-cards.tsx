@@ -80,14 +80,14 @@ function ModulesCard({ bytes }: { bytes: number[] }) {
   const total = picked.reduce((sum, i) => sum + bytes[i], 0);
   const known = bytes.every(Boolean);
   const size = (total / 1000).toFixed(1);
-  const summary = tr(`${picked.length} imported${known ? `, ${size} KB gzipped` : ""}`, `已引入 ${picked.length} 个${known ? `，gzip 后 ${size} KB` : ""}`);
+  const summary = known ? tr("{count} imported, {size} KB gzipped", "已引入 {count} 个，gzip 后 {size} KB", { count: picked.length, size }) : tr("{count} imported", "已引入 {count} 个", { count: picked.length });
   return (
     <Card title={tr("Modules", "模块")} body={tr("Icons are separate ES modules, bundled on import.", "每个图标均为独立的 ES 模块，仅在导入时打包")}>
       <div className="flex items-center gap-1.5">
         {MODULE_COMPONENTS.map((Icon, i) => {
           const on = picked.includes(i);
           return (
-            <button key={i} type="button" aria-pressed={on} aria-label={tr(`Import ${MODULE_DEMO[i]}`, `引入 ${MODULE_DEMO[i]}`)} data-kubai-trigger onClick={() => toggle(i)} className={cn(tile({ active: on }), "size-11 rounded-card")}>
+            <button key={i} type="button" aria-pressed={on} aria-label={tr("Import {name}", "引入 {name}", { name: MODULE_DEMO[i] })} data-kubai-trigger onClick={() => toggle(i)} className={cn(tile({ active: on }), "size-11 rounded-card")}>
               <Icon size={26} color="#8B5CF6" trigger="parent" />
             </button>
           );

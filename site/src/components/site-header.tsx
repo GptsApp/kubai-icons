@@ -61,18 +61,18 @@ export function SiteHeader() {
             );
           })}
         </nav>
-        <div className="ml-auto flex items-center gap-1">
-          <FeedbackLink label={tr("Feedback", "反馈")} className={cn("tap relative hidden h-8 items-center justify-center gap-1.5 rounded-control pr-2.5 pl-2 text-control hover:bg-muted lg:flex", quietLink)}>
+        <div className="ms-auto flex items-center gap-1">
+          <FeedbackLink label={tr("Feedback", "反馈")} className={cn("tap relative hidden h-8 items-center justify-center gap-1.5 rounded-control pe-2.5 ps-2 text-control hover:bg-muted lg:flex", quietLink)}>
             <MessageCircle size={18} color="#5393FF" trigger="parent" />
             <span>{tr("Feedback", "反馈")}</span>
           </FeedbackLink>
           <AuthorLink place="header" label={tr("Kubai087 on X", "Kubai087 的 X 主页")} className={cn("tap relative hidden size-8 place-items-center rounded-control hover:bg-muted lg:grid", quietLink)}>
             <RiTwitterXLine className="size-4" />
           </AuthorLink>
-          <LanguageSwitch className={cn("tap relative hidden h-8 items-center rounded-control px-2 text-control hover:bg-muted lg:flex", quietLink)} />
+          <LanguageSwitch className={cn("tap relative hidden size-8 place-items-center rounded-control hover:bg-muted lg:grid", quietLink)} iconOnly />
           <ThemeToggle />
-          <GitHubStars className="ml-1 hidden min-[360px]:inline-flex" />
-          <HeaderMenu className="ml-1 lg:hidden" />
+          <GitHubStars className="ms-1 hidden min-[360px]:inline-flex" />
+          <HeaderMenu className="ms-1 lg:hidden" />
         </div>
       </Container>
     </header>

@@ -1,0 +1,4836 @@
+{
+"abacus": [
+"Ábaco",
+"contador",
+"cálculo",
+"soroban"
+],
+"accessibility": [
+"Acessibilidade",
+"a11y",
+"inclusão",
+"acesso universal"
+],
+"accordion": [
+"Acordeão",
+"sanfona",
+"instrumento musical",
+"gaita"
+],
+"activity": [
+"Atividade",
+"pulso",
+"batimento",
+"frequência cardíaca"
+],
+"air-purifier": [
+"Purificador de ar",
+"filtro de ar",
+"ar limpo"
+],
+"alarm-clock": [
+"Despertador",
+"alarme",
+"acordar",
+"relógio"
+],
+"album": [
+"Álbum",
+"disco",
+"capa de disco",
+"CD"
+],
+"align-center": [
+"Centralizar",
+"alinhar ao centro",
+"texto centralizado"
+],
+"align-justify": [
+"Justificar",
+"alinhar justificado",
+"texto justificado"
+],
+"align-left": [
+"Alinhar à esquerda",
+"texto à esquerda",
+"alinhamento"
+],
+"align-right": [
+"Alinhar à direita",
+"texto à direita",
+"alinhamento"
+],
+"ambulance": [
+"Ambulância",
+"emergência",
+"resgate",
+"socorro"
+],
+"american-football": [
+"Futebol americano",
+"bola oval",
+"rúgbi"
+],
+"anchor": [
+"Âncora",
+"navio",
+"barco",
+"ancoragem"
+],
+"angry": [
+"Raiva",
+"bravo",
+"irritado",
+"emoji"
+],
+"antenna": [
+"Antena",
+"sinal",
+"TV",
+"transmissão"
+],
+"anvil": [
+"Bigorna",
+"ferreiro",
+"forja"
+],
+"aperture": [
+"Abertura",
+"diafragma",
+"lente",
+"obturador"
+],
+"app-window": [
+"Janela de app",
+"janela",
+"navegador",
+"programa"
+],
+"appearance": [
+"Aparência",
+"tema",
+"contraste",
+"claro e escuro"
+],
+"apple": [
+"Maçã",
+"fruta"
+],
+"arcade-machine": [
+"Fliperama",
+"máquina de arcade",
+"videogame",
+"jogo"
+],
+"archive": [
+"Arquivo morto",
+"arquivar",
+"caixa de arquivo",
+"backup"
+],
+"armchair": [
+"Poltrona",
+"cadeira",
+"assento",
+"sofá"
+],
+"arrow-down-left": [
+"Seta p/ baixo à esquerda",
+"seta diagonal",
+"seta"
+],
+"arrow-down-right": [
+"Seta p/ baixo à direita",
+"seta diagonal",
+"seta"
+],
+"arrow-down": [
+"Seta para baixo",
+"seta",
+"baixo"
+],
+"arrow-left-right": [
+"Trocar",
+"setas esquerda e direita",
+"inverter",
+"seta dupla"
+],
+"arrow-left": [
+"Seta para a esquerda",
+"seta",
+"voltar",
+"esquerda"
+],
+"arrow-right": [
+"Seta para a direita",
+"seta",
+"avançar",
+"direita"
+],
+"arrow-up-down": [
+"Ordenar",
+"setas para cima e para baixo",
+"classificar",
+"seta dupla"
+],
+"arrow-up-left": [
+"Seta p/ cima à esquerda",
+"seta diagonal",
+"seta"
+],
+"arrow-up-right": [
+"Seta p/ cima à direita",
+"seta diagonal",
+"seta",
+"link externo"
+],
+"arrow-up": [
+"Seta para cima",
+"seta",
+"cima"
+],
+"astronaut": [
+"Astronauta",
+"espaço",
+"cosmonauta"
+],
+"at-sign": [
+"Arroba",
+"menção",
+"e-mail",
+"@"
+],
+"atm": [
+"Caixa eletrônico",
+"ATM",
+"saque",
+"banco"
+],
+"atom": [
+"Átomo",
+"física",
+"ciência",
+"núcleo"
+],
+"audio-lines": [
+"Forma de onda",
+"onda sonora",
+"áudio"
+],
+"avocado": [
+"Abacate",
+"abacate fruta",
+"guacamole"
+],
+"award": [
+"Prêmio",
+"medalha",
+"condecoração",
+"fita"
+],
+"axe": [
+"Machado",
+"lenha",
+"machadinha"
+],
+"baby-bottle": [
+"Mamadeira",
+"bebê",
+"amamentação",
+"leite"
+],
+"baby": [
+"Bebê",
+"criança",
+"recém-nascido"
+],
+"backpack": [
+"Mochila",
+"escola",
+"bolsa"
+],
+"bacteria": [
+"Bactéria",
+"micróbio",
+"germe",
+"micro-organismo"
+],
+"badge-percent": [
+"Desconto",
+"promoção",
+"porcentagem",
+"oferta"
+],
+"badge-verified": [
+"Selo verificado",
+"verificado",
+"autenticado",
+"certificado"
+],
+"badge": [
+"Selo",
+"insígnia",
+"emblema",
+"distintivo"
+],
+"badminton": [
+"Badminton",
+"peteca",
+"raquete"
+],
+"bagel": [
+"Bagel",
+"pão",
+"rosca"
+],
+"balloon": [
+"Balão",
+"bexiga",
+"festa",
+"aniversário"
+],
+"ban": [
+"Proibido",
+"bloquear",
+"bloqueio",
+"vedado"
+],
+"banana": [
+"Banana",
+"fruta"
+],
+"bandage": [
+"Curativo",
+"band-aid",
+"atadura",
+"ferimento"
+],
+"banknote": [
+"Cédula",
+"dinheiro",
+"nota",
+"papel-moeda"
+],
+"barcode-scanner": [
+"Leitor de código",
+"scanner",
+"leitor"
+],
+"barcode": [
+"Código de barras",
+"código do produto",
+"barras"
+],
+"barn": [
+"Celeiro",
+"fazenda",
+"silo",
+"estábulo"
+],
+"baseball-cap": [
+"Boné",
+"chapéu",
+"boné de beisebol"
+],
+"baseball": [
+"Beisebol",
+"bola",
+"softbol"
+],
+"basket": [
+"Cesta",
+"cesto",
+"compras",
+"carrinho"
+],
+"basketball": [
+"Basquete",
+"bola",
+"esporte"
+],
+"bath": [
+"Banheira",
+"banho",
+"banheiro"
+],
+"battery-backup": [
+"Nobreak",
+"UPS",
+"fonte ininterrupta",
+"energia"
+],
+"battery-charging": [
+"Bateria carregando",
+"carregar",
+"pilha",
+"carga"
+],
+"battery-empty": [
+"Bateria vazia",
+"sem carga",
+"descarregada"
+],
+"battery-full": [
+"Bateria cheia",
+"carga completa",
+"carregada"
+],
+"battery-low": [
+"Bateria fraca",
+"pouca carga",
+"carga baixa"
+],
+"battery-medium": [
+"Bateria média",
+"meia carga",
+"carga parcial"
+],
+"beach-umbrella": [
+"Guarda-sol",
+"praia",
+"sombrinha",
+"verão"
+],
+"beaker": [
+"Béquer",
+"laboratório",
+"química",
+"copo graduado"
+],
+"bed": [
+"Cama",
+"dormir",
+"quarto",
+"colchão"
+],
+"bee": [
+"Abelha",
+"inseto",
+"mel"
+],
+"beer": [
+"Cerveja",
+"chope",
+"caneca",
+"bar"
+],
+"bell-ring": [
+"Sino tocando",
+"alerta",
+"toque",
+"lembrete"
+],
+"bell": [
+"Sino",
+"notificação",
+"campainha",
+"alerta"
+],
+"bench": [
+"Banco",
+"banco de praça",
+"parque",
+"assento"
+],
+"bicycle": [
+"Bicicleta",
+"bike",
+"ciclismo",
+"pedalar"
+],
+"binary": [
+"Binário",
+"zero e um",
+"bits",
+"código binário"
+],
+"binder": [
+"Fichário",
+"pasta",
+"arquivo",
+"pasta de argolas"
+],
+"binoculars": [
+"Binóculos",
+"observação",
+"luneta",
+"ver de longe"
+],
+"bird": [
+"Pássaro",
+"ave",
+"passarinho"
+],
+"blender": [
+"Liquidificador",
+"batedeira",
+"mixer",
+"cozinha"
+],
+"blocks": [
+"Blocos",
+"brinquedo de montar",
+"módulos",
+"peças"
+],
+"blood-bag": [
+"Bolsa de sangue",
+"transfusão",
+"doação de sangue"
+],
+"blood-pressure": [
+"Medidor de pressão",
+"pressão arterial",
+"esfigmomanômetro",
+"saúde"
+],
+"bluetooth": [
+"Bluetooth",
+"conexão sem fio",
+"pareamento",
+"BT"
+],
+"boarding-pass": [
+"Cartão de embarque",
+"passagem",
+"bilhete aéreo",
+"voo"
+],
+"bold": [
+"Negrito",
+"letra B",
+"texto em negrito"
+],
+"bone": [
+"Osso",
+"esqueleto",
+"fêmur"
+],
+"book-marked": [
+"Livro com marcador",
+"livro marcado",
+"lido",
+"marcador"
+],
+"book-open": [
+"Livro aberto",
+"leitura",
+"ler",
+"páginas"
+],
+"book": [
+"Livro",
+"romance",
+"leitura"
+],
+"bookmark": [
+"Marcador",
+"favorito",
+"salvar",
+"marca-página"
+],
+"bookshelf": [
+"Estante",
+"livraria",
+"prateleira de livros"
+],
+"boombox": [
+"Rádio portátil",
+"aparelho de som",
+"toca-fitas",
+"som"
+],
+"bot": [
+"Robô",
+"bot",
+"assistente",
+"android"
+],
+"bottle": [
+"Garrafa",
+"água",
+"squeeze",
+"frasco"
+],
+"bowling": [
+"Boliche",
+"bola de boliche",
+"pino"
+],
+"boxing-glove": [
+"Luva de boxe",
+"boxe",
+"luta",
+"soco"
+],
+"braces": [
+"Chaves",
+"colchetes curvos",
+"JSON",
+"código"
+],
+"brackets": [
+"Colchetes",
+"array",
+"lista",
+"código"
+],
+"brain": [
+"Cérebro",
+"mente",
+"pensar",
+"inteligência"
+],
+"bread": [
+"Pão",
+"torrada",
+"pão de forma",
+"padaria"
+],
+"brick-wall": [
+"Firewall",
+"muro de tijolos",
+"parede",
+"tijolos"
+],
+"bridge": [
+"Ponte",
+"travessia",
+"rio"
+],
+"briefcase": [
+"Pasta executiva",
+"maleta",
+"trabalho",
+"negócios"
+],
+"broccoli": [
+"Brócolis",
+"legume",
+"verdura"
+],
+"broom": [
+"Vassoura",
+"varrer",
+"limpeza"
+],
+"bucket": [
+"Balde",
+"lata",
+"água"
+],
+"bug": [
+"Bug",
+"inseto",
+"erro",
+"depuração"
+],
+"building-office": [
+"Prédio comercial",
+"escritório",
+"empresa",
+"arranha-céu"
+],
+"building": [
+"Prédio",
+"edifício",
+"apartamento",
+"torre"
+],
+"bulldozer": [
+"Trator de esteira",
+"escavadeira",
+"obra",
+"máquina pesada"
+],
+"bunsen-burner": [
+"Bico de Bunsen",
+"queimador",
+"laboratório",
+"gás"
+],
+"burger": [
+"Hambúrguer",
+"lanche",
+"fast food",
+"cheeseburger"
+],
+"bus": [
+"Ônibus",
+"transporte público",
+"coletivo"
+],
+"butterfly": [
+"Borboleta",
+"inseto",
+"mariposa"
+],
+"cable-car": [
+"Bondinho",
+"teleférico",
+"funicular"
+],
+"cable": [
+"Cabo",
+"USB-C",
+"carregador",
+"fio"
+],
+"cactus": [
+"Cacto",
+"suculenta",
+"planta do deserto"
+],
+"cake": [
+"Bolo",
+"aniversário",
+"sobremesa",
+"confeitaria"
+],
+"calculator": [
+"Calculadora",
+"calcular",
+"contas",
+"matemática"
+],
+"calendar-days": [
+"Calendário mensal",
+"agenda",
+"dias",
+"mês"
+],
+"calendar-week": [
+"Calendário semanal",
+"semana",
+"agenda semanal"
+],
+"calendar": [
+"Calendário",
+"agenda",
+"data",
+"planejador"
+],
+"camcorder": [
+"Filmadora",
+"câmera de vídeo",
+"gravador de vídeo"
+],
+"camera-retro": [
+"Câmera retrô",
+"câmera analógica",
+"câmera de filme",
+"vintage"
+],
+"camera": [
+"Câmera",
+"foto",
+"fotografar",
+"lente"
+],
+"camper-van": [
+"Motorhome",
+"trailer",
+"autocaravana",
+"camping"
+],
+"campfire": [
+"Fogueira",
+"acampamento",
+"fogo"
+],
+"candle": [
+"Vela",
+"chama",
+"luz de vela"
+],
+"candy": [
+"Bala",
+"doce",
+"confeito",
+"guloseima"
+],
+"canoe": [
+"Canoa",
+"caiaque",
+"remo",
+"barco"
+],
+"car-front": [
+"Carro de frente",
+"automóvel",
+"veículo"
+],
+"car-key": [
+"Chave do carro",
+"chave remota",
+"controle do carro"
+],
+"car": [
+"Carro",
+"automóvel",
+"veículo",
+"sedã"
+],
+"carrot": [
+"Cenoura",
+"legume",
+"verdura"
+],
+"cash-register": [
+"Caixa registradora",
+"PDV",
+"checkout",
+"caixa"
+],
+"cassette": [
+"Fita cassete",
+"fita",
+"mixtape",
+"K7"
+],
+"cast": [
+"Transmitir",
+"espelhar tela",
+"Chromecast",
+"AirPlay"
+],
+"castle": [
+"Castelo",
+"fortaleza",
+"palácio"
+],
+"cat": [
+"Gato",
+"gatinho",
+"felino"
+],
+"cctv": [
+"Câmera de segurança",
+"monitoramento",
+"CFTV",
+"vigilância"
+],
+"ceiling-fan": [
+"Ventilador de teto",
+"ventilador",
+"clima"
+],
+"certificate": [
+"Certificado",
+"diploma",
+"certidão"
+],
+"chain": [
+"Corrente",
+"elo",
+"correntes de ferro"
+],
+"chair": [
+"Cadeira",
+"assento",
+"cadeira de jantar"
+],
+"chandelier": [
+"Lustre",
+"candelabro",
+"iluminação"
+],
+"charger": [
+"Carregador",
+"fonte",
+"adaptador",
+"carga"
+],
+"chart-area": [
+"Gráfico de área",
+"gráfico",
+"área"
+],
+"chart-bar": [
+"Gráfico de barras",
+"gráfico",
+"histograma"
+],
+"chart-candlestick": [
+"Gráfico de velas",
+"candlestick",
+"ações",
+"bolsa"
+],
+"chart-column-stacked": [
+"Colunas empilhadas",
+"gráfico empilhado",
+"gráfico de colunas"
+],
+"chart-donut": [
+"Gráfico de rosca",
+"proporção",
+"donut"
+],
+"chart-funnel": [
+"Funil",
+"gráfico de funil",
+"conversão",
+"filtro"
+],
+"chart-gantt": [
+"Gráfico de Gantt",
+"cronograma",
+"planejamento",
+"projeto"
+],
+"chart-line": [
+"Gráfico de linhas",
+"tendência",
+"série temporal"
+],
+"chart-pie": [
+"Gráfico de pizza",
+"proporção",
+"setores"
+],
+"chart-radar": [
+"Gráfico de radar",
+"gráfico de teia",
+"aranha"
+],
+"chart-scatter": [
+"Gráfico de dispersão",
+"pontos",
+"correlação"
+],
+"chart-waterfall": [
+"Gráfico de cascata",
+"waterfall",
+"variação"
+],
+"checkbox": [
+"Caixa de seleção",
+"checkbox",
+"marcar",
+"seleção"
+],
+"cheese": [
+"Queijo",
+"fatia de queijo",
+"laticínio"
+],
+"chef-hat": [
+"Chapéu de chef",
+"cozinheiro",
+"culinária",
+"cozinha"
+],
+"cherry": [
+"Cereja",
+"fruta",
+"cerejas"
+],
+"chess-king": [
+"Rei",
+"xadrez",
+"peça de xadrez"
+],
+"chess-pawn": [
+"Peão",
+"xadrez",
+"peça de xadrez"
+],
+"chevron-down": [
+"Divisa para baixo",
+"seta para baixo",
+"expandir",
+"recolher"
+],
+"chevron-left": [
+"Divisa à esquerda",
+"seta para a esquerda",
+"voltar"
+],
+"chevron-right": [
+"Divisa à direita",
+"seta para a direita",
+"avançar"
+],
+"chevron-up": [
+"Divisa para cima",
+"seta para cima",
+"recolher"
+],
+"chevrons-down": [
+"Divisa dupla para baixo",
+"setas duplas",
+"descer"
+],
+"chevrons-left": [
+"Divisa dupla à esquerda",
+"setas duplas",
+"voltar"
+],
+"chevrons-right": [
+"Divisa dupla à direita",
+"setas duplas",
+"avançar"
+],
+"chevrons-up": [
+"Divisa dupla para cima",
+"setas duplas",
+"subir"
+],
+"chisel": [
+"Formão",
+"marcenaria",
+"escultura",
+"ferramenta"
+],
+"circle-alert": [
+"Alerta",
+"exclamação",
+"aviso",
+"atenção"
+],
+"circle-check": [
+"Concluído",
+"sucesso",
+"confirmado",
+"check"
+],
+"circle-dot": [
+"Botão de opção",
+"radio",
+"opção selecionada"
+],
+"circle-help": [
+"Ajuda",
+"interrogação",
+"dúvida",
+"ponto de interrogação"
+],
+"circle-minus": [
+"Remover",
+"menos",
+"subtrair",
+"diminuir"
+],
+"circle-plus": [
+"Adicionar",
+"mais",
+"novo",
+"criar"
+],
+"circle-x": [
+"Fechar",
+"cancelar",
+"erro",
+"cancelamento"
+],
+"circle": [
+"Círculo",
+"disco",
+"ponto",
+"bola"
+],
+"clapperboard": [
+"Claquete",
+"cinema",
+"filme",
+"gravação"
+],
+"clipboard-check": [
+"Tarefa concluída",
+"lista de tarefas",
+"checklist",
+"prancheta"
+],
+"clipboard-paste": [
+"Colar",
+"área de transferência",
+"prancheta"
+],
+"clipboard": [
+"Prancheta",
+"lista",
+"formulário",
+"checklist"
+],
+"clock": [
+"Relógio",
+"horas",
+"tempo",
+"hora"
+],
+"cloud-drizzle": [
+"Garoa",
+"chuvisco",
+"chuva fraca"
+],
+"cloud-fog": [
+"Neblina",
+"nevoeiro",
+"bruma",
+"cerração"
+],
+"cloud-hail": [
+"Granizo",
+"chuva de pedra",
+"saraiva"
+],
+"cloud-lightning": [
+"Tempestade",
+"raio",
+"trovão",
+"relâmpago"
+],
+"cloud-moon": [
+"Noite nublada",
+"nublado",
+"lua"
+],
+"cloud-rain": [
+"Chuva",
+"chuvoso",
+"temporal",
+"tempo chuvoso"
+],
+"cloud-snow": [
+"Neve",
+"nevasca",
+"tempo nevado"
+],
+"cloud-sun": [
+"Parcialmente nublado",
+"clima",
+"sol entre nuvens",
+"tempo"
+],
+"cloud-upload": [
+"Upload na nuvem",
+"enviar",
+"sincronizar",
+"nuvem"
+],
+"cloud": [
+"Nuvem",
+"céu nublado",
+"iCloud",
+"armazenamento em nuvem"
+],
+"clover": [
+"Trevo",
+"trevo de quatro folhas",
+"sorte"
+],
+"club": [
+"Paus",
+"naipe",
+"baralho",
+"carta"
+],
+"cocktail": [
+"Coquetel",
+"martíni",
+"drinque",
+"azeitona"
+],
+"code": [
+"Código",
+"código-fonte",
+"HTML",
+"programação"
+],
+"coffee": [
+"Café",
+"xícara",
+"expresso",
+"cafeteria"
+],
+"coin": [
+"Moeda",
+"ficha",
+"moeda de ouro"
+],
+"coins": [
+"Moedas",
+"pilha de moedas",
+"trocado",
+"dinheiro"
+],
+"columns": [
+"Colunas",
+"várias colunas",
+"painéis",
+"layout"
+],
+"comb": [
+"Pente",
+"cabelo",
+"pentear"
+],
+"command": [
+"Tecla Command",
+"cmd",
+"atalho",
+"Mac"
+],
+"compass-drawing": [
+"Compasso",
+"geometria",
+"desenho",
+"círculo"
+],
+"compass": [
+"Bússola",
+"agulha magnética",
+"direção",
+"norte"
+],
+"component": [
+"Componente",
+"símbolo",
+"instância",
+"design system"
+],
+"construction-crane": [
+"Guindaste",
+"grua",
+"obra",
+"construção"
+],
+"contact-book": [
+"Agenda de contatos",
+"catálogo",
+"contatos",
+"lista telefônica"
+],
+"container": [
+"Contêiner",
+"container",
+"carga",
+"navio"
+],
+"contract": [
+"Contrato",
+"acordo",
+"documento assinado"
+],
+"cookie": [
+"Biscoito",
+"cookie",
+"bolacha",
+"gotas de chocolate"
+],
+"cooking-pot": [
+"Panela",
+"caçarola",
+"cozinhar",
+"caldeirão"
+],
+"copy": [
+"Copiar",
+"duplicar",
+"duas folhas",
+"cópia"
+],
+"corn": [
+"Milho",
+"espiga",
+"espiga de milho"
+],
+"corner-down-right": [
+"Curva p/ baixo e direita",
+"seta em L",
+"virar"
+],
+"corner-up-left": [
+"Curva p/ cima e esquerda",
+"retornar",
+"seta em L"
+],
+"cpu": [
+"Processador",
+"CPU",
+"chip",
+"microprocessador"
+],
+"credit-card": [
+"Cartão de crédito",
+"cartão",
+"débito",
+"pagamento"
+],
+"crib": [
+"Berço",
+"bebê",
+"quarto de bebê"
+],
+"croissant": [
+"Croissant",
+"massa folhada",
+"padaria",
+"pão"
+],
+"crop": [
+"Cortar",
+"recortar",
+"enquadrar",
+"aparar"
+],
+"crowbar": [
+"Pé de cabra",
+"alavanca",
+"arrombar"
+],
+"crown": [
+"Coroa",
+"premium",
+"realeza",
+"VIP"
+],
+"crt-monitor": [
+"Monitor CRT",
+"monitor de tubo",
+"tela antiga"
+],
+"crutch": [
+"Muleta",
+"apoio",
+"mobilidade",
+"fratura"
+],
+"cube": [
+"Cubo",
+"bloco 3D",
+"caixa",
+"modelo 3D"
+],
+"cup-soda": [
+"Refrigerante",
+"copo",
+"bebida",
+"soda"
+],
+"currency-dollar": [
+"Dólar",
+"moeda",
+"cifrão",
+"USD"
+],
+"currency-euro": [
+"Euro",
+"moeda",
+"EUR"
+],
+"currency-yuan": [
+"Yuan",
+"moeda",
+"renminbi",
+"RMB"
+],
+"cursor": [
+"Cursor",
+"ponteiro",
+"seta do mouse"
+],
+"curtains": [
+"Cortinas",
+"cortina",
+"janela"
+],
+"cutting-board": [
+"Tábua de corte",
+"tábua",
+"cozinha"
+],
+"dartboard": [
+"Alvo de dardos",
+"dardo",
+"tiro ao alvo",
+"mira"
+],
+"database": [
+"Banco de dados",
+"dados",
+"armazenamento",
+"DB"
+],
+"dental-chair": [
+"Cadeira de dentista",
+"odontologia",
+"consultório",
+"dentista"
+],
+"desk-lamp": [
+"Luminária de mesa",
+"abajur",
+"luz de estudo"
+],
+"desktop": [
+"Computador de mesa",
+"PC",
+"desktop",
+"CPU"
+],
+"detective": [
+"Detetive",
+"navegação anônima",
+"modo anônimo",
+"espião"
+],
+"dial-pad": [
+"Teclado numérico",
+"discador",
+"teclado de telefone"
+],
+"diamond": [
+"Losango",
+"diamante",
+"gema",
+"joia"
+],
+"dice": [
+"Dado",
+"jogo de tabuleiro",
+"dados"
+],
+"disc": [
+"Disco",
+"CD",
+"DVD",
+"mídia óptica"
+],
+"dishwasher": [
+"Lava-louças",
+"máquina de lavar louça",
+"eletrodoméstico"
+],
+"dna": [
+"DNA",
+"dupla hélice",
+"genética",
+"gene"
+],
+"dog": [
+"Cachorro",
+"cão",
+"filhote"
+],
+"donut": [
+"Rosquinha",
+"donut",
+"sonho",
+"doce"
+],
+"door": [
+"Porta",
+"entrada",
+"acesso"
+],
+"doorbell": [
+"Campainha",
+"tocar a campainha",
+"interfone"
+],
+"download": [
+"Baixar",
+"download",
+"salvar",
+"seta para baixo"
+],
+"drawing-tablet": [
+"Mesa digitalizadora",
+"tablet gráfico",
+"caneta digital",
+"desenho"
+],
+"dress": [
+"Vestido",
+"roupa",
+"moda"
+],
+"drill": [
+"Furadeira",
+"parafusadeira",
+"ferramenta",
+"broca"
+],
+"drone": [
+"Drone",
+"quadricóptero",
+"VANT",
+"filmagem aérea"
+],
+"droplet": [
+"Gota",
+"água",
+"líquido",
+"umidade"
+],
+"drum": [
+"Tambor",
+"bateria",
+"caixa",
+"percussão"
+],
+"drumstick": [
+"Coxa de frango",
+"frango",
+"frango frito"
+],
+"dumbbell": [
+"Halter",
+"musculação",
+"academia",
+"pesos"
+],
+"e-reader": [
+"Leitor de e-books",
+"e-reader",
+"Kindle",
+"livro digital"
+],
+"ear": [
+"Orelha",
+"ouvido",
+"audição",
+"ouvir"
+],
+"earbuds": [
+"Fones sem fio",
+"fones de ouvido",
+"AirPods",
+"fone"
+],
+"egg": [
+"Ovo",
+"casca",
+"ovo de galinha"
+],
+"equalizer": [
+"Equalizador",
+"ajuste de áudio",
+"faders",
+"mixagem"
+],
+"eraser": [
+"Borracha",
+"apagar",
+"apagador"
+],
+"ethernet-port": [
+"Porta Ethernet",
+"RJ45",
+"rede",
+"tomada de rede"
+],
+"ev-charger": [
+"Carregador elétrico",
+"ponto de recarga",
+"veículo elétrico",
+"recarga"
+],
+"expand": [
+"Expandir",
+"tela cheia",
+"maximizar",
+"ampliar"
+],
+"export": [
+"Exportar",
+"enviar",
+"compartilhar",
+"saída"
+],
+"external-link": [
+"Link externo",
+"nova janela",
+"abrir fora",
+"sair"
+],
+"eye-drops": [
+"Colírio",
+"gotas oftálmicas",
+"remédio para os olhos"
+],
+"eye": [
+"Olho",
+"visualizar",
+"ver",
+"visível"
+],
+"face-mask": [
+"Máscara",
+"proteção",
+"máscara cirúrgica",
+"respirador"
+],
+"factory": [
+"Fábrica",
+"indústria",
+"usina",
+"produção"
+],
+"fan": [
+"Ventilador",
+"ventoinha",
+"hélices",
+"clima"
+],
+"fast-forward": [
+"Avançar rápido",
+"acelerar",
+"avanço",
+"forward"
+],
+"faucet": [
+"Torneira",
+"água",
+"pia"
+],
+"fax": [
+"Fax",
+"aparelho de fax",
+"facsímile"
+],
+"feather": [
+"Pena",
+"pluma",
+"leve"
+],
+"ferris-wheel": [
+"Roda-gigante",
+"parque de diversões",
+"parque"
+],
+"file-archive": [
+"Arquivo compactado",
+"ZIP",
+"compactar",
+"pacote"
+],
+"file-audio": [
+"Arquivo de áudio",
+"MP3",
+"música",
+"som"
+],
+"file-chart": [
+"Arquivo de relatório",
+"relatório",
+"documento com gráfico"
+],
+"file-code": [
+"Arquivo de código",
+"código-fonte",
+"script"
+],
+"file-diff": [
+"Comparação de arquivos",
+"diff",
+"alterações",
+"diferenças"
+],
+"file-image": [
+"Arquivo de imagem",
+"imagem",
+"JPG",
+"foto"
+],
+"file-spreadsheet": [
+"Planilha",
+"Excel",
+"arquivo de planilha",
+"tabela"
+],
+"file-text": [
+"Documento de texto",
+"TXT",
+"texto"
+],
+"file-video": [
+"Arquivo de vídeo",
+"vídeo",
+"MP4"
+],
+"file": [
+"Arquivo",
+"documento",
+"papel"
+],
+"files": [
+"Arquivos",
+"documentos",
+"vários arquivos",
+"páginas"
+],
+"film-reel": [
+"Rolo de filme",
+"cinema",
+"bobina"
+],
+"film": [
+"Filme",
+"tira de filme",
+"película",
+"cinema"
+],
+"filter": [
+"Filtro",
+"funil",
+"filtrar",
+"peneira"
+],
+"fingerprint": [
+"Impressão digital",
+"biometria",
+"Touch ID",
+"digital"
+],
+"fire-hydrant": [
+"Hidrante",
+"bombeiros",
+"incêndio"
+],
+"fire-truck": [
+"Caminhão de bombeiros",
+"carro de bombeiros",
+"escada magirus"
+],
+"fireplace": [
+"Lareira",
+"aquecimento",
+"fogo"
+],
+"first-aid": [
+"Primeiros socorros",
+"maleta de socorro",
+"caixa médica"
+],
+"fish": [
+"Peixe",
+"animal marinho",
+"peixinho",
+"frutos do mar"
+],
+"flag-triangle": [
+"Bandeirola",
+"flâmula",
+"bandeira triangular"
+],
+"flag": [
+"Bandeira",
+"sinalizar",
+"marcar",
+"estandarte"
+],
+"flame": [
+"Chama",
+"fogo",
+"em alta",
+"popular"
+],
+"flashlight": [
+"Lanterna",
+"iluminação",
+"luz"
+],
+"flask": [
+"Erlenmeyer",
+"frasco",
+"laboratório",
+"química"
+],
+"floor-lamp": [
+"Luminária de piso",
+"abajur de chão",
+"lâmpada"
+],
+"flower-tulip": [
+"Tulipa",
+"flor"
+],
+"flower": [
+"Flor",
+"florzinha",
+"botão de flor"
+],
+"flute": [
+"Flauta",
+"flauta transversal",
+"instrumento de sopro"
+],
+"focus": [
+"Foco",
+"mira",
+"enquadramento",
+"visor"
+],
+"folder-open": [
+"Pasta aberta",
+"diretório",
+"abrir pasta"
+],
+"folder": [
+"Pasta",
+"diretório",
+"arquivos"
+],
+"folders": [
+"Pastas",
+"diretórios",
+"várias pastas"
+],
+"footprints": [
+"Pegadas",
+"pés",
+"rastro"
+],
+"forklift": [
+"Empilhadeira",
+"paleteira",
+"armazém"
+],
+"fridge": [
+"Geladeira",
+"refrigerador",
+"freezer"
+],
+"fries": [
+"Batata frita",
+"fritas",
+"lanche"
+],
+"frisbee": [
+"Frisbee",
+"disco voador",
+"disco"
+],
+"frown": [
+"Triste",
+"chateado",
+"descontente",
+"emoji"
+],
+"frying-pan": [
+"Frigideira",
+"panela",
+"fritar"
+],
+"fuel": [
+"Combustível",
+"posto de gasolina",
+"abastecer",
+"bomba"
+],
+"function": [
+"Função",
+"fx",
+"fórmula"
+],
+"gallery-view": [
+"Visualização em galeria",
+"carrossel",
+"cover flow"
+],
+"game-cartridge": [
+"Cartucho de jogo",
+"cartucho",
+"videogame"
+],
+"game-console": [
+"Console portátil",
+"videogame portátil",
+"console",
+"game"
+],
+"gamepad": [
+"Controle de videogame",
+"joystick",
+"gamepad"
+],
+"garbage-truck": [
+"Caminhão de lixo",
+"coleta de lixo",
+"limpeza urbana"
+],
+"gas-can": [
+"Galão de combustível",
+"galão",
+"bombona"
+],
+"gas-station": [
+"Posto de gasolina",
+"abastecimento",
+"combustível"
+],
+"gauge": [
+"Medidor",
+"velocímetro",
+"mostrador",
+"painel"
+],
+"gem": [
+"Gema",
+"diamante",
+"joia",
+"pedra preciosa"
+],
+"ghost": [
+"Fantasma",
+"assombração",
+"Halloween"
+],
+"gift-bag": [
+"Sacola de presente",
+"presente",
+"sacola de festa"
+],
+"gift-card": [
+"Vale-presente",
+"cupom",
+"gift card",
+"voucher"
+],
+"gift": [
+"Presente",
+"caixa de presente",
+"surpresa"
+],
+"git-branch": [
+"Branch",
+"ramificação",
+"versão"
+],
+"git-commit": [
+"Commit",
+"histórico",
+"versão"
+],
+"git-compare": [
+"Comparar",
+"diff",
+"diferenças",
+"comparação de branches"
+],
+"git-fork": [
+"Fork",
+"cópia do repositório",
+"bifurcar"
+],
+"git-merge": [
+"Merge",
+"mesclar branches",
+"mesclagem"
+],
+"git-pull-request": [
+"Pull request",
+"solicitação de merge",
+"revisão de código"
+],
+"glasses": [
+"Óculos",
+"óculos de grau",
+"miopia"
+],
+"globe": [
+"Globo terrestre",
+"mundo",
+"Terra",
+"planeta"
+],
+"glue": [
+"Cola",
+"adesivo",
+"colar"
+],
+"golf-flag": [
+"Golfe",
+"bandeira do buraco",
+"green"
+],
+"graduation-cap": [
+"Capelo",
+"formatura",
+"graduação",
+"chapéu de formatura"
+],
+"grape": [
+"Uva",
+"uvas",
+"fruta"
+],
+"grid": [
+"Grade",
+"grid",
+"blocos",
+"quadriculado"
+],
+"grip": [
+"Alça de arrastar",
+"arrastar",
+"mover"
+],
+"guitar": [
+"Violão",
+"guitarra",
+"instrumento de cordas"
+],
+"hair-dryer": [
+"Secador de cabelo",
+"secador",
+"cabelo"
+],
+"hammer": [
+"Martelo",
+"ferramenta",
+"marreta"
+],
+"hand-coins": [
+"Pagamento",
+"mão com moedas",
+"pagar"
+],
+"hand-grab": [
+"Mão fechada",
+"agarrar",
+"arrastar",
+"punho"
+],
+"hand-heart": [
+"Cuidado",
+"doação",
+"caridade",
+"solidariedade"
+],
+"hand": [
+"Mão",
+"levantar a mão",
+"acenar",
+"palma"
+],
+"handbag": [
+"Bolsa",
+"bolsa de mão",
+"carteira"
+],
+"hanger": [
+"Cabide",
+"roupas",
+"guarda-roupa"
+],
+"hard-drive": [
+"Disco rígido",
+"HD",
+"armazenamento",
+"disco"
+],
+"hard-hat": [
+"Capacete de segurança",
+"capacete",
+"obra"
+],
+"harp": [
+"Harpa",
+"lira",
+"instrumento de cordas"
+],
+"hash": [
+"Hashtag",
+"jogo da velha",
+"tag",
+"cerquilha"
+],
+"hdmi-port": [
+"Porta HDMI",
+"entrada HDMI",
+"porta de vídeo"
+],
+"heading": [
+"Título",
+"cabeçalho",
+"letra H"
+],
+"headphones": [
+"Fones de ouvido",
+"headphone",
+"fone"
+],
+"headset": [
+"Headset",
+"atendimento",
+"fone com microfone",
+"suporte"
+],
+"hearing-aid": [
+"Aparelho auditivo",
+"audição",
+"prótese auditiva"
+],
+"heart-pulse": [
+"Batimentos cardíacos",
+"frequência cardíaca",
+"pulso"
+],
+"heart": [
+"Coração",
+"curtir",
+"amor",
+"favorito"
+],
+"heatmap": [
+"Mapa de calor",
+"densidade",
+"calor"
+],
+"helicopter": [
+"Helicóptero",
+"heli",
+"aeronave"
+],
+"hexagon": [
+"Hexágono",
+"seis lados",
+"forma geométrica"
+],
+"high-heel": [
+"Salto alto",
+"sapato de salto",
+"scarpin"
+],
+"highlighter": [
+"Marca-texto",
+"destaque",
+"marcador"
+],
+"hiking-boot": [
+"Bota de trilha",
+"caminhada",
+"trekking"
+],
+"history": [
+"Histórico",
+"recentes",
+"relógio com seta"
+],
+"hockey-stick": [
+"Taco de hóquei",
+"hóquei",
+"disco"
+],
+"home": [
+"Início",
+"casa",
+"página inicial"
+],
+"hook": [
+"Gancho",
+"guindaste",
+"ancoragem"
+],
+"horse": [
+"Cavalo",
+"pônei",
+"égua"
+],
+"hospital-cross": [
+"Cruz médica",
+"saúde",
+"hospital"
+],
+"hospital": [
+"Hospital",
+"clínica",
+"centro médico"
+],
+"hot-air-balloon": [
+"Balão de ar quente",
+"balão",
+"dirigível"
+],
+"hot-dog": [
+"Cachorro-quente",
+"salsicha",
+"hot dog"
+],
+"hotel": [
+"Hotel",
+"hospedagem",
+"pousada"
+],
+"hourglass": [
+"Ampulheta",
+"espera",
+"carregando",
+"cronômetro de areia"
+],
+"ice-cream": [
+"Sorvete",
+"casquinha",
+"gelato"
+],
+"ice-pop": [
+"Picolé",
+"sorvete de palito",
+"geladinho"
+],
+"id-badge": [
+"Crachá",
+"identificação",
+"credencial"
+],
+"igloo": [
+"Iglu",
+"casa de gelo",
+"neve"
+],
+"image": [
+"Imagem",
+"foto",
+"figura"
+],
+"images": [
+"Imagens",
+"fotos",
+"várias imagens",
+"galeria"
+],
+"import": [
+"Importar",
+"entrada",
+"receber",
+"baixar"
+],
+"inbox": [
+"Caixa de entrada",
+"recebidos",
+"bandeja"
+],
+"indent": [
+"Aumentar recuo",
+"recuo",
+"parágrafo"
+],
+"infinity": [
+"Infinito",
+"lemniscata",
+"oito deitado"
+],
+"info": [
+"Informação",
+"detalhes",
+"letra i",
+"ajuda"
+],
+"inhaler": [
+"Inalador",
+"bombinha",
+"asma"
+],
+"invoice": [
+"Fatura",
+"nota fiscal",
+"conta",
+"boleto"
+],
+"iron": [
+"Ferro de passar",
+"passar roupa",
+"ferro"
+],
+"island": [
+"Ilha",
+"palmeira",
+"ilha tropical"
+],
+"italic": [
+"Itálico",
+"letra I",
+"inclinado"
+],
+"joystick": [
+"Joystick",
+"alavanca",
+"fliperama"
+],
+"jump-rope": [
+"Corda de pular",
+"pular corda",
+"exercício"
+],
+"kanban": [
+"Kanban",
+"quadro de tarefas",
+"cartões",
+"quadro"
+],
+"kayak": [
+"Caiaque",
+"remo",
+"barco"
+],
+"kettle": [
+"Chaleira",
+"aquecedor de água",
+"bule"
+],
+"key-round": [
+"Chave de API",
+"chave",
+"token",
+"segredo"
+],
+"key": [
+"Chave",
+"senha",
+"chave de acesso"
+],
+"keyboard": [
+"Teclado",
+"teclas",
+"digitar"
+],
+"kite": [
+"Pipa",
+"papagaio",
+"soltar pipa"
+],
+"ladder": [
+"Escada",
+"degraus",
+"escada de mão"
+],
+"ladybug": [
+"Joaninha",
+"inseto",
+"besouro"
+],
+"lamp": [
+"Abajur",
+"luminária",
+"lâmpada",
+"luz"
+],
+"landmark": [
+"Banco",
+"instituição",
+"prédio com colunas",
+"monumento"
+],
+"languages": [
+"Idiomas",
+"tradução",
+"traduzir",
+"línguas"
+],
+"laptop": [
+"Notebook",
+"laptop",
+"computador portátil"
+],
+"laugh": [
+"Risada",
+"rindo",
+"alegre",
+"emoji"
+],
+"laundry-basket": [
+"Cesto de roupa",
+"roupa suja",
+"lavanderia"
+],
+"layers": [
+"Camadas",
+"sobreposição",
+"pilha",
+"layers"
+],
+"layout-dashboard": [
+"Painel",
+"dashboard",
+"widgets",
+"visão geral"
+],
+"leaf": [
+"Folha",
+"planta",
+"natureza",
+"folhagem"
+],
+"lemon": [
+"Limão",
+"cítrico",
+"fruta cítrica"
+],
+"library": [
+"Biblioteca",
+"livros",
+"estante"
+],
+"lifebuoy": [
+"Boia salva-vidas",
+"resgate",
+"suporte",
+"socorro"
+],
+"light-switch": [
+"Interruptor",
+"botão de luz",
+"chave de luz"
+],
+"lightbulb": [
+"Lâmpada",
+"ideia",
+"luz",
+"dica"
+],
+"lighthouse": [
+"Farol",
+"costa",
+"navegação"
+],
+"link-2": [
+"Link",
+"hiperlink",
+"elo",
+"vincular"
+],
+"link": [
+"Link",
+"hiperlink",
+"corrente",
+"vincular"
+],
+"lipstick": [
+"Batom",
+"maquiagem",
+"cosméticos"
+],
+"list-checks": [
+"Lista de tarefas",
+"checklist",
+"pendências",
+"to-do"
+],
+"list-ordered": [
+"Lista numerada",
+"lista ordenada",
+"passos"
+],
+"list-view": [
+"Visualização em lista",
+"lista",
+"itens"
+],
+"list": [
+"Lista",
+"marcadores",
+"tópicos"
+],
+"live": [
+"Ao vivo",
+"transmissão",
+"live",
+"sinal"
+],
+"loader": [
+"Carregando",
+"spinner",
+"progresso",
+"aguarde"
+],
+"lock-keyhole": [
+"Fechadura",
+"buraco da fechadura",
+"porta trancada"
+],
+"lock-open": [
+"Cadeado aberto",
+"desbloqueado",
+"destrancar"
+],
+"lock": [
+"Cadeado",
+"trancar",
+"bloqueio",
+"segurança"
+],
+"locomotive": [
+"Locomotiva",
+"trem a vapor",
+"trem",
+"ferrovia"
+],
+"log-in": [
+"Entrar",
+"login",
+"acessar",
+"iniciar sessão"
+],
+"log-out": [
+"Sair",
+"logout",
+"encerrar sessão",
+"desconectar"
+],
+"lollipop": [
+"Pirulito",
+"doce",
+"bala"
+],
+"luggage": [
+"Mala",
+"bagagem",
+"viagem"
+],
+"lungs": [
+"Pulmões",
+"respiração",
+"órgão"
+],
+"magnet": [
+"Ímã",
+"magnético",
+"atrair"
+],
+"mail-open": [
+"E-mail lido",
+"carta aberta",
+"envelope aberto"
+],
+"mail": [
+"E-mail",
+"carta",
+"envelope",
+"correio"
+],
+"mailbox": [
+"Caixa de correio",
+"correio",
+"caixa postal"
+],
+"mails": [
+"E-mails",
+"cartas",
+"várias mensagens",
+"envelopes"
+],
+"map-pin": [
+"Localização",
+"marcador de mapa",
+"local",
+"pin"
+],
+"map-pinned": [
+"Local marcado",
+"destino",
+"marcador fixo",
+"mapa com pin"
+],
+"map": [
+"Mapa",
+"mapa dobrado",
+"atlas"
+],
+"mars-rover": [
+"Rover de Marte",
+"jipe espacial",
+"explorador",
+"astromóvel"
+],
+"maximize": [
+"Maximizar",
+"tela cheia",
+"ampliar",
+"cantos"
+],
+"medal": [
+"Medalha",
+"prêmio",
+"ouro",
+"olimpíadas"
+],
+"megaphone": [
+"Megafone",
+"comunicado",
+"anúncio",
+"alto-falante"
+],
+"meh": [
+"Neutro",
+"indiferente",
+"mais ou menos",
+"emoji"
+],
+"memory-card": [
+"Cartão de memória",
+"microSD",
+"SD"
+],
+"memory-stick": [
+"Pente de memória",
+"memória RAM",
+"RAM",
+"DIMM"
+],
+"menu": [
+"Menu",
+"hambúrguer",
+"três linhas",
+"navegação"
+],
+"merge": [
+"Mesclar",
+"juntar",
+"unir",
+"convergir"
+],
+"message-circle": [
+"Mensagem",
+"balão de fala",
+"comentário",
+"conversa"
+],
+"message-square": [
+"Comentário",
+"balão de fala",
+"recado",
+"mensagem"
+],
+"messages-square": [
+"Conversa",
+"bate-papo",
+"balões de fala",
+"mensagens"
+],
+"messages": [
+"Chat",
+"conversas",
+"balões de fala",
+"mensagens"
+],
+"metronome": [
+"Metrônomo",
+"ritmo",
+"compasso",
+"pêndulo"
+],
+"mic-vocal": [
+"Microfone de mão",
+"karaokê",
+"microfone"
+],
+"mic": [
+"Microfone",
+"gravar",
+"áudio",
+"voz"
+],
+"microscope": [
+"Microscópio",
+"laboratório",
+"biologia"
+],
+"microwave": [
+"Micro-ondas",
+"esquentar",
+"forno"
+],
+"milk": [
+"Leite",
+"caixa de leite",
+"laticínio"
+],
+"minimize": [
+"Sair da tela cheia",
+"restaurar",
+"reduzir",
+"minimizar"
+],
+"mirror": [
+"Espelho",
+"espelho de maquiagem",
+"reflexo"
+],
+"mitten": [
+"Luva de lã",
+"luva",
+"inverno",
+"moletom"
+],
+"modem": [
+"Modem",
+"roteador",
+"internet"
+],
+"molecule": [
+"Molécula",
+"composto",
+"química",
+"modelo molecular"
+],
+"monitor": [
+"Monitor",
+"tela",
+"display"
+],
+"moon-star": [
+"Lua e estrela",
+"noite",
+"céu noturno"
+],
+"moon": [
+"Lua",
+"lua crescente",
+"noite",
+"modo escuro"
+],
+"mop": [
+"Esfregão",
+"rodo",
+"limpeza",
+"limpar"
+],
+"more-horizontal": [
+"Mais",
+"reticências",
+"três pontos",
+"opções"
+],
+"more-vertical": [
+"Mais ações",
+"reticências verticais",
+"três pontos",
+"opções"
+],
+"motorcycle": [
+"Moto",
+"motocicleta",
+"motoqueiro"
+],
+"mountain": [
+"Montanha",
+"pico",
+"cume"
+],
+"mouse-pointer-click": [
+"Clique",
+"clique do mouse",
+"cursor"
+],
+"mouse": [
+"Mouse",
+"ponteiro",
+"clicar"
+],
+"move": [
+"Mover",
+"arrastar",
+"setas em quatro direções"
+],
+"muffin": [
+"Muffin",
+"cupcake",
+"bolinho"
+],
+"mug": [
+"Caneca",
+"xícara",
+"chá"
+],
+"museum": [
+"Museu",
+"galeria",
+"colunas"
+],
+"mushroom": [
+"Cogumelo",
+"fungo",
+"champignon"
+],
+"music-library": [
+"Biblioteca de músicas",
+"álbuns",
+"músicas"
+],
+"music-player": [
+"Tocador de música",
+"iPod",
+"MP3 player",
+"walkman"
+],
+"music": [
+"Música",
+"nota musical",
+"canção"
+],
+"nail-polish": [
+"Esmalte",
+"unha",
+"manicure"
+],
+"nail": [
+"Prego",
+"tachinha",
+"ferragem"
+],
+"navigation": [
+"Navegação",
+"GPS",
+"seta de localização",
+"direção"
+],
+"necklace": [
+"Colar",
+"pingente",
+"joia",
+"bijuteria"
+],
+"necktie": [
+"Gravata",
+"traje",
+"terno"
+],
+"needle-thread": [
+"Agulha e linha",
+"costura",
+"bordado"
+],
+"network": [
+"Rede",
+"nós",
+"diagrama de nós",
+"conexões"
+],
+"newspaper": [
+"Jornal",
+"notícias",
+"imprensa"
+],
+"nfc": [
+"NFC",
+"aproximação",
+"pagamento por aproximação"
+],
+"nightstand": [
+"Criado-mudo",
+"mesa de cabeceira",
+"quarto"
+],
+"noodles": [
+"Macarrão",
+"lámen",
+"massa",
+"miojo"
+],
+"notebook-pen": [
+"Anotar",
+"caderno e caneta",
+"escrever"
+],
+"notebook": [
+"Caderno",
+"diário",
+"anotações"
+],
+"notepad": [
+"Bloco de notas",
+"memorando",
+"rascunho"
+],
+"nut-bolt": [
+"Porca e parafuso",
+"parafuso",
+"ferragem"
+],
+"octagon": [
+"Octógono",
+"oito lados",
+"placa de pare"
+],
+"ointment": [
+"Pomada",
+"creme",
+"bisnaga"
+],
+"orbit": [
+"Órbita",
+"planeta",
+"astronomia",
+"lua"
+],
+"outdent": [
+"Diminuir recuo",
+"recuo",
+"parágrafo"
+],
+"oven-mitt": [
+"Luva térmica",
+"luva de forno",
+"cozinha"
+],
+"oven": [
+"Forno",
+"fogão",
+"assar"
+],
+"owl": [
+"Coruja",
+"ave noturna",
+"pássaro"
+],
+"package": [
+"Pacote",
+"encomenda",
+"caixa",
+"entrega"
+],
+"pager": [
+"Pager",
+"bipe",
+"pager antigo"
+],
+"pagoda": [
+"Pagode",
+"templo",
+"torre",
+"arquitetura oriental"
+],
+"paint-bucket": [
+"Balde de tinta",
+"lata de tinta",
+"tinta"
+],
+"paint-roller": [
+"Rolo de pintura",
+"pintar parede",
+"pintura"
+],
+"paintbrush": [
+"Pincel",
+"pintura",
+"tinta"
+],
+"palette": [
+"Paleta",
+"paleta de cores",
+"cores",
+"amostras"
+],
+"pancake": [
+"Panqueca",
+"crepe",
+"hotcake"
+],
+"panel-bottom": [
+"Painel inferior",
+"gaveta",
+"console",
+"barra inferior"
+],
+"pants": [
+"Calça",
+"jeans",
+"vestuário"
+],
+"paperclip": [
+"Clipe de papel",
+"anexo",
+"clipe"
+],
+"parachute": [
+"Paraquedas",
+"salto",
+"queda livre"
+],
+"parking-meter": [
+"Parquímetro",
+"estacionamento",
+"zona azul"
+],
+"parking": [
+"Estacionamento",
+"garagem",
+"vaga"
+],
+"party-popper": [
+"Festa",
+"confete",
+"comemoração",
+"celebrar"
+],
+"passport": [
+"Passaporte",
+"documento de viagem",
+"identidade"
+],
+"password": [
+"Senha",
+"campo de senha",
+"PIN",
+"código"
+],
+"pause": [
+"Pausar",
+"pausa",
+"pausar reprodução"
+],
+"paw": [
+"Pata",
+"patinha",
+"pet",
+"animal de estimação"
+],
+"pen-tool": [
+"Caneta vetorial",
+"bézier",
+"vetor",
+"ferramenta caneta"
+],
+"pen": [
+"Caneta-tinteiro",
+"caneta",
+"pena",
+"escrever"
+],
+"pencil-ruler": [
+"Lápis e régua",
+"desenho técnico",
+"projeto"
+],
+"pencil": [
+"Editar",
+"lápis",
+"escrever",
+"caneta"
+],
+"pentagon": [
+"Pentágono",
+"cinco lados",
+"forma geométrica"
+],
+"perfume": [
+"Perfume",
+"fragrância",
+"colônia"
+],
+"periodic-table": [
+"Tabela periódica",
+"elementos",
+"química"
+],
+"person-running": [
+"Corredor",
+"correr",
+"corrida",
+"exercício"
+],
+"person-standing": [
+"Pessoa em pé",
+"pessoa",
+"figura humana"
+],
+"person-walking": [
+"Pedestre",
+"caminhar",
+"andar"
+],
+"petri-dish": [
+"Placa de Petri",
+"cultura",
+"biologia",
+"laboratório"
+],
+"phone-call": [
+"Chamada recebida",
+"ligação",
+"telefone tocando"
+],
+"phone-vibrate": [
+"Vibração",
+"vibrar",
+"modo vibratório"
+],
+"phone": [
+"Telefone",
+"fone",
+"ligar",
+"celular"
+],
+"photo-frame": [
+"Porta-retratos",
+"moldura",
+"quadro",
+"retrato"
+],
+"pi": [
+"Pi",
+"número pi",
+"constante",
+"matemática"
+],
+"piano": [
+"Piano",
+"teclas",
+"teclado musical"
+],
+"picture-in-picture": [
+"Picture in picture",
+"PiP",
+"miniplayer",
+"janela flutuante"
+],
+"pie": [
+"Torta",
+"empada",
+"doce"
+],
+"piggy-bank": [
+"Cofrinho",
+"poupança",
+"economias",
+"porquinho"
+],
+"pilcrow": [
+"Marca de parágrafo",
+"parágrafo",
+"formatação"
+],
+"pill": [
+"Cápsula",
+"comprimido",
+"remédio"
+],
+"pills": [
+"Frasco de remédio",
+"medicamentos",
+"remédios"
+],
+"pin": [
+"Alfinete",
+"tachinha",
+"fixar",
+"pin"
+],
+"ping-pong": [
+"Tênis de mesa",
+"pingue-pongue",
+"raquete"
+],
+"pinwheel": [
+"Cata-vento",
+"catavento",
+"cata-vento de papel"
+],
+"pipette": [
+"Conta-gotas",
+"pipeta",
+"conta gotas",
+"seletor de cor"
+],
+"pizza": [
+"Pizza",
+"fatia",
+"calabresa"
+],
+"plane-landing": [
+"Pouso",
+"chegada",
+"avião"
+],
+"plane-takeoff": [
+"Decolagem",
+"partida",
+"avião"
+],
+"plane": [
+"Avião",
+"voo",
+"aeronave",
+"viagem aérea"
+],
+"planet": [
+"Planeta",
+"Saturno",
+"mundo"
+],
+"plant": [
+"Planta",
+"vaso de planta",
+"vaso",
+"planta de casa"
+],
+"play": [
+"Reproduzir",
+"play",
+"iniciar",
+"tocar"
+],
+"playing-cards": [
+"Baralho",
+"cartas",
+"pôquer"
+],
+"playlist": [
+"Playlist",
+"lista de reprodução",
+"fila",
+"faixas"
+],
+"plug": [
+"Plugue",
+"tomada",
+"energia",
+"conector"
+],
+"plunger": [
+"Desentupidor",
+"ventosa",
+"vaso sanitário"
+],
+"plus-square": [
+"Adicionar",
+"novo",
+"mais",
+"quadrado com mais"
+],
+"podcast": [
+"Podcast",
+"microfone",
+"rádio",
+"transmissão"
+],
+"podium": [
+"Pódio",
+"ranking",
+"premiação",
+"vencedores"
+],
+"pointer": [
+"Mãozinha",
+"mão apontando",
+"clicar",
+"cursor de mão"
+],
+"polaroid": [
+"Polaroid",
+"câmera instantânea",
+"foto instantânea"
+],
+"police-car": [
+"Viatura",
+"carro de polícia",
+"patrulha"
+],
+"popcorn": [
+"Pipoca",
+"cinema",
+"balde de pipoca"
+],
+"pos-terminal": [
+"Maquininha de cartão",
+"POS",
+"máquina de cartão",
+"leitor de cartão"
+],
+"power-bank": [
+"Carregador portátil",
+"power bank",
+"bateria externa"
+],
+"power": [
+"Ligar/desligar",
+"energia",
+"botão de ligar",
+"liga-desliga"
+],
+"presentation": [
+"Apresentação",
+"slides",
+"quadro",
+"reunião"
+],
+"printer-3d": [
+"Impressora 3D",
+"impressão 3D",
+"manufatura aditiva"
+],
+"printer": [
+"Impressora",
+"imprimir",
+"jato de tinta"
+],
+"projector-screen": [
+"Tela de projeção",
+"tela",
+"telão"
+],
+"projector": [
+"Projetor",
+"datashow",
+"projeção"
+],
+"protractor": [
+"Transferidor",
+"ângulo",
+"geometria"
+],
+"puzzle": [
+"Quebra-cabeça",
+"peça de quebra-cabeça",
+"plugin",
+"extensão"
+],
+"pyramid": [
+"Pirâmide",
+"Egito",
+"Gizé",
+"tumba antiga"
+],
+"quiz": [
+"Quiz",
+"teste",
+"prova",
+"cartões de perguntas"
+],
+"quote": [
+"Citação",
+"aspas",
+"bloco de citação"
+],
+"rabbit": [
+"Coelho",
+"lebre",
+"coelhinho"
+],
+"radar": [
+"Radar",
+"sonar",
+"varredura",
+"escaneamento"
+],
+"radio-tower": [
+"Torre de rádio",
+"torre de celular",
+"antena de transmissão",
+"ERB"
+],
+"radio": [
+"Rádio",
+"FM",
+"sintonizador",
+"emissora"
+],
+"rainbow": [
+"Arco-íris",
+"cores",
+"colorido"
+],
+"razor": [
+"Aparelho de barbear",
+"barbeador",
+"gilete",
+"lâmina"
+],
+"receipt": [
+"Recibo",
+"comprovante",
+"cupom fiscal",
+"nota"
+],
+"record": [
+"Gravar",
+"REC",
+"gravação",
+"ponto vermelho"
+],
+"redo": [
+"Refazer",
+"restaurar",
+"avançar",
+"seta curva"
+],
+"regex": [
+"Expressão regular",
+"regex",
+"RegExp",
+"padrão"
+],
+"remote": [
+"Controle remoto",
+"controle",
+"comando"
+],
+"repeat": [
+"Repetir",
+"loop",
+"ciclo",
+"repetição"
+],
+"reply": [
+"Responder",
+"resposta",
+"seta curva"
+],
+"rewind": [
+"Retroceder",
+"voltar",
+"rebobinar"
+],
+"rice-bowl": [
+"Tigela de arroz",
+"arroz",
+"refeição"
+],
+"ring": [
+"Anel",
+"aliança",
+"noivado",
+"joia"
+],
+"road": [
+"Estrada",
+"rodovia",
+"rua",
+"via"
+],
+"robot-arm": [
+"Braço robótico",
+"robô industrial",
+"manipulador",
+"garra"
+],
+"robot-vacuum": [
+"Robô aspirador",
+"aspirador robô",
+"limpeza automática"
+],
+"rocket": [
+"Foguete",
+"lançamento",
+"espaçonave",
+"startup"
+],
+"rocking-chair": [
+"Cadeira de balanço",
+"balanço",
+"poltrona"
+],
+"roller-skate": [
+"Patins",
+"patinação",
+"patins de quatro rodas"
+],
+"rolling-pin": [
+"Rolo de massa",
+"abridor de massa",
+"massa"
+],
+"rotary-phone": [
+"Telefone de disco",
+"telefone antigo",
+"disco de discagem"
+],
+"rotate-ccw": [
+"Girar anti-horário",
+"girar",
+"rotação",
+"anti-horário"
+],
+"rotate-cw": [
+"Girar horário",
+"girar",
+"rotação",
+"horário"
+],
+"route": [
+"Rota",
+"trajeto",
+"caminho",
+"itinerário"
+],
+"router": [
+"Roteador",
+"Wi-Fi",
+"rede",
+"internet"
+],
+"rows": [
+"Linhas",
+"várias linhas",
+"seções"
+],
+"rss": [
+"RSS",
+"feed",
+"assinatura",
+"fonte de notícias"
+],
+"ruler": [
+"Régua",
+"medir",
+"escala"
+],
+"running-shoe": [
+"Tênis de corrida",
+"tênis",
+"calçado esportivo"
+],
+"safe": [
+"Cofre",
+"caixa-forte",
+"segurança"
+],
+"safety-vest": [
+"Colete refletivo",
+"colete de segurança",
+"obra"
+],
+"sailboat": [
+"Veleiro",
+"barco a vela",
+"iate",
+"navegação"
+],
+"salt-shaker": [
+"Saleiro",
+"sal",
+"tempero",
+"pimenteiro"
+],
+"sandwich": [
+"Sanduíche",
+"lanche",
+"almoço",
+"sub"
+],
+"satellite-dish": [
+"Antena parabólica",
+"parabólica",
+"satélite"
+],
+"satellite": [
+"Satélite",
+"espaço",
+"nave espacial",
+"painéis solares"
+],
+"save": [
+"Salvar",
+"disquete",
+"gravar"
+],
+"saw": [
+"Serra",
+"serrote",
+"carpintaria"
+],
+"saxophone": [
+"Saxofone",
+"sax",
+"instrumento de sopro"
+],
+"scale": [
+"Balança",
+"justiça",
+"equilíbrio",
+"balança de pratos"
+],
+"scalpel": [
+"Bisturi",
+"cirurgia",
+"lanceta"
+],
+"scan-barcode": [
+"Escanear barras",
+"ler código",
+"código do produto"
+],
+"scan-face": [
+"Reconhecimento facial",
+"Face ID",
+"biometria facial"
+],
+"scan-qr": [
+"Escanear QR code",
+"QR code",
+"código QR",
+"ler código"
+],
+"scan-text": [
+"Reconhecer texto",
+"OCR",
+"digitalizar texto"
+],
+"scan": [
+"Digitalizar",
+"escanear",
+"OCR",
+"visor"
+],
+"scanner": [
+"Scanner",
+"digitalizador",
+"copiadora"
+],
+"scarf": [
+"Cachecol",
+"echarpe",
+"inverno"
+],
+"school-bell": [
+"Sineta",
+"sino da escola",
+"toque de aula"
+],
+"school": [
+"Escola",
+"colégio",
+"campus"
+],
+"scissors": [
+"Tesoura",
+"recortar",
+"cortar"
+],
+"scooter": [
+"Patinete",
+"patinete elétrico",
+"micromobilidade"
+],
+"screw": [
+"Parafuso",
+"fixador",
+"rosca"
+],
+"screwdriver": [
+"Chave de fenda",
+"chave Phillips",
+"parafusar"
+],
+"scroll": [
+"Pergaminho",
+"rolo",
+"manuscrito",
+"papiro"
+],
+"sd-card": [
+"Cartão SD",
+"memória",
+"mídia flash"
+],
+"search": [
+"Pesquisar",
+"lupa",
+"buscar",
+"procurar"
+],
+"send": [
+"Enviar",
+"avião de papel",
+"mandar"
+],
+"server-rack": [
+"Rack de servidores",
+"rack",
+"gabinete"
+],
+"server": [
+"Servidor",
+"host",
+"data center",
+"rack"
+],
+"settings": [
+"Configurações",
+"engrenagem",
+"ajustes",
+"preferências"
+],
+"sewing-machine": [
+"Máquina de costura",
+"costura",
+"costurar"
+],
+"shapes": [
+"Formas",
+"figuras",
+"formas geométricas"
+],
+"share": [
+"Compartilhar",
+"encaminhar",
+"rede",
+"enviar"
+],
+"shell": [
+"Concha",
+"búzio",
+"vieira",
+"marisco"
+],
+"shield-check": [
+"Escudo verificado",
+"segurança",
+"protegido",
+"seguro"
+],
+"shield": [
+"Escudo",
+"proteção",
+"defesa"
+],
+"ship": [
+"Navio",
+"barco",
+"balsa",
+"transatlântico"
+],
+"shirt": [
+"Camiseta",
+"roupa",
+"blusa",
+"vestuário"
+],
+"shopping-bag": [
+"Sacola de compras",
+"sacola",
+"compras"
+],
+"shopping-cart": [
+"Carrinho de compras",
+"carrinho",
+"finalizar compra",
+"checkout"
+],
+"shortcut": [
+"Atalho",
+"sites favoritos",
+"aplicativos",
+"lançador"
+],
+"shovel": [
+"Pá",
+"escavar",
+"cavar"
+],
+"shower": [
+"Chuveiro",
+"banho",
+"ducha"
+],
+"shrink": [
+"Recolher",
+"minimizar",
+"reduzir",
+"setas para dentro"
+],
+"shuffle": [
+"Aleatório",
+"embaralhar",
+"reprodução aleatória"
+],
+"sidebar": [
+"Barra lateral",
+"painel lateral",
+"menu lateral"
+],
+"sigma": [
+"Somatório",
+"sigma",
+"soma",
+"letra grega"
+],
+"signal": [
+"Sinal",
+"cobertura",
+"barras de sinal",
+"rede móvel"
+],
+"signature": [
+"Assinatura",
+"autógrafo",
+"assinar"
+],
+"signpost": [
+"Placa de direção",
+"sinalização",
+"indicação"
+],
+"sim-card": [
+"Chip SIM",
+"SIM",
+"eSIM",
+"chip"
+],
+"siren": [
+"Sirene",
+"alarme",
+"giroflex",
+"alerta"
+],
+"sitemap": [
+"Mapa do site",
+"organograma",
+"hierarquia",
+"estrutura"
+],
+"skateboard": [
+"Skate",
+"prancha",
+"esporte radical"
+],
+"ski": [
+"Esqui",
+"snowboard",
+"esquis",
+"neve"
+],
+"skip-back": [
+"Faixa anterior",
+"anterior",
+"voltar"
+],
+"skip-forward": [
+"Próxima faixa",
+"próxima",
+"avançar"
+],
+"skull": [
+"Caveira",
+"crânio",
+"perigo",
+"morte"
+],
+"sled": [
+"Trenó",
+"neve",
+"deslizar"
+],
+"sliders": [
+"Controles deslizantes",
+"ajustes",
+"equalizador",
+"filtros"
+],
+"slideshow": [
+"Apresentação de slides",
+"slides",
+"carrossel"
+],
+"smart-bulb": [
+"Lâmpada inteligente",
+"lâmpada smart",
+"iluminação conectada"
+],
+"smart-glasses": [
+"Óculos inteligentes",
+"óculos AR",
+"realidade aumentada"
+],
+"smart-lock": [
+"Fechadura inteligente",
+"fechadura digital",
+"fechadura eletrônica"
+],
+"smart-speaker": [
+"Caixa de som inteligente",
+"assistente virtual",
+"assistente de voz"
+],
+"smartphone": [
+"Celular",
+"smartphone",
+"telefone móvel"
+],
+"smile": [
+"Sorriso",
+"feliz",
+"carinha feliz",
+"emoji"
+],
+"smoke-detector": [
+"Detector de fumaça",
+"alarme de incêndio",
+"sensor de fumaça"
+],
+"snail": [
+"Caracol",
+"lesma",
+"lento"
+],
+"snowflake": [
+"Floco de neve",
+"neve",
+"gelo",
+"congelar"
+],
+"soap": [
+"Sabonete",
+"sabão",
+"barra de sabão"
+],
+"soccer-ball": [
+"Bola de futebol",
+"futebol",
+"bola"
+],
+"sock": [
+"Meia",
+"meias",
+"soquete"
+],
+"socket": [
+"Tomada",
+"ponto de energia",
+"energia"
+],
+"sofa": [
+"Sofá",
+"sala de estar",
+"estofado"
+],
+"solar-panel": [
+"Painel solar",
+"energia solar",
+"fotovoltaico"
+],
+"sort": [
+"Ordenar",
+"classificar",
+"crescente",
+"setas"
+],
+"soup": [
+"Sopa",
+"tigela",
+"caldo",
+"lámen"
+],
+"space-station": [
+"Estação espacial",
+"ISS",
+"órbita"
+],
+"spade": [
+"Espadas",
+"naipe",
+"baralho",
+"carta"
+],
+"sparkles": [
+"Gerar com IA",
+"inteligência artificial",
+"brilho",
+"IA"
+],
+"spatula": [
+"Espátula",
+"virador",
+"cozinha"
+],
+"speaker": [
+"Alto-falante",
+"caixa de som",
+"som"
+],
+"speech": [
+"Fala",
+"falar",
+"ler em voz alta",
+"narração"
+],
+"spell-check": [
+"Verificar ortografia",
+"corretor ortográfico",
+"revisão"
+],
+"spirit-level": [
+"Nível de bolha",
+"nível",
+"prumo"
+],
+"split-view": [
+"Tela dividida",
+"painéis",
+"colunas"
+],
+"split": [
+"Dividir",
+"bifurcar",
+"ramificar",
+"separar"
+],
+"spotlight": [
+"Holofote",
+"luz de palco",
+"foco de luz"
+],
+"spray-can": [
+"Tinta spray",
+"spray",
+"aerossol",
+"grafite"
+],
+"sprout": [
+"Broto",
+"muda",
+"crescimento"
+],
+"square-arrow-down": [
+"Seta baixo (caixa)",
+"botão de seta",
+"seta"
+],
+"square-arrow-left": [
+"Seta esquerda (caixa)",
+"botão de seta",
+"seta"
+],
+"square-arrow-right": [
+"Seta direita (caixa)",
+"botão de seta",
+"seta"
+],
+"square-arrow-up": [
+"Seta cima (caixa)",
+"botão de seta",
+"seta"
+],
+"square": [
+"Quadrado",
+"caixa",
+"bloco"
+],
+"stadium": [
+"Estádio",
+"arena",
+"campo"
+],
+"stamp": [
+"Carimbo",
+"selo",
+"carimbar"
+],
+"stapler": [
+"Grampeador",
+"grampo",
+"grampear"
+],
+"star-half": [
+"Meia estrela",
+"avaliação",
+"nota"
+],
+"star": [
+"Estrela",
+"favorito",
+"marcar"
+],
+"steering-wheel": [
+"Volante",
+"direção",
+"dirigir"
+],
+"stethoscope": [
+"Estetoscópio",
+"médico",
+"consulta"
+],
+"sticker": [
+"Adesivo",
+"figurinha",
+"emoji",
+"etiqueta"
+],
+"sticky-note": [
+"Post-it",
+"nota adesiva",
+"lembrete",
+"recado"
+],
+"sticky-notes": [
+"Post-its",
+"notas adesivas",
+"vários lembretes"
+],
+"stool": [
+"Banco",
+"banqueta",
+"banco de bar"
+],
+"stop": [
+"Parar",
+"stop",
+"interromper reprodução"
+],
+"stopwatch": [
+"Cronômetro",
+"tempo",
+"marcar tempo"
+],
+"store": [
+"Loja",
+"comércio",
+"vitrine"
+],
+"strawberry": [
+"Morango",
+"fruta",
+"fruta vermelha"
+],
+"street-lamp": [
+"Poste de luz",
+"luz de rua",
+"iluminação pública"
+],
+"strikethrough": [
+"Tachado",
+"riscado",
+"texto riscado"
+],
+"stroller": [
+"Carrinho de bebê",
+"carrinho",
+"bebê"
+],
+"stylus": [
+"Caneta stylus",
+"caneta digital",
+"caneta de toque"
+],
+"submarine": [
+"Submarino",
+"sub",
+"embarcação"
+],
+"subscript": [
+"Subscrito",
+"índice inferior",
+"fórmula química"
+],
+"subtitles": [
+"Legendas",
+"closed caption",
+"CC"
+],
+"subway": [
+"Metrô",
+"trem urbano",
+"transporte público"
+],
+"sun": [
+"Sol",
+"dia ensolarado",
+"luz do dia",
+"claro"
+],
+"sundial": [
+"Relógio de sol",
+"gnômon",
+"sombra"
+],
+"sunflower": [
+"Girassol",
+"flor"
+],
+"sunglasses": [
+"Óculos escuros",
+"óculos de sol",
+"verão"
+],
+"sunrise": [
+"Nascer do sol",
+"amanhecer",
+"manhã"
+],
+"sunset": [
+"Pôr do sol",
+"entardecer",
+"crepúsculo"
+],
+"superscript": [
+"Sobrescrito",
+"índice superior",
+"expoente"
+],
+"surfboard": [
+"Prancha de surfe",
+"surfe",
+"prancha"
+],
+"sushi": [
+"Sushi",
+"comida japonesa",
+"salmão"
+],
+"swimmer": [
+"Nadador",
+"natação",
+"piscina"
+],
+"sync": [
+"Sincronizar",
+"atualizar",
+"setas circulares"
+],
+"syringe": [
+"Seringa",
+"injeção",
+"vacina",
+"agulha"
+],
+"tab-group": [
+"Grupo de abas",
+"abas",
+"guias do navegador"
+],
+"table": [
+"Tabela",
+"planilha",
+"grade de dados"
+],
+"tablet-smartphone": [
+"Vários dispositivos",
+"tablet e celular",
+"multiplataforma",
+"responsivo"
+],
+"tablet": [
+"Tablet",
+"iPad",
+"tela sensível ao toque"
+],
+"taco": [
+"Taco",
+"tortilla",
+"comida mexicana"
+],
+"tag": [
+"Etiqueta",
+"tag",
+"rótulo",
+"preço"
+],
+"tags": [
+"Etiquetas",
+"tags",
+"rótulos"
+],
+"tape-dispenser": [
+"Suporte de fita adesiva",
+"durex",
+"dispensador de fita"
+],
+"tape-measure": [
+"Fita métrica",
+"trena",
+"medição"
+],
+"tape-roll": [
+"Fita adesiva",
+"durex",
+"rolo de fita"
+],
+"target": [
+"Alvo",
+"meta",
+"objetivo",
+"mira"
+],
+"taxi": [
+"Táxi",
+"corrida",
+"carro de aplicativo"
+],
+"teapot": [
+"Bule",
+"chá",
+"chaleira de chá"
+],
+"telescope": [
+"Telescópio",
+"astronomia",
+"observação"
+],
+"tennis-ball": [
+"Bola de tênis",
+"tênis",
+"raquete"
+],
+"tent": [
+"Barraca",
+"camping",
+"acampar"
+],
+"terminal": [
+"Terminal",
+"console",
+"linha de comando",
+"shell"
+],
+"test-tube": [
+"Tubo de ensaio",
+"química",
+"amostra",
+"laboratório"
+],
+"text-cursor": [
+"Cursor de texto",
+"campo de texto",
+"barra de inserção"
+],
+"text-select": [
+"Selecionar texto",
+"seleção",
+"texto selecionado"
+],
+"text-size": [
+"Tamanho do texto",
+"tamanho da fonte",
+"fonte"
+],
+"theater": [
+"Teatro",
+"máscaras",
+"comédia e tragédia",
+"peça"
+],
+"thermometer": [
+"Termômetro",
+"temperatura",
+"febre"
+],
+"thermostat": [
+"Termostato",
+"controle de temperatura",
+"aquecimento"
+],
+"thumbs-down": [
+"Não curtir",
+"polegar para baixo",
+"reprovar"
+],
+"thumbs-up": [
+"Curtir",
+"polegar para cima",
+"aprovar",
+"joinha"
+],
+"ticket": [
+"Ingresso",
+"bilhete",
+"entrada"
+],
+"timer": [
+"Temporizador",
+"contagem regressiva",
+"timer"
+],
+"tire": [
+"Pneu",
+"roda",
+"borracha"
+],
+"toaster": [
+"Torradeira",
+"torrada",
+"pão"
+],
+"toggle": [
+"Interruptor",
+"alternar",
+"chave liga-desliga",
+"switch"
+],
+"toilet": [
+"Vaso sanitário",
+"banheiro",
+"sanitário"
+],
+"toll-booth": [
+"Pedágio",
+"cancela",
+"praça de pedágio"
+],
+"toolbox": [
+"Caixa de ferramentas",
+"ferramentas",
+"kit"
+],
+"tooth": [
+"Dente",
+"dentista",
+"odontologia"
+],
+"toothbrush": [
+"Escova de dentes",
+"escovar",
+"higiene bucal"
+],
+"tornado": [
+"Tornado",
+"ciclone",
+"furacão"
+],
+"towel": [
+"Toalha",
+"toalha de banho",
+"toalha de rosto"
+],
+"trackpad": [
+"Trackpad",
+"touchpad",
+"mouse do notebook"
+],
+"tractor": [
+"Trator",
+"agricultura",
+"máquina agrícola"
+],
+"traffic-cone": [
+"Cone de trânsito",
+"cone",
+"obra",
+"sinalização"
+],
+"traffic-light": [
+"Semáforo",
+"sinal de trânsito",
+"farol"
+],
+"trailer": [
+"Reboque",
+"carreta",
+"trailer"
+],
+"train": [
+"Trem",
+"ferrovia",
+"trem-bala"
+],
+"tram": [
+"Bonde",
+"VLT",
+"transporte sobre trilhos"
+],
+"trash": [
+"Lixeira",
+"lixo",
+"excluir"
+],
+"tree-palm": [
+"Palmeira",
+"coqueiro",
+"coco"
+],
+"tree-pine": [
+"Pinheiro",
+"árvore de Natal",
+"conífera"
+],
+"tree": [
+"Árvore",
+"carvalho",
+"planta"
+],
+"treemap": [
+"Treemap",
+"mapa de árvore",
+"proporção",
+"blocos aninhados"
+],
+"trending-down": [
+"Queda",
+"em baixa",
+"tendência de baixa",
+"declínio"
+],
+"trending-up": [
+"Alta",
+"crescimento",
+"em alta",
+"tendência de alta"
+],
+"triangle-alert": [
+"Aviso",
+"atenção",
+"perigo",
+"sinal de alerta"
+],
+"triangle": [
+"Triângulo",
+"delta",
+"três lados"
+],
+"trophy": [
+"Troféu",
+"taça",
+"campeão",
+"vitória"
+],
+"trowel": [
+"Colher de pedreiro",
+"espátula",
+"alvenaria"
+],
+"truck": [
+"Caminhão",
+"frete",
+"carga"
+],
+"trumpet": [
+"Trompete",
+"corneta",
+"instrumento de sopro"
+],
+"turntable": [
+"Toca-discos",
+"vitrola",
+"disco de vinil"
+],
+"turtle": [
+"Tartaruga",
+"réptil",
+"cágado"
+],
+"tv": [
+"Televisão",
+"TV",
+"televisor"
+],
+"tweezers": [
+"Pinça",
+"tenaz",
+"alicate"
+],
+"type": [
+"Fonte",
+"tipografia",
+"letra",
+"texto"
+],
+"typewriter": [
+"Máquina de escrever",
+"escrita",
+"datilografar"
+],
+"ufo": [
+"OVNI",
+"disco voador",
+"alienígena",
+"nave"
+],
+"umbrella": [
+"Guarda-chuva",
+"chuva",
+"seguro",
+"proteção"
+],
+"underline": [
+"Sublinhado",
+"sublinhar",
+"letra sublinhada"
+],
+"undo": [
+"Desfazer",
+"voltar",
+"reverter",
+"seta curva"
+],
+"unlink": [
+"Remover link",
+"desvincular",
+"quebrar link",
+"link quebrado"
+],
+"usb": [
+"Pen drive",
+"USB",
+"memória USB"
+],
+"user-group": [
+"Grupo",
+"equipe",
+"pessoas",
+"multidão"
+],
+"user-round": [
+"Foto de perfil",
+"avatar",
+"perfil",
+"retrato"
+],
+"user": [
+"Usuário",
+"pessoa",
+"conta",
+"avatar"
+],
+"users-round": [
+"Membros",
+"avatares",
+"amigos",
+"pessoas"
+],
+"users": [
+"Pessoas",
+"equipe",
+"duas pessoas",
+"time"
+],
+"utensils": [
+"Talheres",
+"garfo e faca",
+"restaurante"
+],
+"vacuum": [
+"Aspirador de pó",
+"aspirador",
+"robô aspirador",
+"limpeza"
+],
+"variable": [
+"Variável",
+"parâmetro",
+"x"
+],
+"video-call": [
+"Videochamada",
+"reunião online",
+"chamada de vídeo",
+"webcam"
+],
+"video": [
+"Vídeo",
+"filmadora",
+"câmera de vídeo"
+],
+"vinyl": [
+"Disco de vinil",
+"vinil",
+"LP",
+"disco"
+],
+"virus": [
+"Vírus",
+"patógeno",
+"infecção",
+"germe"
+],
+"voicemail": [
+"Correio de voz",
+"caixa postal",
+"secretária eletrônica"
+],
+"volcano": [
+"Vulcão",
+"erupção",
+"lava"
+],
+"volleyball": [
+"Vôlei",
+"bola",
+"voleibol"
+],
+"volume": [
+"Volume",
+"som",
+"alto-falante",
+"áudio"
+],
+"vote": [
+"Voto",
+"urna",
+"eleição",
+"votação"
+],
+"vr-headset": [
+"Óculos VR",
+"realidade virtual",
+"headset VR"
+],
+"waffle": [
+"Waffle",
+"massa de waffle",
+"café da manhã"
+],
+"walkie-talkie": [
+"Walkie-talkie",
+"rádio comunicador",
+"rádio de duas vias"
+],
+"wallet": [
+"Carteira",
+"porta-moedas",
+"dinheiro"
+],
+"wand": [
+"Varinha mágica",
+"varinha",
+"magia",
+"mágica"
+],
+"wardrobe": [
+"Guarda-roupa",
+"armário",
+"roupeiro"
+],
+"warehouse": [
+"Armazém",
+"depósito",
+"galpão",
+"estoque"
+],
+"washing-machine": [
+"Máquina de lavar",
+"lavadora",
+"lavar roupa"
+],
+"watch": [
+"Relógio de pulso",
+"smartwatch",
+"relógio inteligente"
+],
+"watering-can": [
+"Regador",
+"regar",
+"jardinagem"
+],
+"watermelon": [
+"Melancia",
+"fruta",
+"fatia"
+],
+"waves": [
+"Ondas",
+"mar",
+"água",
+"marolas"
+],
+"webcam": [
+"Webcam",
+"câmera",
+"videochamada"
+],
+"webhook": [
+"Webhook",
+"callback",
+"gancho de eventos"
+],
+"weight-scale": [
+"Balança de banheiro",
+"balança",
+"peso",
+"pesagem"
+],
+"whale": [
+"Baleia",
+"oceano",
+"mamífero marinho"
+],
+"wheelbarrow": [
+"Carrinho de mão",
+"jardim",
+"obra"
+],
+"wheelchair": [
+"Cadeira de rodas",
+"acessibilidade",
+"mobilidade"
+],
+"whisk": [
+"Fouet",
+"batedor de ovos",
+"batedor",
+"cozinha"
+],
+"whistle": [
+"Apito",
+"árbitro",
+"juiz"
+],
+"whiteboard": [
+"Quadro branco",
+"lousa",
+"quadro"
+],
+"wifi": [
+"Wi-Fi",
+"rede sem fio",
+"internet sem fio",
+"hotspot"
+],
+"wind-turbine": [
+"Turbina eólica",
+"energia eólica",
+"aerogerador"
+],
+"wind": [
+"Vento",
+"brisa",
+"ventania"
+],
+"windmill": [
+"Moinho de vento",
+"moinho",
+"cata-vento"
+],
+"window-frame": [
+"Janela",
+"esquadria",
+"cortina"
+],
+"wine": [
+"Vinho",
+"taça",
+"cálice"
+],
+"wink": [
+"Piscadinha",
+"piscar",
+"travesso",
+"emoji"
+],
+"workflow": [
+"Fluxo de trabalho",
+"fluxograma",
+"pipeline",
+"processo"
+],
+"wrap-text": [
+"Quebra automática",
+"quebra de texto",
+"ajustar texto"
+],
+"wrench": [
+"Chave inglesa",
+"ferramenta",
+"manutenção",
+"conserto"
+],
+"x-ray": [
+"Raio-X",
+"radiografia",
+"chapa"
+],
+"yo-yo": [
+"Ioiô",
+"brinquedo"
+],
+"yoga-mat": [
+"Tapete de yoga",
+"yoga",
+"exercício"
+],
+"zoom-in": [
+"Ampliar",
+"zoom",
+"lupa",
+"aumentar zoom"
+],
+"zoom-out": [
+"Reduzir",
+"zoom",
+"lupa",
+"diminuir zoom"
+]
+}

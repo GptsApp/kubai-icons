@@ -57,7 +57,7 @@ export function GitHubStars({ className }: { className?: string }) {
     };
   }, []);
 
-  const label = stars === null ? "GitHub" : tr(`${stars.toLocaleString("en")} stars on GitHub`, `GitHub 星标数：${stars.toLocaleString("en")}`);
+  const label = stars === null ? "GitHub" : tr("{count} stars on GitHub", "GitHub 星标数：{count}", { count: stars.toLocaleString("en") });
   return (
     <Button
       variant="outline"
@@ -69,7 +69,7 @@ export function GitHubStars({ className }: { className?: string }) {
     >
       {/* Narrow bars keep the count, which says more than the logo does. */}
       <RiGithubLine className="size-[18px] max-sm:hidden" />
-      <span className="inline-flex h-4 items-center gap-1 sm:ml-2 sm:border-l sm:pl-2">
+      <span className="inline-flex h-4 items-center gap-1 sm:ms-2 sm:border-s sm:ps-2">
         <Star size={16} color="#F59E0B" trigger="parent" className="size-4" />
         {/* Three digits of room are held even before a count is known. */}
         <span className="inline-block min-w-[3ch]">{stars === null ? "" : compact.format(stars)}</span>

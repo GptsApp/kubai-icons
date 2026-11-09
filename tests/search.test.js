@@ -9,8 +9,8 @@ const icons = [
   { name: 'lock', category: 'security', tags: ['private'] },
 ];
 const keywords = {
-  folder: { shape: ['rectangle'], object: ['directory'], meaning: ['storage'], action: ['organize'], zh: ['文件夹'] },
-  lock: { shape: ['rounded'], object: ['padlock'], meaning: ['security'], action: ['sign in'], zh: ['锁'] },
+  folder: { shape: ['rectangle'], object: ['directory'], meaning: ['storage'], action: ['organize'], local: ['文件夹'] },
+  lock: { shape: ['rounded'], object: ['padlock'], meaning: ['security'], action: ['sign in'], local: ['锁'] },
 };
 const list = prepare(icons, keywords);
 const names = (q, cat) => searchObjects(list, q, cat).map((i) => i.name);

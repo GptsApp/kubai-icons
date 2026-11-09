@@ -64,7 +64,7 @@ export function SiteFooter() {
           {MORE.map((p) => (
             <div key={p.name} className="flex items-center gap-1.5">
               <a href={p.site} className={link}>{p.name}</a>
-              <a href={p.repo} aria-label={tr(`${p.name} on GitHub`, `${p.name} 的 GitHub 仓库`)} title={tr(`${p.name} on GitHub`, `${p.name} 的 GitHub 仓库`)} className={cn("grid size-5 place-items-center pointer-coarse:size-8", quietLink)}>
+              <a href={p.repo} aria-label={tr("{name} on GitHub", "{name} 的 GitHub 仓库", { name: p.name })} title={tr("{name} on GitHub", "{name} 的 GitHub 仓库", { name: p.name })} className={cn("grid size-5 place-items-center pointer-coarse:size-8", quietLink)}>
                 <RiGithubLine className="size-3.5" />
               </a>
             </div>

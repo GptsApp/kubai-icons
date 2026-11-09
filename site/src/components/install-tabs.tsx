@@ -31,7 +31,7 @@ export function InstallTabs() {
         ))}
         <Glide line selector="[aria-pressed=true]" className="-bottom-px h-0.5 bg-foreground" />
       </div>
-      <div className="flex items-center justify-between gap-2 py-1.5 pr-1.5 pl-4">
+      <div className="flex items-center justify-between gap-2 py-1.5 pe-1.5 ps-4">
         <code key={cur.id} className="swap-in font-mono text-control">{cur.cmd}</code>
         <CopyButton text={cur.cmd} onCopy={() => track("install_copy", { pkg: cur.id })} />
       </div>

@@ -66,15 +66,15 @@ export function IconDialog({ meta: current, related: currentRelated, onClose, ..
 
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>
-      <DialogContent ref={popup} initialFocus={content} className="max-h-[calc(100dvh-2rem)] gap-0 rounded-panel p-0 sm:max-w-3xl" closeClassName="top-3 right-3 size-8">
+      <DialogContent ref={popup} initialFocus={content} className="max-h-[calc(100dvh-2rem)] gap-0 rounded-panel p-0 sm:max-w-3xl" closeClassName="top-3 end-3 size-8">
         {/* Only the content scrolls, so the close button stays in reach. */}
         <div ref={content} tabIndex={-1} className="max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-[inherit] outline-none">
           {meta && <IconDetail meta={meta} related={related} title={DialogTitle} description={DialogDescription} {...rest} />}
         </div>
         {note && (
-          <div className="absolute top-full left-1/2 mt-2.5 flex -translate-x-1/2 items-center gap-3.5 rounded-xl bg-popover py-1.5 pr-1.5 pl-4 whitespace-nowrap shadow-lg ring-1 ring-foreground/10 duration-200 animate-in fade-in-0 slide-in-from-top-1 motion-reduce:animate-none">
+          <div className="absolute top-full left-1/2 mt-2.5 flex -translate-x-1/2 items-center gap-3.5 rounded-xl bg-popover py-1.5 pe-1.5 ps-4 whitespace-nowrap shadow-lg ring-1 ring-foreground/10 duration-200 animate-in fade-in-0 slide-in-from-top-1 motion-reduce:animate-none">
             <span className="text-muted-foreground">{tr("Kubai Icons is free to use.", "Kubai Icons 免费使用")}</span>
-            <a href={asset(loc("/sponsor/"))} target="_blank" rel="noreferrer" data-kubai-trigger className={cn(buttonVariants({ variant: "outline", size: "sm" }), "gap-1.5 pr-2.5 pl-2")}>
+            <a href={asset(loc("/sponsor/"))} target="_blank" rel="noreferrer" data-kubai-trigger className={cn(buttonVariants({ variant: "outline", size: "sm" }), "gap-1.5 pe-2.5 ps-2")}>
               <Heart size={16} color="#EC4899" trigger="parent" className="size-4" />
               {tr("Sponsor", "赞助")}
             </a>

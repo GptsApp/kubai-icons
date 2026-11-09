@@ -54,7 +54,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="rise-in flex flex-wrap gap-3 [--i:3]">
             <Button size="xl" render={<Link href={localize("/icons/", locale)} />}>
               {pick(locale, "Browse icons", "浏览图标")}
-              <RiArrowRightSLine data-icon="inline-end" className="transition-[translate] duration-200 group-hover/button:translate-x-0.5 motion-reduce:transition-none" />
+              <RiArrowRightSLine data-icon="inline-end" className="rtl:rotate-180 transition-[translate] duration-200 group-hover/button:translate-x-0.5 motion-reduce:transition-none" />
             </Button>
             <AgentGuide />
             <Button size="xl" variant="ghost" className="px-3 text-muted-foreground max-sm:hidden" render={<Link href={localize("/docs/", locale)} />}>{pick(locale, "Documentation", "查看文档")}</Button>

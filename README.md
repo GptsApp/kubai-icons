@@ -26,7 +26,7 @@
 | --- | --- |
 | **Agent skill** | The rules, engine and self-check that draw every icon in one hand. Give Claude Code, Codex or another coding agent a product, and it draws the icons that product needs. |
 | **Icon library** | 2,800+ icons: nearly 900 objects, plus badged and slashed "off" versions. For React, Vue, plain JavaScript, web components and static SVG. MIT licensed. |
-| **Website** | [icons.kubai.design](https://icons.kubai.design/), in English and Chinese. Search every icon by name, shape or meaning, recolor it, copy its code or a prompt for your agent, download it as SVG or PNG, and save a collection as a ZIP. |
+| **Website** | [icons.kubai.design](https://icons.kubai.design/), in 16 languages. Search every icon by name, shape or meaning, recolor it, copy its code or a prompt for your agent, download it as SVG or PNG, and save a collection as a ZIP. |
 
 ## Install the skill
 

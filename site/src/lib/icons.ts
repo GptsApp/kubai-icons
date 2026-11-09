@@ -1,6 +1,7 @@
 // Icon data for the site: the search index loads once; markup and motion load in chunks,
 // the first time an icon of that chunk scrolls into view.
 import type { KubaiIconData } from "kubai-icons";
+import { hasIconPages, msg, pick, type Locale } from "./i18n";
 import { asset } from "./site";
 
 export type IconMeta = {
@@ -60,42 +61,53 @@ export function loadIcon(meta: IconMeta): Promise<void> {
 }
 
 // ---------- Search ----------
-export type Keywords = { shape: string[]; object: string[]; meaning: string[]; action: string[]; zh: string[] };
+/** An icon's search words. `local` holds them in the page's language; on English pages, the Chinese ones. */
+export type Keywords = { shape: string[]; object: string[]; meaning: string[]; action: string[]; local: string[] };
 export type KeywordIndex = Record<string, Keywords>;
+export type RawKeywords = Record<string, Omit<Keywords, "local"> & { zh: string[] }>;
 
-let keywordsPromise: Promise<KeywordIndex> | null = null;
-let keywordsLoaded: KeywordIndex | null = null;
+/** The published keywords, with the words of the page's language if it has its own. */
+export const withLocalWords = (raw: RawKeywords, words?: Record<string, string[]>): KeywordIndex =>
+  Object.fromEntries(Object.entries(raw).map(([name, { zh, ...rest }]) => [name, { ...rest, local: words ? (words[name] ?? []) : zh }]));
+
+const keywordsPromises = new Map<Locale, Promise<KeywordIndex>>();
+const keywordsLoaded = new Map<Locale, KeywordIndex>();
 const keywordListeners = new Set<() => void>();
-export const peekKeywords = () => keywordsLoaded;
-/** Calls back once the keywords have loaded; returns the function that stops listening. */
+export const peekKeywords = (locale: Locale) => keywordsLoaded.get(locale) ?? null;
+/** Calls back once a language's keywords have loaded; returns the function that stops listening. */
 export const onKeywords = (listener: () => void) => {
   keywordListeners.add(listener);
   return () => { keywordListeners.delete(listener); };
 };
-export function loadKeywords(): Promise<KeywordIndex> {
-  keywordsPromise ??= fetch(asset("/data/keywords.json"))
-    .then((r) => {
-      if (!r.ok) throw new Error(`keywords.json: ${r.status}`);
+export function loadKeywords(locale: Locale = "en"): Promise<KeywordIndex> {
+  let promise = keywordsPromises.get(locale);
+  if (!promise) {
+    const json = (path: string) => fetch(asset(path)).then((r) => {
+      if (!r.ok) throw new Error(`${path}: ${r.status}`);
       return r.json();
-    })
-    .then((all: KeywordIndex) => {
-      keywordsLoaded = all;
-      keywordListeners.forEach((listener) => listener());
-      return all;
-    })
-    .catch((e) => {
-      keywordsPromise = null;
-      throw e;
     });
-  return keywordsPromise;
+    promise = Promise.all([json("/data/keywords.json"), hasIconPages(locale) ? undefined : json(`/data/keywords/${locale}.json`)])
+      .then(([raw, words]) => {
+        const all = withLocalWords(raw, words);
+        keywordsLoaded.set(locale, all);
+        keywordListeners.forEach((listener) => listener());
+        return all;
+      })
+      .catch((e) => {
+        keywordsPromises.delete(locale);
+        throw e;
+      });
+    keywordsPromises.set(locale, promise);
+  }
+  return promise;
 }
 
-let keywordsQueued = false;
+const keywordsQueued = new Set<Locale>();
 /** Loads the keywords once the page has settled, so they never compete with the first icons. */
-export function loadKeywordsLater() {
-  if (keywordsQueued || keywordsPromise) return;
-  keywordsQueued = true;
-  const start = () => { loadKeywords().catch(() => { /* names and tags still search */ }); };
+export function loadKeywordsLater(locale: Locale = "en") {
+  if (keywordsQueued.has(locale) || keywordsPromises.has(locale)) return;
+  keywordsQueued.add(locale);
+  const start = () => { loadKeywords(locale).catch(() => { /* names and tags still search */ }); };
   if ("requestIdleCallback" in window) requestIdleCallback(start, { timeout: 3000 });
   else setTimeout(start, 1500);
 }
@@ -142,7 +154,29 @@ const BADGE_ZH: Record<string, string[]> = {
   off: ["关闭", "禁用", "停用"],
 };
 
-/** What each badge shows, as it reads in an icon's Chinese name. */
+/** What each badge shows, as it reads in an icon's name. */
+const BADGE_NAME: Record<string, string> = {
+  plus: msg("Plus"),
+  minus: msg("Minus"),
+  check: msg("Check"),
+  x: msg("Cross"),
+  alert: msg("Alert"),
+  info: msg("Info"),
+  search: msg("Search"),
+  lock: msg("Lock"),
+  clock: msg("Clock"),
+  cog: msg("Settings"),
+  heart: msg("Heart"),
+  star: msg("Star"),
+  sync: msg("Sync"),
+  up: msg("Up"),
+  down: msg("Down"),
+  right: msg("Right"),
+  bolt: msg("Bolt"),
+  sparkle: msg("Sparkle"),
+  off: msg("Off"),
+};
+
 const BADGE_NAME_ZH: Record<string, string> = {
   plus: "加号",
   minus: "减号",
@@ -165,22 +199,22 @@ const BADGE_NAME_ZH: Record<string, string> = {
   off: "禁用",
 };
 
-export const zhBadgeName = (meta: IconMeta) => BADGE_NAME_ZH[meta.badge ?? "off"];
+export const localBadgeName = (meta: IconMeta, locale: Locale) => pick(locale, BADGE_NAME[meta.badge ?? "off"], BADGE_NAME_ZH[meta.badge ?? "off"]);
 
-/** An icon's name in Chinese: the first Chinese keyword of its base icon, then what its badge shows. */
-export function zhName(meta: IconMeta, keywords: KeywordIndex) {
-  const name = keywords[meta.base ?? meta.name]?.zh[0];
-  return name && meta.base ? `${name} · ${zhBadgeName(meta)}` : name;
+/** An icon's name in the page's language: the first local word of its base icon, then what its badge shows. */
+export function localName(meta: IconMeta, keywords: KeywordIndex, locale: Locale) {
+  const name = keywords[meta.base ?? meta.name]?.local[0];
+  return name && meta.base ? `${name} · ${localBadgeName(meta, locale)}` : name;
 }
 
 /** A badged version is found by its base icon's keywords too. */
-export const prepare = (icons: IconMeta[], keywords: KeywordIndex = {}): Searchable[] =>
+export const prepare = (icons: IconMeta[], keywords: KeywordIndex = {}, locale: Locale = "en"): Searchable[] =>
   icons.map((ic) => {
     const kw = keywords[ic.base ?? ic.name];
     return {
       ...ic,
       nameWords: ic.name.split("-"),
-      fields: [field(kw?.object, 30), field(kw?.zh.slice(0, 1), 34), field(kw?.zh, 30), field(ic.base ? BADGE_ZH[ic.badge ?? "off"] : undefined, 24), field(ic.tags, 20), field(kw?.meaning, 18), field(kw?.action, 14), field(kw?.shape, 12)],
+      fields: [field(kw?.object, 30), field(kw?.local.slice(0, 1), 34), field(kw?.local, 30), field(ic.base ? (hasIconPages(locale) ? BADGE_ZH[ic.badge ?? "off"] : [localBadgeName(ic, locale)]) : undefined, 24), field(ic.tags, 20), field(kw?.meaning, 18), field(kw?.action, 14), field(kw?.shape, 12)],
     };
   });
 
