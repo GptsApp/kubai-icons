@@ -30,7 +30,7 @@ function Slider({
       <SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col">
         <SliderPrimitive.Track
           data-slot="slider-track"
-          className={cn("relative grow overflow-hidden rounded-full select-none data-horizontal:h-4 data-horizontal:w-full data-vertical:h-full data-vertical:w-4", well)}
+          className={cn("relative grow overflow-hidden rounded-[5px] select-none data-horizontal:h-4 data-horizontal:w-full data-vertical:h-full data-vertical:w-4", well)}
         >
           <SliderPrimitive.Indicator
             data-slot="slider-range"
@@ -41,7 +41,7 @@ function Slider({
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"
             key={index}
-            className={cn("relative block size-[22px] shrink-0 cursor-grab rounded-full ring-ring/50 transition-[box-shadow,filter] select-none after:absolute after:-inset-2 hover:brightness-[.98] active:cursor-grabbing active:shadow-(--button-raised-pressed) disabled:pointer-events-none disabled:opacity-50 pointer-coarse:after:-inset-3 dark:hover:brightness-[1.2]", raised)}
+            className={cn("relative block h-[22px] w-2.5 shrink-0 cursor-grab rounded-[3px] ring-ring/50 transition-[box-shadow,filter] select-none after:absolute after:-inset-2 hover:brightness-[.98] active:cursor-grabbing active:shadow-(--button-raised-pressed) disabled:pointer-events-none disabled:opacity-50 pointer-coarse:after:-inset-3 dark:hover:brightness-[1.2]", raised)}
           />
         ))}
       </SliderPrimitive.Control>
